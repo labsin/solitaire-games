@@ -321,7 +321,7 @@ Board {
         showHidden: false
 
         cardsMoveable: true
-        cardsVisible: 3
+        cardsVisible: takeStackCards
     }
 
     Stack {

@@ -1,7 +1,11 @@
 <games>
   <game>
-    <title>Klondike</title>
+    <title>Klondike (3 cards)</title>
     <path>Klondike.qml</path>
+  </game>
+  <game>
+    <title>Klondike (1 card)</title>
+    <path>1CKlondike.qml</path>
   </game>
   <game>
     <title>Spider</title>
