@@ -22,8 +22,8 @@ Item {
 
     property int gameSeed
 
-    property alias decks: dealingDeck.decks
-    property alias suits: dealingDeck.suits
+    property alias decks: dealingStack.decks
+    property alias suits: dealingStack.suits
     property alias dealingTimder: dealingTimder
 
     signal singelPress(Card card, Stack stack)
@@ -56,11 +56,13 @@ Item {
         while(main.children[iii]) {
             if(main.children[iii].objectName === "stack") {
                 main.children[iii].model.clear()
+                main.children[iii].dealingPositionX = board.dealingPositionX
+                main.children[iii].dealingPositionY = board.dealingPositionY
             }
             iii++
         }
 
-        dealingDeck.fillRandom(false, gameSeed)
+        dealingStack.deck.fillRandom(false, gameSeed)
     }
 
     Component.onCompleted: {
@@ -120,8 +122,12 @@ Item {
         }
     }
 
-    Deck {
-        id: dealingDeck
+    Stack {
+        id: dealingStack
+        width: columnWidth
+        height: columnHeight
+        x: dealingPositionX
+        y: dealingPositionY
     }
 
     property int fillDuration: 50
@@ -136,25 +142,21 @@ Item {
         onTriggered: {
             var tmp
             if(dealingModel[index]) {
-                tmp = dealingDeck.model.pop()
-                tmp['thisUp'] = dealingModel[index].isUp
-                dealingModel[index].stackId.model.append(tmp)
+                moveCard(dealingStack.count-1, dealingStack, dealingModel[index].stackId, dealingModel[index].isUp)
                 index++
             }
             else {
-                if(dealingDeck.model.count==0) {
+                if(dealingStack.count==0) {
                     stop()
                     _dealt = true
                     return
                 }
-                tmp = dealingDeck.model.pop()
-                tmp['thisUp'] = false
-                deckStack.model.append(tmp)
+                moveCard(dealingStack.count-1, dealingStack, deckStack, false)
             }
         }
-        function initAndStart() {
-            index = 0
-            start()
+        onRunningChanged: {
+            if(!running)
+                index = 0
         }
     }
 
@@ -262,14 +264,27 @@ Item {
         }
     }
 
-    function moveCard(index, fromStack, toStack) {
-        var card = fromStack.repeater.itemAt(index)
-        print(card + " at "+index)
-        var dealingpoint = toStack.mapFromItem(card,0,0)
+    function moveCard(index, fromStack, toStack, up) {
+        if(up === undefined)
+            up = true
+        print("movecard: "+index+" "+fromStack+" "+toStack+" "+up)
+        var cardVar = fromStack.model.get(index)
+        print("movecard: "+cardVar)
+        if(!cardVar)
+            return false
+        var card = dealingStack.repeater.itemAt(index)
+        var dealingpoint
+        if(card)
+            dealingpoint = toStack.mapFromItem(fromStack,card.x,card.y)
+        else
+            dealingpoint = toStack.mapFromItem(fromStack,0,0)
         toStack.dealingPositionX = dealingpoint.x
         toStack.dealingPositionY = dealingpoint.y
-        toStack.model.addFromCard(card)
+        cardVar["thisUp"] = up
+        print("movecard: "+cardVar)
+        toStack.model.append(cardVar)
         fromStack.model.remove(index)
+        return true
     }
 
     function highlightFrom(index) {

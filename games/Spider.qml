@@ -24,14 +24,7 @@ Board {
             deckStack.dealingPositionX = 0
             deckStack.dealingPositionY = 0
             for (var iii = 0; iii < 10; iii++) {
-                tmp = deckStack.model.pop()
-                if (tmp) {
-                    tmp.thisUp = true
-                    var newPoint = deckStack.mapToItem(moveStackList[iii],0,0)
-                    moveStackList[iii].dealingPositionX = newPoint.x
-                    moveStackList[iii].dealingPositionY = newPoint.y
-                    moveStackList[iii].model.append(tmp)
-                }
+                moveCard(deckStack.count-1, deckStack, moveStackList[iii], true)
             }
         }
     }
@@ -176,9 +169,6 @@ Board {
     }
 
     property int yCardSpace: (height - 1.5*columnHeight - 3*columnMargin)/cardMarginY
-    onYCardSpaceChanged: {
-        print("Room for "+yCardSpace+" cards")
-    }
 
     Stack {
         id: moveStack10
@@ -188,9 +178,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
 
@@ -207,9 +194,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
 
         cardsMoveable: true
@@ -224,9 +208,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
 
@@ -243,9 +224,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
 
         cardsMoveable: true
@@ -260,9 +238,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
 
@@ -279,9 +254,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
 
         cardsMoveable: true
@@ -296,9 +268,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
 
@@ -315,9 +284,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
 
         cardsMoveable: true
@@ -333,9 +299,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
 
         cardsMoveable: true
@@ -350,9 +313,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsMoveable: true
         cardsDropable: true
@@ -477,6 +437,7 @@ Board {
     }
 
     onInit: {
+        // Setting up the moveStackList
         var tmpMSL = [moveStack1,moveStack2,moveStack3,
                 moveStack4,moveStack5,moveStack6,
                 moveStack7,moveStack8,moveStack9,
@@ -492,7 +453,9 @@ Board {
             tmpDM[iii].isUp = true
         }
         dealingModel = tmpDM;
-        dealingTimder.initAndStart()
+
+        // Starting the timer that does the animation
+        dealingTimder.start()
     }
     function createDMObjectForIndex(index) {
         switch(index%10) {

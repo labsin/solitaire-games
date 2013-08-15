@@ -24,6 +24,9 @@ Item {
 
     property int highlightFrom: -1
 
+    property alias deck: deck
+    property alias decks: deck.decks
+    property alias suits: deck.suits
     property alias model: deck.model
     property alias repeater: repeater
 

@@ -8,32 +8,26 @@ Board {
     columnWidth: Math.min((width - 8 * columnMargin) / 7, (height - 3*columnMargin - 12*cardMarginY)/1.5*160/258)
     columnHeight: columnWidth * 258 / 160
 
+    property int takeStackCards: 3
+
     onInit: {
-        dealingTimder.initAndStart()
+        dealingTimder.start()
     }
 
     onSingelPress: {
         if (!card || !stack)
             return
         if (stack === deckStack) {
-            var tmp
-            deckStack.dealingPositionX = 0
-            deckStack.dealingPositionY = 0
-            for (var iii = 0; iii < 3; iii++) {
-                tmp = deckStack.model.pop()
-                if (tmp) {
-                    tmp.thisUp = true
-                    takeStack.model.append(tmp)
+            if (deckStack.count===0) {
+                var count = takeStack.count
+                for (var jjj = 0; jjj < count; jjj++) {
+                    moveCard(takeStack.count-1, takeStack, deckStack, false)
                 }
             }
-            if (!tmp) {
-                var count = takeStack.model.count
-                for (var jjj = 0; jjj < count; jjj++) {
-                    var tmpVal = takeStack.model.pop()
-                    if (tmpVal) {
-                        tmpVal.thisUp = false
-                        deckStack.model.append(tmpVal)
-                    }
+            else {
+                for (var iii = 0; iii < takeStackCards; iii++) {
+                    if(!moveCard(deckStack.count-1, deckStack, takeStack))
+                        break
                 }
             }
         }
@@ -162,9 +156,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
         placeholderCard: 14
 
@@ -180,9 +171,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -200,9 +188,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
         placeholderCard: 14
 
@@ -218,9 +203,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -238,9 +220,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
         placeholderCard: 14
 
@@ -257,9 +236,6 @@ Board {
         height: board.height - y
         goDown: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsVisible: yCardSpace
         placeholderCard: 14
 
@@ -275,9 +251,6 @@ Board {
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -358,9 +331,6 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         goUpZ: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
     }
 
     dealingModel: [
