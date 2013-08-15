@@ -169,6 +169,7 @@ Item {
         height: columnHeight
         x: dealingPositionX
         y: dealingPositionY
+        visible: false
     }
 
     property int fillDuration: 50
