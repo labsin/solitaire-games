@@ -16,6 +16,7 @@ Item {
 
     property int count: repeater.count
     property int cardsVisible: goUpZ ? 3 : count
+    property int _hiddenCards: count-cardsVisible<0?0:count-cardsVisible
     property int cardsShown: 0
 
     property int placeholderSuit: 0
@@ -77,44 +78,34 @@ Item {
             onUpChanged: repeater.checkUpCards()
 
             function getVisible(index) {
-                var offset = index - count + cardsVisible + 1
-                if (offset > 0)
-                    return true
-                else
+                if (index < _hiddenCards)
                     return false
+                else
+                    return true
             }
 
             function getX(index) {
-                var offset
+                if(!getVisible(index))
+                    return 0.0
                 if (goUpZ) {
-                    offset = index - count + cardsVisible
-                    if (offset > 0)
-                        return offset * cardMarginX / 2
-                    else
-                        return 0
+                    return (index-_hiddenCards) * cardMarginX / 2
                 }
                 if (goRight) {
-                    offset = index - count + cardsVisible
-                    if (offset > 0)
-                        return offset * cardMarginX * 3
-                    else
-                        return 0
+                    return (index-_hiddenCards) * cardMarginX * 3
                 }
                 return 0.0
             }
 
             function getY(index) {
+                if(!getVisible(index))
+                    return 0.0
                 if (goUpZ) {
-                    var offset = index - count + cardsVisible
-                    if (offset > 0)
-                        return offset * cardMarginY / 4
-                    else
-                        return 0
+                    return (index-_hiddenCards) * cardMarginY / 4
                 }
                 if (goDown) {
-                    return index * cardMarginY
+                    return (index-_hiddenCards) * cardMarginY
                 }
-                return 0.0
+                return 0
             }
         }
         onItemRemoved: checkUpCards()

@@ -1,7 +1,10 @@
 import QtQuick 2.0
+import "random.js" as Random
+import "chance.js" as Chance
 
 Item {
     property alias model: deckModel
+    property int decks: 1
 
     ListModel {
         id: deckModel
@@ -42,15 +45,20 @@ Item {
         }
     }
 
-    function fillRandom(up) {
+    function fillRandom(up, seed) {
         up = up?up:false
         deckModel.clear()
+        var chance
+        if(!seed)
+            chance = new Chance.Chance()
+        else
+            chance = new Chance.Chance(seed);
         var tmpArr = new Array
-        for(var iii=0; iii<52; iii++)
+        for(var iii=0; iii<52*decks; iii++)
             tmpArr[iii] = iii;
-        for(var jjj=0; jjj<52; jjj++) {
-            var rand = tmpArr.splice(getRandomInt(0,51-jjj),1)
-            var suit = Math.floor(rand/13)+1
+        for(var jjj=0; jjj<52*decks; jjj++) {
+            var rand = tmpArr.splice(chance.integer({min: 0, max: 52*decks-1-jjj}),1)
+            var suit = Math.floor(rand/13)%4+1
             var card = rand%13 + 1
             deckModel.append(makeArgs(suit, card, up))
         }
@@ -58,13 +66,5 @@ Item {
 
     function makeArgs(suit, card, up) {
         return {"thisSuit": suit, "thisCard": card, "thisUp": up}
-    }
-
-    /**
-     * Returns a random integer between min and max
-     * Using Math.round() will give you a non-uniform distribution!
-     */
-    function getRandomInt (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }

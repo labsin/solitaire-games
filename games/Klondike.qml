@@ -5,8 +5,12 @@ import "../components"
 Board {
     id: board
     anchors.fill: parent
-    columnWidth: Math.min((width - 8 * columnMargin) / 7, (height - 3*columnMargin - 12*cardMarginY)/2*160/258)
+    columnWidth: Math.min((width - 8 * columnMargin) / 7, (height - 3*columnMargin - 12*cardMarginY)/1.5*160/258)
     columnHeight: columnWidth * 258 / 160
+
+    onInit: {
+        dealingTimder.initAndStart()
+    }
 
     onSingelPress: {
         if (!card || !stack)
@@ -144,6 +148,11 @@ Board {
         }
     }
 
+    property int yCardSpace: (height - 1.5*columnHeight - 3*columnMargin)/cardMarginY
+    onYCardSpaceChanged: {
+        print("Room for "+yCardSpace+" cards")
+    }
+
     Stack {
         id: moveStack7
         x: moveStack6.x + board.columnWidth + board.columnMargin
@@ -156,6 +165,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -174,6 +184,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -192,6 +203,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -210,6 +222,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -228,6 +241,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -246,6 +260,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -264,6 +279,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
+        cardsVisible: yCardSpace
         placeholderCard: 14
 
         cardsMoveable: true
@@ -347,7 +363,7 @@ Board {
         dealingPositionY: board.dealingPositionY
     }
 
-    property list<QtObject> dealingModel: [
+    dealingModel: [
         QtObject {
             property Stack stackId: moveStack1
             property bool isUp: true

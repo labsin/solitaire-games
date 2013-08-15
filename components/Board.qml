@@ -7,8 +7,8 @@ Item {
     property real dealingPositionY: height
     property real columnWidth
     property real columnHeight
-    property real cardMarginX: units.gu(1.5)
-    property real cardMarginY: units.gu(2.5)
+    property real cardMarginX: Math.min(columnWidth*2/9,units.gu(2))
+    property real cardMarginY: units.gu(3)
     property real columnMargin: cardMarginY
     property Stack selectedStack
     property Card selectedCard
@@ -20,8 +20,15 @@ Item {
     property Card hoverCard
     property bool floating: false
 
+    property int gameSeed
+
+    property alias decks: dealingDeck.decks
+    property alias dealingTimder: dealingTimder
+
     signal singelPress(Card card, Stack stack)
+
     signal end(bool won)
+    signal init()
 
     onSelectedStackChanged: {
         if(selectedStack) {
@@ -41,6 +48,22 @@ Item {
             }
         }
         floating = false
+    }
+
+    onInit: {
+        var iii = 0;
+        while(main.children[iii]) {
+            if(main.children[iii].objectName === "stack") {
+                main.children[iii].model.clear()
+            }
+            iii++
+        }
+
+        dealingDeck.fillRandom(false, gameSeed)
+    }
+
+    Component.onCompleted: {
+        init()
     }
 
     id: main
@@ -98,18 +121,15 @@ Item {
 
     Deck {
         id: dealingDeck
-        Component.onCompleted: {
-            fillRandom(false)
-            dealingTimder.start()
-        }
     }
 
-    property int _duration: 50
+    property int fillDuration: 50
+    property list<QtObject> dealingModel
 
     Timer {
-        property int index: 0
         id: dealingTimder
-        interval: _duration
+        property int index: 0
+        interval: fillDuration
         repeat: true
         triggeredOnStart: true
         onTriggered: {
@@ -130,6 +150,10 @@ Item {
                 tmp['thisUp'] = false
                 deckStack.model.append(tmp)
             }
+        }
+        function initAndStart() {
+            index = 0
+            start()
         }
     }
 

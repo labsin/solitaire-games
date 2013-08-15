@@ -9,11 +9,11 @@ Flipable {
     property bool outline: false
     property bool shadow: false
     property bool animated: true
+    property bool animating: xAnimation.running || yAnimation.running
     property bool moveable: false
     property bool highlighted: false
-    property bool animating: xAnimation.running||yAnimation.running
 
-    property int _duration: animated?300:0
+    property int _duration: 300
 
     property alias front: frontLoader.item
 
@@ -21,7 +21,7 @@ Flipable {
 
     objectName: "card"
 
-    z: animating?1:0
+    z:animating?1:0
 
     transform: Rotation {
         id: rot
@@ -109,17 +109,43 @@ Flipable {
 
     Behavior on x {
         id: xBehavior
-        animation: NumberAnimation {
+        enabled: animated
+        animation: SequentialAnimation {
             id: xAnimation
-            duration: _duration
+            PropertyAction {
+                target: cardObj
+                property: "z"
+                value: 1
+            }
+            NumberAnimation {
+                duration: _duration
+            }
+            PropertyAction {
+                target: cardObj
+                property: "z"
+                value: 0
+            }
         }
     }
 
     Behavior on y {
         id: yBehavior
-        animation: NumberAnimation {
+        enabled: animated
+        animation: SequentialAnimation {
             id: yAnimation
-            duration: _duration
+            PropertyAction {
+                target: cardObj
+                property: "z"
+                value: 1
+            }
+            NumberAnimation {
+                duration: _duration
+            }
+            PropertyAction {
+                target: cardObj
+                property: "z"
+                value: 0
+            }
         }
     }
 

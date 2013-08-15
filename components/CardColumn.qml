@@ -48,7 +48,7 @@ Item {
     Text {
         id: txt
         text: _label
-        height: cardMarginY - anchors.margins - img.height*0.3
+        height: Math.min(cardMarginY - anchors.margins - img.height*0.3, cardMarginX*4/3 - anchors.margins - img.height*0.3)
         anchors.top: column.top
         anchors.horizontalCenter: column.horizontalCenter
         anchors.margins: cardMarginX/4
