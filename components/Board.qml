@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import "history.js" as History
 
 Item {
     property bool _dealt: false
@@ -27,9 +28,46 @@ Item {
     property alias dealingTimder: dealingTimder
 
     signal singelPress(Card card, Stack stack)
+    signal startMove
+    signal endMove
+
+    signal undo
+    signal redo
+    property bool hasPreviousMove: false
+    property bool hasNextMove: false
 
     signal end(bool won)
     signal init()
+
+    onStartMove: {
+        History.history.startMove()
+    }
+
+    onEndMove: {
+        History.history.endMove()
+    }
+
+    onUndo: {
+        var argsList = History.history.goBackAndReturn();
+        if(!argsList)
+            return
+        for (var iii=argsList.length-1; iii>=0; iii--) {
+            var args = argsList[iii]
+            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromUp)
+            moveCard(args.toIndex, args.toStack, args.fromStack,args.fromUp)
+        }
+    }
+
+    onRedo: {
+        var argsList = History.history.returnAndGoForward();
+        if(!argsList)
+            return
+        for (var iii=argsList.length-1; iii>=0; iii--) {
+            var args = argsList[iii]
+            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toStack+" "+args.toUp)
+            moveCard(args.fromIndex, args.fromStack, args.toStack,args.toUp)
+        }
+    }
 
     onSelectedStackChanged: {
         if(selectedStack) {
@@ -52,6 +90,9 @@ Item {
     }
 
     onInit: {
+        _dealt = false
+        History.init()
+
         var iii = 0;
         while(main.children[iii]) {
             if(main.children[iii].objectName === "stack") {
@@ -265,26 +306,49 @@ Item {
     }
 
     function moveCard(index, fromStack, toStack, up) {
-        if(up === undefined)
+        if(typeof up === 'undefined')
             up = true
-        print("movecard: "+index+" "+fromStack+" "+toStack+" "+up)
+        print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up)
         var cardVar = fromStack.model.get(index)
-        print("movecard: "+cardVar)
         if(!cardVar)
             return false
-        var card = dealingStack.repeater.itemAt(index)
+        var card = fromStack.repeater.itemAt(index)
         var dealingpoint
-        if(card)
+        var fromUp = false
+        if(card) {
+            print("card: "+card)
             dealingpoint = toStack.mapFromItem(fromStack,card.x,card.y)
+            fromUp = card.up
+            print("fromUp: "+fromUp)
+        }
         else
             dealingpoint = toStack.mapFromItem(fromStack,0,0)
-        toStack.dealingPositionX = dealingpoint.x
-        toStack.dealingPositionY = dealingpoint.y
-        cardVar["thisUp"] = up
-        print("movecard: "+cardVar)
-        toStack.model.append(cardVar)
-        fromStack.model.remove(index)
+        if(fromStack===toStack) {
+            if(card) {
+                card.up = up
+            }
+        }
+        else {
+            toStack.dealingPositionX = dealingpoint.x
+            toStack.dealingPositionY = dealingpoint.y
+            cardVar["thisUp"] = up
+            toStack.model.append(cardVar)
+            fromStack.model.remove(index)
+        }
+        if(_dealt)
+            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1,toStack,up)
         return true
+    }
+
+    function flipCard(index, stack, up) {
+        var card = stack.repeater.itemAt(index);
+        if(typeof up === 'undefined')
+            up = !card.up
+        if(card.up === up )
+            return
+        card.up = up
+        if(_dealt)
+            History.history.addToHistory(index,stack,!up,index,stack,up)
     }
 
     function highlightFrom(index) {

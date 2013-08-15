@@ -17,6 +17,7 @@ Board {
     onSingelPress: {
         if (!card || !stack)
             return
+        startMove()
         if (stack === deckStack) {
             if (deckStack.count===0) {
                 var count = takeStack.count
@@ -31,7 +32,7 @@ Board {
                 }
             }
         }
-        if (stack.indexOf(card) === stack.count - 1) {
+        else if (stack.indexOf(card) === stack.count - 1) {
             var suit = card.suit
             var cardNr = card.card
             switch (suit) {
@@ -57,6 +58,7 @@ Board {
                 break
             }
         }
+        endMove()
     }
 
     onSelectedStackChanged: {
@@ -64,6 +66,7 @@ Board {
             if (!selectedStack) {
                 if (hoverStack) {
                     if (previousSelectedStack.highlightFrom !== -1) {
+                        startMove()
                         var countMoving = previousSelectedStack.count
                                 - previousSelectedStack.highlightFrom
                         for (var iii = 0; iii < countMoving; iii++) {
@@ -71,6 +74,7 @@ Board {
                                         previousSelectedStack.highlightFrom,
                                         previousSelectedStack, hoverStack)
                         }
+                        endMove()
                     }
                 }
                 stopHighlight()
@@ -128,7 +132,7 @@ Board {
         moveCard(index, fromStack, toStack)
         if (fromStack.cardsShown === 0) {
             if (fromStack.count !== 0)
-                fromStack.lastCard.up = true
+                flipCard(fromStack.count-1,fromStack, true)
         }
         checkGame()
     }

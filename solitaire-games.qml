@@ -89,6 +89,20 @@ MainView {
                 }
                 tools: ToolbarItems {
                     ToolbarButton {
+                        text: "undo"
+                        enabled: gameLoader.item.hasPreviousMove
+                        onTriggered: {
+                            gameLoader.item.undo()
+                        }
+                    }
+                    ToolbarButton {
+                        text: "redo"
+                        enabled: gameLoader.item.hasNextMove
+                        onTriggered: {
+                            gameLoader.item.redo()
+                        }
+                    }
+                    ToolbarButton {
                         text: "new game"
                         onTriggered: {
                             newGame()

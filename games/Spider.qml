@@ -12,21 +12,20 @@ Board {
     fillDuration: 20
 
     onSingelPress: {
-        print("onSingelPress")
         if (!card || !stack)
             return
+        startMove()
         if (stack === deckStack) {
-            print("onSingelPress::deckStack")
             var tmp
-            if(!deckReadyForNew())
-                return;
-            print("onSingelPress::deckStackReady")
-            deckStack.dealingPositionX = 0
-            deckStack.dealingPositionY = 0
-            for (var iii = 0; iii < 10; iii++) {
-                moveCard(deckStack.count-1, deckStack, moveStackList[iii], true)
+            if(deckReadyForNew()) {
+                deckStack.dealingPositionX = 0
+                deckStack.dealingPositionY = 0
+                for (var iii = 0; iii < 10; iii++) {
+                    moveCard(deckStack.count-1, deckStack, moveStackList[iii], true)
+                }
             }
         }
+        endMove()
     }
 
     function deckReadyForNew() {
@@ -43,6 +42,7 @@ Board {
             if (!selectedStack) {
                 if (hoverStack) {
                     if (previousSelectedStack.highlightFrom !== -1) {
+                        startMove()
                         var countMoving = previousSelectedStack.count
                                 - previousSelectedStack.highlightFrom
                         for (var iii = 0; iii < countMoving; iii++) {
@@ -51,6 +51,7 @@ Board {
                                         previousSelectedStack, hoverStack)
                         }
                         checkStack(hoverStack)
+                        endMove()
                     }
                 }
                 stopHighlight()
@@ -122,14 +123,11 @@ Board {
     }
 
     function checkStack(stack) {
-        print("checkStack"+stack.count)
         if(stack.count<13)
             return
-        print("checkStack1")
         var suit = stack.lastCard.suit
         var success = true
         for(var index=stack.count-1;index>=stack.count-13;index--) {
-            print("checkStack::index")
             if(stack.repeater.itemAt(index).card !== stack.count-index || stack.repeater.itemAt(index).suit !==suit) {
                 success = false
                 break
