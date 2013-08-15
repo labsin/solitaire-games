@@ -5,6 +5,9 @@ import "chance.js" as Chance
 Item {
     property alias model: deckModel
     property int decks: 1
+    property int suits: 4
+    property int noCards: decks*52
+    property int noCardsOfSuit: noCards/suits
 
     ListModel {
         id: deckModel
@@ -38,8 +41,8 @@ Item {
 
     function fillNonRandom(up) {
         deckModel.clear()
-        for(var jjj=0; jjj<52; jjj++) {
-            var suit = Math.floor(jjj/13)+1
+        for(var jjj=0; jjj<noCards; jjj++) {
+            var suit = Math.floor(jjj/noCardsOfSuit)+1
             var card = jjj%13 + 1
             deckModel.append({"thisSuit": suit, "thisCard": card, "thisUp": up})
         }
@@ -54,11 +57,11 @@ Item {
         else
             chance = new Chance.Chance(seed);
         var tmpArr = new Array
-        for(var iii=0; iii<52*decks; iii++)
+        for(var iii=0; iii<noCards; iii++)
             tmpArr[iii] = iii;
-        for(var jjj=0; jjj<52*decks; jjj++) {
-            var rand = tmpArr.splice(chance.integer({min: 0, max: 52*decks-1-jjj}),1)
-            var suit = Math.floor(rand/13)%4+1
+        for(var jjj=0; jjj<noCards; jjj++) {
+            var rand = tmpArr.splice(chance.integer({min: 0, max: noCards-1-jjj}),1)
+            var suit = Math.floor(rand/noCardsOfSuit)+1
             var card = rand%13 + 1
             deckModel.append(makeArgs(suit, card, up))
         }

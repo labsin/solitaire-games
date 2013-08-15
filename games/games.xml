@@ -7,4 +7,12 @@
     <title>Spider</title>
     <path>Spider.qml</path>
   </game>
+  <game>
+    <title>Spider (2 color)</title>
+    <path>2CSpider.qml</path>
+  </game>
+  <game>
+    <title>Spider (1 color)</title>
+    <path>1CSpider.qml</path>
+  </game>
 </games>

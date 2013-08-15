@@ -21,7 +21,7 @@ Flipable {
 
     objectName: "card"
 
-    z:animating?1:0
+    z: animating?1:0
 
     transform: Rotation {
         id: rot

@@ -57,7 +57,7 @@ Board {
                                         previousSelectedStack.highlightFrom,
                                         previousSelectedStack, hoverStack)
                         }
-                        checkStack(previousSelectedStack)
+                        checkStack(hoverStack)
                     }
                 }
                 stopHighlight()
@@ -75,30 +75,22 @@ Board {
                 stopHighlight()
             }
         } else if (selectedStack) {
-            var checkNextNumberSameSuit = function (card) {
-                if (!card.up)
-                    return
-                var topCard = hoverStack.lastCard
-                if (topCard && topCard.card + 1 === card.card
-                        && topCard.suit === card.suit) {
-                    highlightFrom(selectedStack.count - 1)
-                }
-            }
-
             var checkSpider = function (index, card) {
                 if (!card.up)
                     return
                 var topHoverCard = hoverStack.lastCard
                 if (!topHoverCard)
                     return
-                if(card === selectedStack.lastCard && topHoverCard.card === card.card + 1) {
+                if(card === selectedStack.lastCard && (topHoverCard.card === card.card + 1 || topHoverCard.card == 0)) {
                     highlightFrom(index)
                     return true
                 }
-                if(topHoverCard.card === card.card + 1) {
+                if(topHoverCard.card === card.card + 1 || topHoverCard.card == 0) {
                     var found = false
-                    for(var iii=selectedStack.indexOf(card);iii<selectedStack.count;iii++) {
-                        if(card.suit!==selectedStack.repeater.itemAt(iii).suit) {
+                    var cardNr = card.card
+                    var cardIndex = selectedStack.indexOf(card)
+                    for(var iii=cardIndex;iii<selectedStack.count;iii++) {
+                        if(card.suit!==selectedStack.repeater.itemAt(iii).suit || cardNr - (iii-cardIndex) !==  selectedStack.repeater.itemAt(iii).card ) {
                             found = true
                             break
                         }
@@ -137,14 +129,15 @@ Board {
     }
 
     function checkStack(stack) {
+        print("checkStack"+stack.count)
         if(stack.count<13)
             return
-        if(stack.lastCard.card!==1)
-            return
+        print("checkStack1")
         var suit = stack.lastCard.suit
         var success = true
-        for(var iii=1;iii<=13;iii++) {
-            if(stack.repeater.itemAt(iii).card !== iii || stack.repeater.itemAt(iii).suit !==suit) {
+        for(var index=stack.count-1;index>=stack.count-13;index--) {
+            print("checkStack::index")
+            if(stack.repeater.itemAt(index).card !== stack.count-index || stack.repeater.itemAt(index).suit !==suit) {
                 success = false
                 break
             }

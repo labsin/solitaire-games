@@ -23,6 +23,7 @@ Item {
     property int gameSeed
 
     property alias decks: dealingDeck.decks
+    property alias suits: dealingDeck.suits
     property alias dealingTimder: dealingTimder
 
     signal singelPress(Card card, Stack stack)
