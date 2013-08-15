@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=solitaire-games
+Comment=My project description
+Exec=/usr/bin/qmlscene $@ /usr/share/solitaire-games/solitaire-games.qml
+Icon=qmlscene
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true
