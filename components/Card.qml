@@ -159,13 +159,11 @@ Flipable {
     }
 
     function getSource() {
-        if(up)
-            return "UpCard.qml"
-        else if(outline)
+        if(outline)
             return "OutlineCard.qml"
         else if(shadow)
             return "ShadowCard.qml"
-        return ""
+        return "UpCard.qml"
     }
 
     function sameColor(card) {
