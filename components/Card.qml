@@ -153,7 +153,7 @@ Flipable {
 
     function setParentZ() {
         var tmpParent = parent
-        if(tmpParent.objectName === "stack") {
+        if(tmpParent && tmpParent.objectName === "stack") {
             tmpParent.z = z
         }
     }
@@ -170,5 +170,9 @@ Flipable {
         if(card.suit == suit || card.suit+suit ==5)
             return true
         return false
+    }
+
+    Component.onDestruction: {
+        z = 0
     }
 }
