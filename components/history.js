@@ -25,7 +25,7 @@ History.prototype.startMove = function () {
 }
 
 History.prototype.endMove = function () {
-    if(this.json[this.index].length>0) {
+    if(this.json[this.index] && this.json[this.index].length>0) {
         this.index++
         hasNextMove=false
         hasPreviousMove=true
