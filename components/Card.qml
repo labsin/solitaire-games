@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import "./"
 
 Flipable {
     property int card:0
@@ -9,19 +10,36 @@ Flipable {
     property bool outline: false
     property bool shadow: false
     property bool animated: true
-    property bool animating: xAnimation.running || yAnimation.running
+    property bool animating: xAnimation.running || yAnimation.running || angleAnimation.running
     property bool moveable: false
     property bool highlighted: false
+    property int stackIndex: -1
+    property variant cardToStack
 
     property int _duration: 300
 
     property alias front: frontLoader.item
 
+    signal afterAnimation()
+    signal beforeAnimation()
+
     id: cardObj
 
     objectName: "card"
 
-    z: animating?1:0
+    onAnimatingChanged: {
+        if(!animating)
+            afterAnimation()
+        else
+            beforeAnimation()
+    }
+
+    onBeforeAnimation: {
+        setParentZ(1)
+    }
+    onAfterAnimation: {
+        setParentZ(-1)
+    }
 
     transform: Rotation {
         id: rot
@@ -32,23 +50,30 @@ Flipable {
         angle: up||outline||shadow?0:180
 
         Behavior on angle {
-            animation: ParallelAnimation {
-                SequentialAnimation {
-                    PropertyAnimation {
-                        target: cardObj
-                        property: "y"
-                        to: cardObj.y - 20
-                        duration: _duration
-                    }
-                    PropertyAnimation {
-                        target: cardObj
-                        property: "y"
-                        to: cardObj.y
-                        duration: _duration
-                    }
-                }
-                NumberAnimation { duration: 2*_duration }
+            id: angleBehavior
+            animation: angleAnimation
+            enabled: animated && !yAnimation.running && !xAnimation.running
+        }
+    }
+
+    ParallelAnimation {
+        id: angleAnimation
+        SequentialAnimation {
+            PropertyAnimation {
+                target: cardObj
+                property: "y"
+                to: cardObj.y - 20
+                duration: _duration
             }
+            PropertyAnimation {
+                target: cardObj
+                property: "y"
+                to: cardObj.y
+                duration: _duration
+            }
+        }
+        NumberAnimation {
+            duration: 2*_duration
         }
     }
 
@@ -112,18 +137,8 @@ Flipable {
         enabled: animated
         animation: SequentialAnimation {
             id: xAnimation
-            PropertyAction {
-                target: cardObj
-                property: "z"
-                value: 1
-            }
             NumberAnimation {
                 duration: _duration
-            }
-            PropertyAction {
-                target: cardObj
-                property: "z"
-                value: 0
             }
         }
     }
@@ -133,28 +148,16 @@ Flipable {
         enabled: animated
         animation: SequentialAnimation {
             id: yAnimation
-            PropertyAction {
-                target: cardObj
-                property: "z"
-                value: 1
-            }
             NumberAnimation {
                 duration: _duration
-            }
-            PropertyAction {
-                target: cardObj
-                property: "z"
-                value: 0
             }
         }
     }
 
-    onZChanged: setParentZ()
-
-    function setParentZ() {
+    function setParentZ(parZ) {
         var tmpParent = parent
         if(tmpParent && tmpParent.objectName === "stack") {
-            tmpParent.z = z
+            tmpParent.cardsSetZ += parZ
         }
     }
 
@@ -167,12 +170,8 @@ Flipable {
     }
 
     function sameColor(card) {
-        if(card.suit == suit || card.suit+suit ==5)
+        if(card.suit === suit || card.suit+suit ==5)
             return true
         return false
-    }
-
-    Component.onDestruction: {
-        z = 0
     }
 }

@@ -182,9 +182,6 @@ Board {
         cardHeight: board.columnHeight
         goUpZ: true
 
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
-
         cardsMoveable: lastCard.up
         cardsDropable: true
     }
@@ -196,9 +193,6 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         goUpZ: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
 
         cardsMoveable: true
         cardsDropable: true

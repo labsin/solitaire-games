@@ -17,10 +17,9 @@ Board {
         startMove()
         if (stack === deckStack) {
             if(deckReadyForNew()) {
-                deckStack.dealingPositionX = 0
-                deckStack.dealingPositionY = 0
-                for (var iii = 0; iii < 10; iii++) {
-                    moveCard(deckStack.count-1, deckStack, moveStackList[iii], true)
+                var count = deckStack.count
+                for (var iii = 1; iii <= 10; iii++) {
+                    moveCard(count-iii, deckStack, moveStackList[iii-1], true)
                 }
             }
         }
@@ -46,7 +45,7 @@ Board {
                                 - previousSelectedStack.highlightFrom
                         for (var iii = 0; iii < countMoving; iii++) {
                             moveCardAndFlip(
-                                        previousSelectedStack.highlightFrom,
+                                        previousSelectedStack.highlightFrom+iii,
                                         previousSelectedStack, hoverStack)
                         }
                         checkStack(hoverStack)
@@ -151,7 +150,7 @@ Board {
         var firstMove = stack.count - 13
         for (var iii = 0; iii < 13; iii++) {
             moveCardAndFlip(
-                        firstMove,
+                        firstMove+iii,
                         stack, toStack)
         }
         checkGame()
@@ -298,10 +297,12 @@ Board {
         id: moveStack1
         x: board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
-        width: board.columnWidth
+        cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
         goDown: true
+
+        cardsVisible: yCardSpace
 
         cardsMoveable: true
         cardsDropable: true
@@ -420,9 +421,6 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         goUpZ: true
-
-        dealingPositionX: board.dealingPositionX
-        dealingPositionY: board.dealingPositionY
     }
 
     onInit: {

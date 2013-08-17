@@ -23,6 +23,8 @@ Item {
 
     property int gameSeed
 
+    property int _amoutMoving: 0
+
     property alias decks: dealingStack.decks
     property alias suits: dealingStack.suits
     property alias dealingTimder: dealingTimder
@@ -39,6 +41,8 @@ Item {
     signal end(bool won)
     signal init()
 
+    id: main
+
     onStartMove: {
         History.history.startMove()
     }
@@ -51,7 +55,7 @@ Item {
         var argsList = History.history.goBackAndReturn();
         if(!argsList)
             return
-        for (var iii=argsList.length-1; iii>=0; iii--) {
+        for(var iii=argsList.length-1; iii>=0; iii--) {
             var args = argsList[iii]
             print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromUp)
             moveCard(args.toIndex, args.toStack, args.fromStack,args.fromUp)
@@ -92,13 +96,12 @@ Item {
     onInit: {
         _dealt = false
         History.init()
+        dealingTimder.stop()
 
         var iii = 0;
         while(main.children[iii]) {
             if(main.children[iii].objectName === "stack") {
                 main.children[iii].model.clear()
-                main.children[iii].dealingPositionX = board.dealingPositionX
-                main.children[iii].dealingPositionY = board.dealingPositionY
             }
             iii++
         }
@@ -110,11 +113,10 @@ Item {
         init()
     }
 
-    id: main
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        enabled: _dealt
+        enabled: _dealt && _amoutMoving==0
         hoverEnabled: true
         property double latestTime: 0
         onReleased: {
@@ -169,7 +171,7 @@ Item {
         height: columnHeight
         x: dealingPositionX
         y: dealingPositionY
-        visible: false
+        visible: true
     }
 
     property int fillDuration: 50
@@ -180,22 +182,47 @@ Item {
         property int index: 0
         interval: fillDuration
         repeat: true
-        triggeredOnStart: true
+        triggeredOnStart: false
         onTriggered: {
-            var tmp
             if(dealingModel[index]) {
-                moveCard(dealingStack.count-1, dealingStack, dealingModel[index].stackId, dealingModel[index].isUp)
+                var iii = dealingStack.count
+                do {
+                    iii--
+                    var card = dealingStack.repeater.itemAt(iii)
+                } while(card && card.animating)
+
+
+                moveCard(iii, dealingStack, dealingModel[index].stackId, dealingModel[index].isUp)
                 index++
             }
             else {
+                if(!deckStack) {
+                    stop()
+                    _dealt = true
+                    return
+                }
                 if(dealingStack.count==0) {
                     stop()
                     _dealt = true
                     return
                 }
-                moveCard(dealingStack.count-1, dealingStack, deckStack, false)
+
+                var jjj = dealingStack.count
+                do {
+                    jjj--
+                    var card2 = dealingStack.repeater.itemAt(jjj)
+                } while(card2 && card2.animating)
+
+                if(!card2) {
+                    stop()
+                    _dealt = true
+                    return
+                }
+
+                moveCard(jjj, dealingStack, deckStack, false)
             }
         }
+
         onRunningChanged: {
             if(!running)
                 index = 0
@@ -307,41 +334,47 @@ Item {
     }
 
     function moveCard(index, fromStack, toStack, up) {
-        if(typeof up === 'undefined')
-            up = true
         print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up)
         var cardVar = fromStack.model.get(index)
         if(!cardVar)
             return false
-        var card = fromStack.repeater.itemAt(index)
-        var dealingpoint
-        var fromUp = false
-        if(card) {
-            print("card: "+card)
-            dealingpoint = toStack.mapFromItem(fromStack,card.x,card.y)
-            fromUp = card.up
-            print("fromUp: "+fromUp)
+        var fromCard = fromStack.repeater.itemAt(index)
+        if(!fromCard) {
+            print("No card at index in stack")
+            return
         }
-        else
-            dealingpoint = toStack.mapFromItem(fromStack,0,0)
+        var fromUp = fromCard.up
+        if(typeof up === 'undefined')
+            up = fromUp
         if(fromStack===toStack) {
-            if(card) {
-                card.up = up
+            if(!fromCard) {
+                print("Moving to the same stack")
+            }
+            if(fromCard) {
+                flipCard(index, fromStack, up)
             }
         }
         else {
-            toStack.dealingPositionX = dealingpoint.x
-            toStack.dealingPositionY = dealingpoint.y
-            cardVar["thisUp"] = up
-            toStack.model.append(cardVar)
-            fromStack.model.remove(index)
+            _amoutMoving++
+            toStack.amountWaiting++
+            fromCard.afterAnimation.connect(function() {
+                toStack.model.addFromCard(fromCard)
+                fromStack.model.remove(fromCard.stackIndex)
+                _amoutMoving--
+            })
+            var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count+toStack.amountWaiting)
+            fromCard.x = mapPoint.x
+            fromCard.y = mapPoint.y
+            if(fromCard.up !== up)
+                flipCard(index, fromStack, up)
         }
         if(_dealt)
-            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1,toStack,up)
+            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountWaiting,toStack,up)
         return true
     }
 
     function flipCard(index, stack, up) {
+        print("flipCard: "+index+" "+stack+" "+up)
         var card = stack.repeater.itemAt(index);
         if(typeof up === 'undefined')
             up = !card.up
@@ -352,12 +385,15 @@ Item {
             History.history.addToHistory(index,stack,!up,index,stack,up)
     }
 
-    function moveCardAndFlip(index, fromStack, toStack) {
-        moveCard(index, fromStack, toStack)
-        if (fromStack.cardsShown === 0) {
-            if (fromStack.count !== 0)
-                flipCard(fromStack.count-1,fromStack, true)
+    function moveCardAndFlip(index, fromStack, toStack, up) {
+        print("moveCardAndFlip: "+index+" "+fromStack+" "+toStack+" "+up)
+        var count = fromStack.count
+        print(count)
+        if (count >= 2) {
+            if (!fromStack.repeater.itemAt(index-1).up)
+                flipCard(index-1,fromStack, true)
         }
+        moveCard(index, fromStack, toStack, up)
     }
 
     function highlightFrom(index) {

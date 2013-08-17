@@ -21,13 +21,14 @@ Board {
         if (stack === deckStack) {
             if (deckStack.count===0) {
                 var count = takeStack.count
-                for (var jjj = 0; jjj < count; jjj++) {
-                    moveCard(takeStack.count-1, takeStack, deckStack, false)
+                for (var jjj = 1; jjj <= count; jjj++) {
+                    moveCard(count-jjj, takeStack, deckStack, false)
                 }
             }
             else {
-                for (var iii = 0; iii < takeStackCards; iii++) {
-                    if(!moveCard(deckStack.count-1, deckStack, takeStack))
+                var tmp = deckStack.count
+                for (var iii = 1; iii <= takeStackCards; iii++) {
+                    if(!moveCard(tmp-iii, deckStack, takeStack, true))
                         break
                 }
             }
@@ -73,7 +74,7 @@ Board {
                                 - previousSelectedStack.highlightFrom
                         for (var iii = 0; iii < countMoving; iii++) {
                             moveCardAndFlip(
-                                        previousSelectedStack.highlightFrom,
+                                        previousSelectedStack.highlightFrom+iii,
                                         previousSelectedStack, hoverStack)
                         }
                         checkGame()
@@ -319,6 +320,7 @@ Board {
         showHidden: false
 
         cardsMoveable: true
+        nrCardsMoveable: 1
         cardsVisible: takeStackCards
     }
 
@@ -329,6 +331,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         goUpZ: true
+        extraZ: 100
     }
 
     dealingModel: [

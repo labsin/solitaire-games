@@ -80,6 +80,7 @@ MainView {
                     id: gameLoader
                     anchors.fill: parent
                     source: "components/NoGame.qml"
+                    onStatusChanged: if (gameLoader.status == Loader.Error) console.log('Error loading')
                 }
                 Connections {
                     target: gameLoader.item
