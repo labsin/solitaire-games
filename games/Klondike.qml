@@ -31,6 +31,7 @@ Board {
                         break
                 }
             }
+            checkGame()
         }
         else if (stack.indexOf(card) === stack.count - 1) {
             var suit = card.suit
@@ -57,6 +58,7 @@ Board {
                 }
                 break
             }
+            checkGame()
         }
         endMove()
     }
@@ -74,6 +76,7 @@ Board {
                                         previousSelectedStack.highlightFrom,
                                         previousSelectedStack, hoverStack)
                         }
+                        checkGame()
                         endMove()
                     }
                 }
@@ -126,15 +129,6 @@ Board {
                 forEachFromSelected(checkDiffColor)
             }
         }
-    }
-
-    function moveCardAndFlip(index, fromStack, toStack) {
-        moveCard(index, fromStack, toStack)
-        if (fromStack.cardsShown === 0) {
-            if (fromStack.count !== 0)
-                flipCard(fromStack.count-1,fromStack, true)
-        }
-        checkGame()
     }
 
     function checkGame() {

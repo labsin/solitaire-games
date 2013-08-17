@@ -103,14 +103,6 @@ Board {
         }
     }
 
-    function moveCardAndFlip(index, fromStack, toStack) {
-        moveCard(index, fromStack, toStack)
-        if (fromStack.cardsShown === 0) {
-            if (fromStack.count !== 0)
-                fromStack.lastCard.up = true
-        }
-    }
-
     function checkGame() {
         if (moveStack1.count === 0 && moveStack2.count === 0
                 && moveStack3.count === 0 && moveStack4.count === 0

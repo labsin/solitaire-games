@@ -352,6 +352,14 @@ Item {
             History.history.addToHistory(index,stack,!up,index,stack,up)
     }
 
+    function moveCardAndFlip(index, fromStack, toStack) {
+        moveCard(index, fromStack, toStack)
+        if (fromStack.cardsShown === 0) {
+            if (fromStack.count !== 0)
+                flipCard(fromStack.count-1,fromStack, true)
+        }
+    }
+
     function highlightFrom(index) {
         if(!selectedStack)
             return

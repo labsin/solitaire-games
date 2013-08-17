@@ -30,7 +30,7 @@ Board {
                 }
             }
             else {
-                deckStack.lastCard.up = true
+                flipCard(deckStack.count-1, deckStack)
             }
         }
         else {
@@ -117,14 +117,6 @@ Board {
                 stopHighlight()
                 return
             }
-        }
-    }
-
-    function moveCardAndFlip(index, fromStack, toStack) {
-        moveCard(index, fromStack, toStack)
-        if (fromStack.cardsShown === 0) {
-            if (fromStack.count !== 0)
-                fromStack.lastCard.up = true
         }
     }
 
