@@ -6,6 +6,7 @@ Item {
     property bool goRight: false
     property bool goUpZ: false
     property bool showHidden: true
+    property bool transparant: false
     property real cardWidth: width
     property real cardHeight: height
     property real dealingPositionX: 0
@@ -47,6 +48,7 @@ Item {
         z: 0
 
         moveable: false
+        visible: !transparant
         card: placeholderCard
         suit: placeholderSuit
     }

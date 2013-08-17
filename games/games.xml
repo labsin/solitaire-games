@@ -19,4 +19,8 @@
     <title>Spider (1 color)</title>
     <path>1CSpider.qml</path>
   </game>
+  <game>
+    <title>Pyramid</title>
+    <path>Pyramid.qml</path>
+  </game>
 </games>
