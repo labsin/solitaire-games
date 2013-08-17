@@ -16,7 +16,6 @@ Board {
             return
         startMove()
         if (stack === deckStack) {
-            var tmp
             if(deckReadyForNew()) {
                 deckStack.dealingPositionX = 0
                 deckStack.dealingPositionY = 0
