@@ -79,6 +79,7 @@ MainView {
                 Loader {
                     id: gameLoader
                     anchors.fill: parent
+                    source: "components/NoGame.qml"
                 }
                 Connections {
                     target: gameLoader.item
@@ -90,14 +91,14 @@ MainView {
                 tools: ToolbarItems {
                     ToolbarButton {
                         text: "undo"
-                        enabled: gameLoader.item.hasPreviousMove
+                        enabled: gameLoader.item?gameLoader.item.hasPreviousMove:false
                         onTriggered: {
                             gameLoader.item.undo()
                         }
                     }
                     ToolbarButton {
                         text: "redo"
-                        enabled: gameLoader.item.hasNextMove
+                        enabled: gameLoader.item?gameLoader.item.hasNextMove:false
                         onTriggered: {
                             gameLoader.item.redo()
                         }
