@@ -5,7 +5,7 @@ import "../components"
 Board {
     id: board
     anchors.fill: parent
-    columnWidth: Math.min((width - 8 * columnMargin) / 7, (height - 2*columnMargin)/4.5*160/258)
+    columnWidth: Math.min((width - 8 * columnMargin) / 7, (height - 2*columnMargin)/4*160/258)
     columnHeight: columnWidth * 258 / 160
     decks: 1
 
@@ -98,19 +98,19 @@ Board {
                 return
             }
 
-            var topHoverCard = hoverStack.lastCard
-            if(!topHoverCard) {
+            var hoverCard = hoverStack.lastCard
+            if(!hoverCard) {
                 stopHighlight()
                 return
             }
 
-            var topSelectedCard = selectedStack.lastCard
-            if(!topSelectedCard) {
+            var selectedCard = selectedStack.lastCard
+            if(!selectedCard) {
                 stopHighlight()
                 return
             }
 
-            if(topHoverCard.card + topSelectedCard.card === 13) {
+            if(hoverCard.card + selectedCard.card === 13) {
                 highlightFrom(selectedStack.count-1)
             }
             else {
@@ -129,6 +129,8 @@ Board {
     }
 
     function checkIfFree(stack) {
+        if(stack === deckStack || takeStack)
+            return true
         var index = getStacksRep.indexOf(stack)
         if(index) {
             if(stack.count===0)
@@ -176,8 +178,8 @@ Board {
 
         placeholderSuit: 4
 
-        cardsMoveable: true
-        cardsDropable: true
+        cardsMoveable: false
+        cardsDropable: false
     }
 
     Stack {
@@ -191,7 +193,7 @@ Board {
         dealingPositionX: board.dealingPositionX
         dealingPositionY: board.dealingPositionY
 
-        cardsMoveable: true
+        cardsMoveable: lastCard.up
         cardsDropable: true
     }
 
@@ -223,7 +225,7 @@ Board {
             transparant: true
 
             cardsMoveable: true
-            cardsDropable: true
+            cardsDropable: count>0?true:false
         }
     }
 
@@ -268,25 +270,25 @@ Board {
 
     function getPyramidY(index) {
         if(index===0) {
-            return columnMargin + columnHeight/2
+            return columnMargin
         }
         else if(index<3) {
-            return columnMargin + columnHeight
+            return columnMargin + columnHeight*0.5
         }
         else if(index<6) {
-            return columnMargin + columnHeight*1.5
+            return columnMargin + columnHeight*1
         }
         else if(index<10) {
-            return columnMargin + columnHeight*2
+            return columnMargin + columnHeight*1.5
         }
         else if(index<15) {
-            return columnMargin + columnHeight*2.5
+            return columnMargin + columnHeight*2
         }
         else if(index<21) {
-            return columnMargin + columnHeight*3
+            return columnMargin + columnHeight*2.5
         }
         else {
-            return columnMargin + columnHeight*3.5
+            return columnMargin + columnHeight*3
         }
     }
 
