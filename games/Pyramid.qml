@@ -14,28 +14,27 @@ Board {
     onSingelPress: {
         if (!stack)
             return
-        startMove()
         if(!checkIfFree(stack))
             return
+        startMove()
         if (stack === deckStack) {
-            if(deckStack.count===0)
-                return
-            if(deckStack.lastCard.up) {
-                if(deckStack.lastCard.card===13)
-                    moveCardAndFlip(
-                                deckStack.count-1,
-                                deckStack, putStack)
+            if(deckStack.count!==0) {
+                if(deckStack.lastCard.up) {
+                    if(deckStack.lastCard.card===13)
+                        moveCardAndFlip(
+                                    deckStack.count-1,
+                                    deckStack, putStack)
+                    else {
+                        moveCardAndFlip(
+                                    deckStack.count-1,
+                                    deckStack, takeStack)
+                    }
+                }
                 else {
-                    moveCardAndFlip(
-                                deckStack.count-1,
-                                deckStack, takeStack)
+                    flipCard(deckStack.count-1, deckStack)
                 }
             }
-            else {
-                flipCard(deckStack.count-1, deckStack)
-            }
-        }
-        else {
+        } else {
             if(stack.lastCard.card === 13 )
                 moveCard(
                             stack.count-1,
