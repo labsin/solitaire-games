@@ -76,7 +76,6 @@ Board {
                                         hoverStack, putStack)
                         }
                         endMove()
-                        checkGame()
                     }
                 }
                 stopHighlight()

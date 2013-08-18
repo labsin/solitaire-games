@@ -85,16 +85,18 @@ Item {
 
             onAfterAnimation: repeater.checkUpCards()
             Component.onCompleted: {
-                print("itemAdded: "+index+" still "+stack.amountComming)
-                if(amountComming>0)
+                print("itemAdded: "+stackIndex+" still "+stack.amountComming)
+                if(amountComming>0) {
                     stack.amountComming--
-                repeater.checkUpCards()
+                    repeater.checkUpCards()
+                }
             }
             Component.onDestruction: {
-                print("itemRemoved: "+index+" still "+stack.amountGoing)
-                if(stack.amountGoing>0)
+                print("itemRemoved: "+stackIndex+" still "+stack.amountGoing)
+                if(stack.amountGoing>0) {
                     stack.amountGoing--
-                repeater.checkUpCards()
+                    repeater.checkUpCards()
+                }
             }
         }
 
@@ -151,5 +153,11 @@ Item {
         if(typeof index === 'undefined')
             index = 0
         return stack.mapToItem(toStack, getX(index), getY(index))
+    }
+
+    function init() {
+        amountComming = 0
+        amountGoing = 0
+        cardsSetZ = 0
     }
 }

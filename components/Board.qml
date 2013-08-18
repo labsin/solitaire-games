@@ -88,25 +88,87 @@ Item {
     }
 
     onUndo: {
+        print("onUndo")
         var argsList = History.history.goBackAndReturn();
         if(!argsList)
             return
-        for(var iii=argsList.length-1; iii>=0; iii--) {
-            var args = argsList[iii]
-            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromUp)
+        var newArgsList = sortUndoList(argsList)
+        var count = newArgsList.length
+
+        for(var iii=0; iii<count; iii++) {
+            var args = newArgsList[iii]
+            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromIndex+" "+args.fromUp)
             moveCard(args.toIndex, args.toStack, args.fromStack,args.fromUp)
         }
     }
 
+    function sortUndoList(undoList) {
+        var count = undoList.length
+        var newList = []
+
+        for(var iii=0; iii<count; iii++) {
+            var count2 = newList.length
+            var foundStack = false
+            var done = false
+            for(var jjj=0; jjj<count2 && !done; jjj++) {
+                if(newList[jjj].fromStack===undoList[iii].fromStack) {
+                    foundStack = true
+                    if(newList[jjj].fromIndex>undoList[iii].fromIndex) {
+                        newList.splice(jjj, 0, undoList[iii])
+                        done = true
+                    }
+                }
+                else if(foundStack) {
+                    newList.splice(jjj, 0, undoList[iii])
+                    done = true
+                }
+            }
+            if(!done)
+                newList[count2] = undoList[iii]
+        }
+        return newList
+    }
+
     onRedo: {
+        print("onRedo")
         var argsList = History.history.returnAndGoForward();
         if(!argsList)
             return
-        for (var iii=argsList.length-1; iii>=0; iii--) {
-            var args = argsList[iii]
-            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toStack+" "+args.toUp)
+        var newArgsList = sortRedoList(argsList)
+        var count = newArgsList.length
+
+        for(var iii=0; iii<count; iii++) {
+            var args = newArgsList[iii]
+            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toStack+" "+args.toIndex+" "+args.toUp)
             moveCard(args.fromIndex, args.fromStack, args.toStack,args.toUp)
         }
+    }
+
+    function sortRedoList(redoList) {
+        var count = redoList.length
+        var newList = []
+
+        for(var iii=0; iii<count; iii++) {
+            var count2 = newList.length
+            var foundStack = false
+            var done = false
+            for(var jjj=0; jjj<count2 && !done; jjj++) {
+                if(newList[jjj].toStack===redoList[iii].toStack) {
+                    foundStack = true
+                    if(newList[jjj].toIndex>redoList[iii].toIndex) {
+                        newList.splice(jjj, 0, redoList[iii])
+                        done = true
+                    }
+                }
+                else if(foundStack) {
+                    newList.splice(jjj, 0, redoList[iii])
+                    done = true
+                }
+            }
+            if(!done)
+                newList[count2] = redoList[iii]
+        }
+        return newList
     }
 
     onSelectedStackChanged: {
@@ -134,11 +196,13 @@ Item {
         _dealt = false
         History.init()
         _dealIndex = 0
+        _amoutMoving = 0
 
         var iii = 0;
         while(main.children[iii]) {
             if(main.children[iii].objectName === "stack") {
                 main.children[iii].model.clear()
+                main.children[iii].init()
             }
             iii++
         }
@@ -289,7 +353,7 @@ Item {
 
         property int _floatingChangeDuration: 75
 
-        z:2
+        z:10
 
         states: [
             State {
@@ -384,8 +448,10 @@ Item {
     function moveCard(index, fromStack, toStack, up) {
         print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up)
         var cardVar = fromStack.model.get(index)
-        if(!cardVar)
+        if(!cardVar) {
+            print("No card at index in stack")
             return false
+        }
         var fromCard = fromStack.repeater.itemAt(index)
         if(!fromCard) {
             print("No card at index in stack")
@@ -410,10 +476,13 @@ Item {
                 toStack.model.addFromCard(fromCard)
                 fromStack.model.remove(fromCard.stackIndex)
                 _amoutMoving--
+                if(_dealt)
+                    board.checkGame()
             })
             var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count-1+toStack.amountComming)
             fromCard.x = mapPoint.x
             fromCard.y = mapPoint.y
+            print("moveCard: card:"+fromCard.card+"/"+fromCard.suit+" to "+(toStack.count-1+toStack.amountComming))
             if(fromCard.up !== up)
                 flipCard(index, fromStack, up)
         }

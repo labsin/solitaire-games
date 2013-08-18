@@ -34,7 +34,6 @@ Board {
                         break
                 }
             }
-            checkGame()
         }
         else if (stack.indexOf(card) === stack.count - 1) {
             var suit = card.suit
@@ -61,7 +60,6 @@ Board {
                 }
                 break
             }
-            checkGame()
         }
         endMove()
     }
@@ -79,7 +77,6 @@ Board {
                                         previousSelectedStack.highlightFrom+iii,
                                         previousSelectedStack, hoverStack)
                         }
-                        checkGame()
                         endMove()
                     }
                 }
@@ -135,6 +132,7 @@ Board {
     }
 
     function checkGame() {
+        print("checkGame")
         if (moveStack1.count === 0 && moveStack2.count === 0
                 && moveStack3.count === 0 && moveStack4.count === 0
                 && moveStack5.count === 0 && moveStack6.count === 0

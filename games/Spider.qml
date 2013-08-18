@@ -156,7 +156,6 @@ Board {
                         firstMove+iii,
                         stack, toStack)
         }
-        checkGame()
     }
 
     property int yCardSpace: (height - 1.5*columnHeight - 3*columnMargin)/cardMarginY

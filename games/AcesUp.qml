@@ -55,7 +55,6 @@ Board {
             }
         }
         endMove()
-        checkGame()
     }
 
     onSelectedStackChanged: {
@@ -68,7 +67,6 @@ Board {
                                     previousSelectedStack.count-1,
                                     previousSelectedStack, hoverStack)
                         endMove()
-                        checkGame()
                     }
                 }
                 stopHighlight()
