@@ -29,4 +29,9 @@
     <path>Pyramid.qml</path>
     <db-name>pyramid</db-name>
   </game>
+  <game>
+    <title>Aces Up</title>
+    <path>AcesUp.qml</path>
+    <db-name>acesup</db-name>
+  </game>
 </games>
