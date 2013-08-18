@@ -55,8 +55,8 @@ Board {
                 }
             }
         }
-
         endMove()
+        checkGame()
     }
 
     onSelectedStackChanged: {
@@ -68,14 +68,11 @@ Board {
                         moveCard(
                                     previousSelectedStack.count-1,
                                     previousSelectedStack, hoverStack)
-                        moveCard(
-                                    hoverStack.count-1,
-                                    hoverStack, hoverStack)
                         endMove()
+                        checkGame()
                     }
                 }
                 stopHighlight()
-                checkGame()
             }
         }
     }
@@ -98,8 +95,8 @@ Board {
     }
 
     function checkGame() {
-        for(var iii = 0; iii<getStackList.count; iii++) {
-            if(getStackList.count>0)
+        for(var iii = 0; iii<getStackList.length; iii++) {
+            if(getStackList[iii].count>0)
                 return false
         }
         end(true)
@@ -109,11 +106,11 @@ Board {
         id: putStack
         x: board.width - board.columnWidth - board.columnMargin
         y: board.columnMargin
-        width: board.columnWidth
+        cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         showHidden: false
 
-        cardsMoveable: true
+        cardsMoveable: false
         nrCardsMoveable: 1
 
         cardsDropable: false
@@ -137,8 +134,6 @@ Board {
 
     Stack {
         id: getStack1
-        width: board.columnWidth
-        height: board.columnHeight
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         x: deckStack.x+columnMargin+columnWidth
@@ -154,8 +149,6 @@ Board {
 
     Stack {
         id: getStack2
-        width: board.columnWidth
-        height: board.columnHeight
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         x: getStack1.x+columnMargin+columnWidth
@@ -171,8 +164,6 @@ Board {
 
     Stack {
         id: getStack3
-        width: board.columnWidth
-        height: board.columnHeight
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         x: getStack2.x+columnMargin+columnWidth
@@ -188,8 +179,6 @@ Board {
 
     Stack {
         id: getStack4
-        width: board.columnWidth
-        height: board.columnHeight
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         x: getStack3.x+columnMargin+columnWidth
