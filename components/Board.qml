@@ -439,7 +439,7 @@ Item {
         var count = fromStack.count
         print(count)
         if (count >= 2) {
-            if (!fromStack.repeater.itemAt(index-1).up)
+            if (fromStack.repeater.itemAt(index-1) && !fromStack.repeater.itemAt(index-1).up)
                 flipCard(index-1,fromStack, true)
         }
         moveCard(index, fromStack, toStack, up)
