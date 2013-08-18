@@ -5,8 +5,11 @@ import "../components"
 Board {
     id: board
     anchors.fill: parent
-    columnWidth: Math.min((width - 8 * columnMargin) / 7, (height - 3*columnMargin - 12*cardMarginY)/1.5*160/258)
-    columnHeight: columnWidth * 258 / 160
+    columns: 7
+    rows: 2
+    columnSpaces: 8
+    rowSpaces: 3
+    cardYStacks: 12
 
     property int takeStackCards: 3
 

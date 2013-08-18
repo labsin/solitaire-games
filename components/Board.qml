@@ -6,9 +6,15 @@ Item {
     property bool _dealt: false
     property real dealingPositionX: width
     property real dealingPositionY: height
-    property real columnWidth
-    property real columnHeight
-    property real cardMarginX: Math.min(columnWidth*2/9,units.gu(2))
+    property real columnWidth: Math.min((width-columnSpaces*columnMargin)/columns, (height-rowSpaces*columnMargin-cardYStacks*cardMarginY)/rows*8/13,units.gu(15))
+    property real columnHeight: columnWidth*13/8
+    property int columns: 0
+    property int columnSpaces: 0
+    property int rows: 0
+    property int rowSpaces: 0
+    property int cardYStacks: 0
+    property int cardXStacks: 0
+    property real cardMarginX: units.gu(2)
     property real cardMarginY: units.gu(3)
     property real columnMargin: cardMarginY
     property Stack selectedStack
