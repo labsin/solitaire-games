@@ -4,7 +4,6 @@ import "../components"
 
 Board {
     id: board
-    anchors.fill: parent
     columns: 10
     columnSpaces: 11
     rows: 2

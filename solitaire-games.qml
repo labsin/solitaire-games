@@ -77,12 +77,28 @@ MainView {
             title: i18n.tr("Game")
             page: Page {
                 id: gamePage
-                Loader {
-                    id: gameLoader
+                NoGame {
                     anchors.fill: parent
-                    source: "components/NoGame.qml"
-                    onStatusChanged: if (gameLoader.status == Loader.Error) console.log('Error loading')
+                    visible: gameLoader.status !== Loader.Ready
                 }
+
+                Loader {
+                    x: 0
+                    y: 0
+                    id: gameLoader
+                    source: ""
+                }
+                Binding {
+                    target: gameLoader.item
+                    property: "parentWidth"
+                    value: width
+                }
+                Binding {
+                    target: gameLoader.item
+                    property: "parentHeight"
+                    value: height
+                }
+
                 Connections {
                     target: gameLoader.item
                     onEnd: {

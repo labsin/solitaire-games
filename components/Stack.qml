@@ -123,7 +123,7 @@ Item {
             return (index-_hiddenCards) * cardMarginX / 2
         }
         if (goRight) {
-            return (index-_hiddenCards) * cardMarginX * 3
+            return (index-_hiddenCards) * cardMarginX * 1.5
         }
         return 0.0
     }

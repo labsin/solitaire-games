@@ -6,7 +6,24 @@ Item {
     property bool _dealt: false
     property real dealingPositionX: width
     property real dealingPositionY: height
-    property real columnWidth: Math.min((width-columnSpaces*columnMargin)/columns, (height-rowSpaces*columnMargin-cardYStacks*cardMarginY)/rows*8/13,units.gu(15))
+    property real columnWidth: calcColumnWidth()
+    function calcColumnWidth() {
+        var columnWidthWithVarMargin1 = (width-cardXStacks*cardMarginX)/columns/(1+columnSpaces/2.5/columns)
+        if(columnWidthWithVarMargin1/2.5<units.gu(2)) {
+            columnWidthWithVarMargin1 = (width-columnSpaces*units.gu(2)-cardXStacks*cardMarginX)/columns
+        }
+        var columnWidthWithVarMargin2 = (height-cardYStacks*cardMarginY)/rows*8/13/(1+rowSpaces*8/2.5/rows/13)
+        if(columnWidthWithVarMargin2/2.5 < units.gu(2)) {
+            columnWidthWithVarMargin2 = (height-rowSpaces*units.gu(2)-cardYStacks*cardMarginY)/rows*8/13
+        }
+        return Math.max(Math.min(columnWidthWithVarMargin1, columnWidthWithVarMargin2, units.gu(14)), minimumColumnWidth)
+    }
+    property real minimumColumnWidth: cardMarginX*2
+    property bool toSmallWidth: width<minimumWidth
+    property bool toSmallY: height<minimumHeight
+    property real minimumWidth: columnSpaces*units.gu(2)+cardXStacks*cardMarginX + columns * minimumColumnWidth
+    property real minimumHeight: rowSpaces*units.gu(2)+cardYStacks*cardMarginY+rows*13/8*minimumColumnWidth
+
     property real columnHeight: columnWidth*13/8
     property int columns: 0
     property int columnSpaces: 0
@@ -16,7 +33,10 @@ Item {
     property int cardXStacks: 0
     property real cardMarginX: units.gu(2)
     property real cardMarginY: units.gu(3)
-    property real columnMargin: cardMarginY
+    property real columnMargin: columnWidth/2.5<units.gu(2)?units.gu(2):columnWidth/2.5
+    property real parentWidth
+    property real parentHeight
+
     property Stack selectedStack
     property Card selectedCard
     property Stack previousSelectedStack
@@ -49,6 +69,14 @@ Item {
     signal init()
 
     id: main
+
+    width: parentWidth>minimumWidth?parentWidth:minimumWidth
+    height: parentHeight>minimumHeight?parentHeight:minimumHeight
+
+    onParentWidthChanged: print("ParentWidth:" + parentWidth)
+    onMinimumWidthChanged: print("MinimumWidth:" + minimumWidth)
+    onColumnWidthChanged: print("columnWidth:"+columnWidth)
+    onWidthChanged: print("width"+width)
 
     onStartMove: {
         History.history.startMove()
