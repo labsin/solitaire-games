@@ -15,16 +15,17 @@ Item {
 
     property int count: repeater.count
     property int cardsVisible: goUpZ ? 3 : count
+    property int amountComming: 0
+    property int amountGoing: 0
     property int nrCardsMoveable: count
     property bool onlyUpMoveable: true
-    property int _hiddenCards: count+amountWaiting-cardsVisible<0?0:count+amountWaiting-cardsVisible
+    property int _hiddenCards: count-cardsVisible<0?0:count-cardsVisible
     property int cardsShown: 0
 
     property int placeholderSuit: 0
     property int placeholderCard: 0
 
     property int highlightFrom: -1
-    property int amountWaiting: 0
 
     property alias deck: deck
     property alias decks: deck.decks
@@ -67,7 +68,7 @@ Item {
             height: cardHeight
             x: getX(index)
             y: getY(index)
-            z: !up && cardToStack?count-index-1:index
+            z: index>=count-amountGoing?2*count-amountGoing-1-index:index
             card: thisCard
             suit: thisSuit
             up: thisUp
@@ -82,10 +83,13 @@ Item {
             onAfterAnimation: repeater.checkUpCards()
         }
         onItemAdded: {
-            amountWaiting--
+            amountComming--
             checkUpCards()
         }
-        onItemRemoved: checkUpCards()
+        onItemRemoved: {
+            amountGoing--
+            checkUpCards()
+        }
 
         function checkUpCards() {
             var tmpCardsShown = 0

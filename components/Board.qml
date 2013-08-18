@@ -373,20 +373,21 @@ Item {
         }
         else {
             _amoutMoving++
-            toStack.amountWaiting++
+            fromStack.amountGoing++
+            toStack.amountComming++
             fromCard.afterAnimation.connect(function() {
                 toStack.model.addFromCard(fromCard)
                 fromStack.model.remove(fromCard.stackIndex)
                 _amoutMoving--
             })
-            var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count+toStack.amountWaiting)
+            var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count-1+toStack.amountComming)
             fromCard.x = mapPoint.x
             fromCard.y = mapPoint.y
             if(fromCard.up !== up)
                 flipCard(index, fromStack, up)
         }
         if(_dealt)
-            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountWaiting,toStack,up)
+            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up)
         return true
     }
 
