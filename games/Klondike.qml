@@ -269,6 +269,8 @@ Board {
         placeholderSuit: 4
 
         cardsDropable: true
+        cardsMoveable: true
+        nrCardsMoveable: 1
     }
 
     Stack {
@@ -282,6 +284,8 @@ Board {
         placeholderSuit: 3
 
         cardsDropable: true
+        cardsMoveable: true
+        nrCardsMoveable: 1
     }
 
     Stack {
@@ -295,6 +299,8 @@ Board {
         placeholderSuit: 2
 
         cardsDropable: true
+        cardsMoveable: true
+        nrCardsMoveable: 1
     }
 
     Stack {
@@ -308,6 +314,8 @@ Board {
         placeholderSuit: 1
 
         cardsDropable: true
+        cardsMoveable: true
+        nrCardsMoveable: 1
     }
 
     Stack {
