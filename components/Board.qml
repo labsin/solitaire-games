@@ -24,6 +24,7 @@ Item {
     property int gameSeed
 
     property int _amoutMoving: 0
+    property int _mouseSingleClickDelay: 150
 
     property alias decks: dealingStack.decks
     property alias suits: dealingStack.suits
@@ -86,10 +87,11 @@ Item {
             selectedCardY = selectedCardPoint.y
 
             if(selectedStack.cardsMoveable && selectedStack.count !=0) {
-                floating = true
+                floatingTimer.start()
                 return
             }
         }
+        floatingTimer.stop()
         floating = false
     }
 
@@ -120,7 +122,7 @@ Item {
         hoverEnabled: true
         property double latestTime: 0
         onReleased: {
-            if((Date.now()-latestTime)<200) {
+            if((Date.now()-latestTime)<_mouseSingleClickDelay) {
                 singelPress(selectedCard, selectedStack)
                 selectedCard = null
                 selectedStack = null
@@ -226,6 +228,15 @@ Item {
         onRunningChanged: {
             if(!running)
                 index = 0
+        }
+    }
+
+    Timer {
+        id: floatingTimer
+        interval: _mouseSingleClickDelay
+        repeat: false
+        onTriggered: {
+            floating = true
         }
     }
 

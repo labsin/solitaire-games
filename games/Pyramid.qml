@@ -15,6 +15,8 @@ Board {
         if (!stack)
             return
         startMove()
+        if(!checkIfFree(stack))
+            return
         if (stack === deckStack) {
             if(deckStack.count===0)
                 return
@@ -121,7 +123,7 @@ Board {
     }
 
     function checkIfFree(stack) {
-        if(stack === deckStack || takeStack)
+        if(stack === deckStack || stack === takeStack)
             return true
         var index = getStacksRep.indexOf(stack)
         if(index) {
@@ -201,6 +203,7 @@ Board {
     Component {
         id: geStacks
         Stack {
+            id: thisStack
             width: board.columnWidth
             height: board.columnHeight
             cardWidth: board.columnWidth
@@ -210,8 +213,11 @@ Board {
 
             transparant: true
 
-            cardsMoveable: true
+            cardsMoveable: false
             cardsDropable: count>0?true:false
+            Component.onCompleted: {
+                repeater.onItemAdded.connect(getStacksRep.checkAllIfFree)
+            }
         }
     }
 
@@ -219,6 +225,17 @@ Board {
         id: getStacksRep
         model: 28
         delegate: geStacks
+
+        function checkAllIfFree() {
+            for(var iii=0; iii<count; iii++) {
+                if(itemAt(iii).lastCard.card === 13) {
+                    itemAt(iii).cardsMoveable = false
+                }
+                else {
+                    itemAt(iii).cardsMoveable = checkIfFree(itemAt(iii))
+                }
+            }
+        }
 
         function indexOf(item) {
             for (var iii = 0; iii < count; iii++) {
