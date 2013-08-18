@@ -31,7 +31,7 @@ MainView {
     height: units.gu(75)
 
     property int selectedGameIndex:-1
-    property string selectedGameTitle:selectedGameIndex==-1?"":gamesModel.get(selectedGameIndex).title
+    property string selectedGameTitle: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).title
 
     XmlListModel {
         id: gamesModel
@@ -39,6 +39,7 @@ MainView {
         query: "/games/game"
         XmlRole { name: "title";   query: "title/string()"}
         XmlRole { name: "path";    query: "path/string()"}
+        XmlRole { name: "dbName";    query: "db-name/string()"}
     }
     
     Tabs {
@@ -85,7 +86,7 @@ MainView {
                 Connections {
                     target: gameLoader.item
                     onEnd: {
-                        setStats(selectedGameTitle.title, won)
+                        setStats(gamesModel.get(selectedGameIndex).dbName, won)
                         PopupUtils.open(endDialComp, gamePage, {"won":won})
                     }
                 }
@@ -206,11 +207,12 @@ MainView {
     function newGame() {
         tabs.selectedTabIndex=0
         gameLoader.source = ""
-        setStats(selectedGameTitle, false)
+        setStats(gamesModel.get(selectedGameIndex).dbName, false)
     }
 
     function restartGame() {
         gameLoader.item.init()
+        setStats(gamesModel.get(selectedGameIndex).dbName, false)
     }
 
     function setStats(title, won) {

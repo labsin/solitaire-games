@@ -2,25 +2,31 @@
   <game>
     <title>Klondike (3 cards)</title>
     <path>Klondike.qml</path>
+    <db-name>klondike3</db-name>
   </game>
   <game>
     <title>Klondike (1 card)</title>
     <path>1CKlondike.qml</path>
+    <db-name>klondike1</db-name>
   </game>
   <game>
     <title>Spider</title>
     <path>Spider.qml</path>
+    <db-name>spider</db-name>
   </game>
   <game>
     <title>Spider (2 color)</title>
     <path>2CSpider.qml</path>
+    <db-name>spider2</db-name>
   </game>
   <game>
     <title>Spider (1 color)</title>
     <path>1CSpider.qml</path>
+    <db-name>spider1</db-name>
   </game>
   <game>
     <title>Pyramid</title>
     <path>Pyramid.qml</path>
+    <db-name>pyramid</db-name>
   </game>
 </games>
