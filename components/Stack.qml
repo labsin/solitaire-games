@@ -75,7 +75,7 @@ Item {
                          && index >= highlightFrom ? true : false
             visible: animating ? true : true //Should be getVisible(index)
 
-            moveable: cardsMoveable && (onlyUpMoveable?up:true) && nrCardsMoveable>count-index
+            moveable: cardsMoveable && (onlyUpMoveable?up:true) && nrCardsMoveable>=count-index
 
             stackIndex: index
 
