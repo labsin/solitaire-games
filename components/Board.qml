@@ -4,6 +4,7 @@ import "history.js" as History
 
 Item {
     property bool _dealt: false
+    property int _dealIndex: 0
     property real dealingPositionX: width
     property real dealingPositionY: height
     property real columnWidth: calcColumnWidth()
@@ -132,7 +133,7 @@ Item {
     onInit: {
         _dealt = false
         History.init()
-        dealingTimder.stop()
+        _dealIndex = 0
 
         var iii = 0;
         while(main.children[iii]) {
@@ -215,21 +216,28 @@ Item {
 
     Timer {
         id: dealingTimder
-        property int index: 0
         interval: fillDuration
         repeat: true
+        running: !_dealt && dealingStack.amountComming==0
         triggeredOnStart: false
         onTriggered: {
-            if(dealingModel[index]) {
+            if(dealingModel[_dealIndex]) {
                 var iii = dealingStack.count
+                var card
                 do {
                     iii--
-                    var card = dealingStack.repeater.itemAt(iii)
-                } while(card && card.animating)
+                    card = dealingStack.repeater.itemAt(iii)
+                    print(card)
+                } while((!card || card.animating) && iii>=0)
 
+                if(iii==-1) {
+                    print("Failed to get "+_dealIndex+" out of dealingStack")
+                    _dealt = true
+                    return
+                }
 
-                moveCard(iii, dealingStack, dealingModel[index].stackId, dealingModel[index].isUp)
-                index++
+                moveCard(iii, dealingStack, dealingModel[_dealIndex].stackId, dealingModel[_dealIndex].isUp)
+                _dealIndex++
             }
             else {
                 if(!deckStack) {
@@ -257,11 +265,6 @@ Item {
 
                 moveCard(jjj, dealingStack, deckStack, false)
             }
-        }
-
-        onRunningChanged: {
-            if(!running)
-                index = 0
         }
     }
 

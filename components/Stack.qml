@@ -44,6 +44,9 @@ Item {
 
     Deck {
         id: deck
+        onOneComming: {
+            amountComming++
+        }
     }
 
     Card {
@@ -81,14 +84,18 @@ Item {
             stackIndex: index
 
             onAfterAnimation: repeater.checkUpCards()
-        }
-        onItemAdded: {
-            amountComming--
-            checkUpCards()
-        }
-        onItemRemoved: {
-            amountGoing--
-            checkUpCards()
+            Component.onCompleted: {
+                print("itemAdded: "+index+" still "+stack.amountComming)
+                if(amountComming>0)
+                    stack.amountComming--
+                repeater.checkUpCards()
+            }
+            Component.onDestruction: {
+                print("itemRemoved: "+index+" still "+stack.amountGoing)
+                if(stack.amountGoing>0)
+                    stack.amountGoing--
+                repeater.checkUpCards()
+            }
         }
 
         function checkUpCards() {

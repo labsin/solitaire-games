@@ -3,11 +3,17 @@ import "random.js" as Random
 import "chance.js" as Chance
 
 Item {
+    id: deck
+
     property alias model: deckModel
     property int decks: 1
     property int suits: 4
     property int noCards: decks*52
     property int noCardsOfSuit: noCards/suits
+
+    property int _previousCount: 0
+
+    signal  oneComming()
 
     ListModel {
         id: deckModel
@@ -31,7 +37,7 @@ Item {
         }
 
         function addFromCard(card) {
-            deckModel.append({"thisSuit": card.suit, "thisCard": card.card, "thisUp": card.up})
+            deckModel.append(makeArgs(card.suit, card.card, card.up))
         }
     }
 
@@ -44,7 +50,7 @@ Item {
         for(var jjj=0; jjj<noCards; jjj++) {
             var suit = Math.floor(jjj/noCardsOfSuit)+1
             var card = jjj%13 + 1
-            deckModel.append({"thisSuit": suit, "thisCard": card, "thisUp": up})
+            deckModel.append(makeArgs(suit, card, up))
         }
     }
 
@@ -63,6 +69,7 @@ Item {
             var rand = tmpArr.splice(chance.integer({min: 0, max: noCards-1-jjj}),1)
             var suit = Math.floor(rand/noCardsOfSuit)+1
             var card = rand%13 + 1
+            deck.oneComming()
             deckModel.append(makeArgs(suit, card, up))
         }
     }
