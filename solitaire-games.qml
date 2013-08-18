@@ -82,12 +82,12 @@ MainView {
 
     function newGame() {
         tabs.selectedTabIndex=0
-        gameLoader.source = ""
+        gamePage.loader.source = ""
         setStats(gamesModel.get(selectedGameIndex).dbName, false)
     }
 
     function restartGame() {
-        gameLoader.item.init()
+        gamePage.loader.item.init()
         setStats(gamesModel.get(selectedGameIndex).dbName, false)
     }
 
