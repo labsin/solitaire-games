@@ -24,13 +24,13 @@ Board {
             if (deckStack.count===0) {
                 var count = takeStack.count
                 for (var jjj = 1; jjj <= count; jjj++) {
-                    moveCard(count-jjj, takeStack, deckStack, false)
+                    moveCard(count-jjj, takeStack, deckStack, false, true)
                 }
             }
             else {
-                var tmp = deckStack.count
+                var count2 = deckStack.count
                 for (var iii = 1; iii <= takeStackCards; iii++) {
-                    if(!moveCard(tmp-iii, deckStack, takeStack, true))
+                    if(!moveCard(count2-iii, deckStack, takeStack, true, true))
                         break
                 }
             }

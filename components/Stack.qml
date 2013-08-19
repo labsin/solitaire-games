@@ -27,6 +27,8 @@ Item {
 
     property int highlightFrom: -1
 
+    property bool flipZ: false
+
     property alias deck: deck
     property alias decks: deck.decks
     property alias suits: deck.suits
@@ -71,7 +73,7 @@ Item {
             height: cardHeight
             x: getX(index)
             y: getY(index)
-            z: index>=count-amountGoing?2*count-amountGoing-1-index:index
+            z: getZ(index)
             card: thisCard
             suit: thisSuit
             up: thisUp
@@ -89,6 +91,9 @@ Item {
                 if(amountComming>0) {
                     stack.amountComming--
                     repeater.checkUpCards()
+                }
+                if(stack.amountComming === 0) {
+                    stack.flipZ = false
                 }
             }
             Component.onDestruction: {
@@ -149,6 +154,15 @@ Item {
         return 0
     }
 
+    function getZ(index) {
+        if(flipZ && index>=count-amountGoing) {
+           return 2*count-amountGoing-1-index
+        }
+        else {
+            return index
+        }
+    }
+
     function mapToItemFromIndex(toStack, index) {
         if(typeof index === 'undefined')
             index = 0
@@ -159,5 +173,6 @@ Item {
         amountComming = 0
         amountGoing = 0
         cardsSetZ = 0
+        flipZ = 0
     }
 }

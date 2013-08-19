@@ -97,8 +97,8 @@ Item {
 
         for(var iii=0; iii<count; iii++) {
             var args = newArgsList[iii]
-            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromIndex+" "+args.fromUp)
-            moveCard(args.toIndex, args.toStack, args.fromStack,args.fromUp)
+            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromIndex+" "+args.fromUp + " " + args.flipZ)
+            moveCard(args.toIndex, args.toStack, args.fromStack,args.fromUp,args.flipZ)
         }
     }
 
@@ -139,8 +139,8 @@ Item {
 
         for(var iii=0; iii<count; iii++) {
             var args = newArgsList[iii]
-            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toStack+" "+args.toIndex+" "+args.toUp)
-            moveCard(args.fromIndex, args.fromStack, args.toStack,args.toUp)
+            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toStack+" "+args.toIndex+" "+args.toUp + " " + args.flipZ)
+            moveCard(args.fromIndex, args.fromStack, args.toStack,args.toUp, args.flipZ)
         }
     }
 
@@ -445,8 +445,8 @@ Item {
         }
     }
 
-    function moveCard(index, fromStack, toStack, up) {
-        print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up)
+    function moveCard(index, fromStack, toStack, up, flipZ) {
+        print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up+" "+flipZ)
         var cardVar = fromStack.model.get(index)
         if(!cardVar) {
             print("No card at index in stack")
@@ -458,6 +458,10 @@ Item {
             return
         }
         var fromUp = fromCard.up
+        if(typeof flipZ === 'undefined')
+            flipZ = false
+        if(flipZ)
+            fromStack.flipZ = flipZ
         if(typeof up === 'undefined')
             up = fromUp
         if(fromStack===toStack) {
@@ -487,7 +491,7 @@ Item {
                 flipCard(index, fromStack, up, false)
         }
         if(_dealt)
-            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up)
+            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up, flipZ)
         return true
     }
 
@@ -502,7 +506,7 @@ Item {
             return
         card.up = up
         if(_dealt && record)
-            History.history.addToHistory(index,stack,!up,index,stack,up)
+            History.history.addToHistory(index,stack,!up,index,stack,up, false)
     }
 
     function moveCardAndFlip(index, fromStack, toStack, up) {

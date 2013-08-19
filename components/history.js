@@ -6,12 +6,12 @@ var History = function() {
     this.json = []
 }
 
-History.prototype.addToHistory = function (fromIndex, fromStack, fromUp, toIndex, toStack, toUp) {
+History.prototype.addToHistory = function (fromIndex, fromStack, fromUp, toIndex, toStack, toUp, flipZ) {
     if(!this.marking)
         return
     if(!this.json[this.index])
         this.json[this.index] = []
-    this.json[this.index][this.json[this.index].length] = {"fromIndex": fromIndex, "fromStack": fromStack,"fromUp": fromUp, "toIndex":toIndex, "toStack":toStack, "toUp": toUp}
+    this.json[this.index][this.json[this.index].length] = {"fromIndex": fromIndex, "fromStack": fromStack,"fromUp": fromUp, "toIndex":toIndex, "toStack":toStack, "toUp":toUp, "flipZ":flipZ}
 }
 
 History.prototype.startMove = function () {
