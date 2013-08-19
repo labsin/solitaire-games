@@ -484,22 +484,24 @@ Item {
             fromCard.y = mapPoint.y
             print("moveCard: card:"+fromCard.card+"/"+fromCard.suit+" to "+(toStack.count-1+toStack.amountComming))
             if(fromCard.up !== up)
-                flipCard(index, fromStack, up)
+                flipCard(index, fromStack, up, false)
         }
         if(_dealt)
             History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up)
         return true
     }
 
-    function flipCard(index, stack, up) {
+    function flipCard(index, stack, up, record) {
         print("flipCard: "+index+" "+stack+" "+up)
         var card = stack.repeater.itemAt(index);
         if(typeof up === 'undefined')
             up = !card.up
+        if(typeof record === 'undefined')
+            record = true
         if(card.up === up )
             return
         card.up = up
-        if(_dealt)
+        if(_dealt && record)
             History.history.addToHistory(index,stack,!up,index,stack,up)
     }
 
