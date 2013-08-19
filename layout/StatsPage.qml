@@ -17,8 +17,8 @@ Page {
         id: statsDelegate
 
         Column {
-            property int nrWins: statsDoc.contents[title]["won"]
-            property int nrLost: statsDoc.contents[title]["lost"]
+            property int nrWins: statsDoc.contents[dbName]["won"]
+            property int nrLost: statsDoc.contents[dbName]["lost"]
             visible: nrWins>0||nrLost>0
             width: parent.width
 
