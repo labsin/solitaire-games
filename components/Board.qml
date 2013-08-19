@@ -63,8 +63,10 @@ Item {
 
     signal undo
     signal redo
-    property bool hasPreviousMove: false
-    property bool hasNextMove: false
+    property int historyIndex: 0
+    property int historyLength: 0
+    property bool hasPreviousMove: historyIndex>1
+    property bool hasNextMove: historyIndex<historyLength
 
     signal end(bool won)
     signal init()
@@ -88,6 +90,8 @@ Item {
     }
 
     onUndo: {
+        if(!hasPreviousMove || _amoutMoving!=0)
+            return;
         print("onUndo")
         var argsList = History.history.goBackAndReturn();
         if(!argsList)
@@ -130,6 +134,8 @@ Item {
     }
 
     onRedo: {
+        if(!hasNextMove || _amoutMoving!=0)
+            return;
         print("onRedo")
         var argsList = History.history.returnAndGoForward();
         if(!argsList)
@@ -284,7 +290,11 @@ Item {
         repeat: true
         running: !_dealt && dealingStack.amountComming==0
         triggeredOnStart: false
+
         onTriggered: {
+            if(_dealIndex==0) {
+                History.history.startMove()
+            }
             if(dealingModel[_dealIndex]) {
                 var iii = dealingStack.count
                 var card
@@ -307,23 +317,27 @@ Item {
                 if(!deckStack) {
                     stop()
                     _dealt = true
+                    History.history.endMove()
                     return
                 }
                 if(dealingStack.count==0) {
                     stop()
                     _dealt = true
+                    History.history.endMove()
                     return
                 }
 
                 var jjj = dealingStack.count
+                var card2
                 do {
                     jjj--
-                    var card2 = dealingStack.repeater.itemAt(jjj)
+                    card2 = dealingStack.repeater.itemAt(jjj)
                 } while(card2 && card2.animating)
 
                 if(!card2) {
                     stop()
                     _dealt = true
+                    History.history.endMove()
                     return
                 }
 
@@ -490,8 +504,7 @@ Item {
             if(fromCard.up !== up)
                 flipCard(index, fromStack, up, false)
         }
-        if(_dealt)
-            History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up, flipZ)
+        History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up, flipZ)
         return true
     }
 
