@@ -92,7 +92,7 @@ MainView {
     }
 
     function setStats(dbName, won) {
-        initForTitle(dbName)
+        initDbForGame(dbName)
         var tempContents = {};
         tempContents = statsDoc.contents
         if(won) {
