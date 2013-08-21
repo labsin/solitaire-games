@@ -12,6 +12,7 @@ Item {
     property int noCardsOfSuit: noCards/suits
 
     property int _previousCount: 0
+    property variant chance
 
     signal  oneComming()
 
@@ -57,21 +58,26 @@ Item {
     function fillRandom(up, seed) {
         up = up?up:false
         deckModel.clear()
-        var chance
-        if(!seed)
-            chance = new Chance.Chance()
+        var tmpChance = chance
+        if(!seed || seed === -1)
+            tmpChance = new Chance.Chance()
         else
-            chance = new Chance.Chance(seed);
+            tmpChance = new Chance.Chance(seed);
         var tmpArr = new Array
         for(var iii=0; iii<noCards; iii++)
             tmpArr[iii] = iii;
         for(var jjj=0; jjj<noCards; jjj++) {
-            var rand = tmpArr.splice(chance.integer({min: 0, max: noCards-1-jjj}),1)
+            var rand = tmpArr.splice(tmpChance.integer({min: 0, max: noCards-1-jjj}),1)
             var suit = Math.floor(rand/noCardsOfSuit)+1
             var card = rand%13 + 1
             deck.oneComming()
             deckModel.append(makeArgs(suit, card, up))
         }
+        chance = tmpChance
+    }
+
+    function getSeed() {
+        return chance.seed
     }
 
     function makeArgs(suit, card, up) {
