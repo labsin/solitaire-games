@@ -22,6 +22,10 @@
                 this.seed = seed;
             }
         }
+        else {
+            seed = new Date().getTime();
+            this.seed = seed;
+        }
 
         // If no generator function was provided, use our MT
         if (typeof this.random === 'undefined') {
