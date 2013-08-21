@@ -201,7 +201,5 @@ Board {
     onInit: {
         var tmpGSL = [getStack1, getStack2, getStack3, getStack4]
         getStackList = tmpGSL;
-        // Starting the timer that does the animation
-        dealingTimder.start()
     }
 }

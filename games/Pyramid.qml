@@ -304,9 +304,6 @@ Board {
             tmpDM[iii].isUp = true
         }
         dealingModel = tmpDM;
-
-        // Starting the timer that does the animation
-        dealingTimder.start()
     }
 
     function createDMObjectForIndex(index) {

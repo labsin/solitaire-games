@@ -13,7 +13,6 @@ Board {
     property int takeStackCards: 3
 
     onInit: {
-        dealingTimder.start()
     }
 
     onSingelPress: {
