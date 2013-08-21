@@ -3,7 +3,8 @@ import Ubuntu.Components 0.1
 import "history.js" as History
 
 Item {
-    property bool _dealt: false
+    property bool _dealt: true
+    property bool _redoing: false
     property int _dealIndex: 0
     property real dealingPositionX: width
     property real dealingPositionY: height
@@ -48,28 +49,32 @@ Item {
     property Card hoverCard
     property bool floating: false
 
-    property int gameSeed
+    property double gameSeed
 
     property int _amoutMoving: 0
     property int _mouseSingleClickDelay: 150
+
+    property bool saveGameOnQuit: true
 
     property alias decks: dealingStack.decks
     property alias suits: dealingStack.suits
     property alias dealingTimder: dealingTimder
 
     signal singelPress(Card card, Stack stack)
-    signal startMove
-    signal endMove
+    signal startMove()
+    signal endMove()
+    signal loaded()
 
-    signal undo
-    signal redo
+    signal undo()
+    signal redo()
+
     property int historyIndex: 0
     property int historyLength: 0
     property bool hasPreviousMove: historyIndex>1
     property bool hasNextMove: historyIndex<historyLength
 
     signal end(bool won)
-    signal init()
+    signal init(variant savedGame, int savedGameIndex, double savedSeed)
 
     id: main
 
@@ -90,9 +95,14 @@ Item {
     }
 
     onUndo: {
+        print("onUndo")
         if(!hasPreviousMove || _amoutMoving!=0)
             return;
-        print("onUndo")
+        undoOne()
+    }
+
+    function undoOne() {
+        print("undoOne")
         var argsList = History.history.goBackAndReturn();
         if(!argsList)
             return
@@ -101,8 +111,8 @@ Item {
 
         for(var iii=0; iii<count; iii++) {
             var args = newArgsList[iii]
-            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromStack+" "+args.fromIndex+" "+args.fromUp + " " + args.flipZ)
-            moveCard(args.toIndex, args.toStack, args.fromStack,args.fromUp,args.flipZ)
+            print("undo: "+args.toIndex+" "+args.toStack+" "+args.fromIndex+" "+args.fromStack+" "+args.fromUp + " " + args.flipZ)
+            moveCard(args.toIndex, indexToStack(args.toStack), indexToStack(args.fromStack), args.fromUp, args.flipZ)
         }
     }
 
@@ -134,20 +144,29 @@ Item {
     }
 
     onRedo: {
+        print("onRedo")
         if(!hasNextMove || _amoutMoving!=0)
             return;
-        print("onRedo")
+        redoOne()
+    }
+
+    function redoOne() {
+        print("redoOne::"+historyIndex+"/"+historyLength)
         var argsList = History.history.returnAndGoForward();
-        if(!argsList)
-            return
-        var newArgsList = sortRedoList(argsList)
+        if(!argsList) {
+            print("returnAndGoForward failed")
+            return false
+        }
+        //var newArgsList = sortRedoList(argsList)
+        var newArgsList = argsList
         var count = newArgsList.length
 
         for(var iii=0; iii<count; iii++) {
             var args = newArgsList[iii]
-            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toStack+" "+args.toIndex+" "+args.toUp + " " + args.flipZ)
-            moveCard(args.fromIndex, args.fromStack, args.toStack,args.toUp, args.flipZ)
+            print("redo: "+args.fromIndex+" "+args.fromStack+" "+args.toIndex+" "+args.toStack+" "+args.toUp + " " + args.flipZ)
+            moveCard(args.fromIndex, indexToStack(args.fromStack), indexToStack(args.toStack), args.toUp, args.flipZ)
         }
+        return true
     }
 
     function sortRedoList(redoList) {
@@ -199,10 +218,9 @@ Item {
     }
 
     onInit: {
-        _dealt = false
-        History.init()
-        _dealIndex = 0
-        _amoutMoving = 0
+        print("onInit::"+savedSeed)
+        History.init(savedGame)
+        gameSeed = savedSeed
 
         var iii = 0;
         while(main.children[iii]) {
@@ -214,10 +232,61 @@ Item {
         }
 
         dealingStack.deck.fillRandom(false, gameSeed)
+        gameSeed = dealingStack.deck.getSeed()
+
+        _dealIndex = 0
+        _amoutMoving = 0
+
+        if(savedGameIndex>0) {
+            print("onInit: redo previousGame")
+            _redoing = true
+            while(historyIndex<savedGameIndex) {
+                if(!redoOne()) {
+                    print("onInit: redo failed")
+                    break;
+                }
+                else {
+                    print("onInit: redid one")
+                }
+            }
+            _redoing = false
+        }
+        else {
+            print("onInit: init new game")
+
+            _dealt = false
+        }
     }
 
-    Component.onCompleted: {
-        init()
+    Timer {
+        id: runOnesTimer
+        repeat: false
+        running: true
+        interval: 1
+        onTriggered: {
+            gamePage.initGame()
+        }
+    }
+
+    Component.onDestruction: {
+        print("onDestruction: "+saveGameOnQuit)
+        if(!saveGameOnQuit) {
+            gamePage.removeState()
+            return
+        }
+        var json = []
+        var saveIndex = 0
+        var saveSeed = gameSeed
+        if(hasPreviousMove) {
+            json = History.history.json
+            saveIndex = historyIndex
+        }
+        gamePage.saveState(json, saveIndex, saveSeed)
+    }
+
+    function preEnd(saveOnQuit) {
+        print("preEnd: "+ saveOnQuit)
+        saveGameOnQuit = saveOnQuit
     }
 
     MouseArea {
@@ -459,55 +528,6 @@ Item {
         }
     }
 
-    function moveCard(index, fromStack, toStack, up, flipZ) {
-        print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up+" "+flipZ)
-        var cardVar = fromStack.model.get(index)
-        if(!cardVar) {
-            print("No card at index in stack")
-            return false
-        }
-        var fromCard = fromStack.repeater.itemAt(index)
-        if(!fromCard) {
-            print("No card at index in stack")
-            return
-        }
-        var fromUp = fromCard.up
-        if(typeof flipZ === 'undefined')
-            flipZ = false
-        if(flipZ)
-            fromStack.flipZ = flipZ
-        if(typeof up === 'undefined')
-            up = fromUp
-        if(fromStack===toStack) {
-            if(!fromCard) {
-                print("Moving to the same stack")
-            }
-            if(fromCard) {
-                flipCard(index, fromStack, up)
-            }
-        }
-        else {
-            _amoutMoving++
-            fromStack.amountGoing++
-            toStack.amountComming++
-            fromCard.afterAnimation.connect(function() {
-                toStack.model.addFromCard(fromCard)
-                fromStack.model.remove(fromCard.stackIndex)
-                _amoutMoving--
-                if(_dealt)
-                    board.checkGame()
-            })
-            var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count-1+toStack.amountComming)
-            fromCard.x = mapPoint.x
-            fromCard.y = mapPoint.y
-            print("moveCard: card:"+fromCard.card+"/"+fromCard.suit+" to "+(toStack.count-1+toStack.amountComming))
-            if(fromCard.up !== up)
-                flipCard(index, fromStack, up, false)
-        }
-        History.history.addToHistory(index,fromStack,fromUp,toStack.count-1+toStack.amountComming,toStack,up, flipZ)
-        return true
-    }
-
     function flipCard(index, stack, up, record) {
         print("flipCard: "+index+" "+stack+" "+up)
         var card = stack.repeater.itemAt(index);
@@ -518,8 +538,79 @@ Item {
         if(card.up === up )
             return
         card.up = up
-        if(_dealt && record)
-            History.history.addToHistory(index,stack,!up,index,stack,up, false)
+        if(record)
+            History.history.addToHistory(index,stackToIndex(stack),!up,index,stackToIndex(stack),up, false)
+    }
+
+    function moveCard(index, fromStack, toStack, up, flipZ, animating) {
+        print("moveCard: "+index+" "+fromStack+" "+toStack+" "+up+" "+flipZ)
+        if(!fromStack) {
+            print("No fromStack")
+            return
+        }
+        if(!toStack) {
+            print("No toStack")
+            return
+        }
+        var cardVar = fromStack.model.get(index)
+        if(!cardVar) {
+            print("No card at index in stack")
+            return false
+        }
+        var fromCard = fromStack.repeater.itemAt(index)
+        if(!fromCard) {
+            print("No card at index in stack")
+            return
+        }
+
+        var fromUp = fromCard.up
+        if(typeof flipZ === 'undefined')
+            flipZ = false
+        if(flipZ)
+            fromStack.flipZ = flipZ
+        if(typeof up === 'undefined')
+            up = fromUp
+        if(typeof animating == 'undefined')
+            animating = !_redoing
+        if(fromStack===toStack) {
+            if(!fromCard) {
+                print("Moving to the same stack")
+            }
+            if(fromCard) {
+                flipCard(index, fromStack, up)
+            }
+        }
+        else {
+            fromStack.amountGoing++
+            toStack.amountComming++
+            if(animating) {
+                _amoutMoving++
+                fromCard.afterAnimation.connect(function() {
+                    toStack.model.addFromCard(fromCard)
+                    fromStack.model.remove(fromCard.stackIndex)
+                    _amoutMoving--
+                    if(_dealt && !_redoing)
+                        board.checkGame()
+                })
+                var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count-1+toStack.amountComming)
+                fromCard.x = mapPoint.x
+                fromCard.y = mapPoint.y
+                print("moveCard: card:"+fromCard.card+"/"+fromCard.suit+" to "+(toStack.count-1+toStack.amountComming))
+                if(fromCard.up !== up)
+                    flipCard(index, fromStack, up, false)
+            }
+            else {
+                print("moveCard: card:"+fromCard.card+"/"+fromCard.suit+" to "+(toStack.count-1+toStack.amountComming))
+                if(fromCard.up !== up)
+                    flipCard(index, fromStack, up, false)
+                toStack.model.addFromCard(fromCard)
+                fromStack.model.remove(fromCard.stackIndex)
+                if(_dealt && !_redoing)
+                    board.checkGame()
+            }
+        }
+        History.history.addToHistory(index,stackToIndex(fromStack),fromUp,toStack.count-1+toStack.amountComming,stackToIndex(toStack),up, flipZ)
+        return true
     }
 
     function moveCardAndFlip(index, fromStack, toStack, up) {
@@ -548,5 +639,63 @@ Item {
             previousSelectedStack.highlightFrom = -1
         if(floatingCard.front)
             floatingCard.front.shadowed = true
+    }
+
+    property variant stackList: []
+
+    function stackToIndex(stack) {
+        print("stackToIndex")
+        var stackIndex = -1
+        var boardIndex = -1
+        var tmpList = stackList
+        if(tmpList) {
+            stackIndex = tmpList.indexOf(stack)
+            if(stackIndex!==-1) {
+                print("stackToIndex::found in stackList "+stackIndex)
+                return stackIndex
+            }
+        }
+        var child
+        do {
+            boardIndex++
+            child = board.children[boardIndex]
+            if(child.objectName === "stack") {
+                stackIndex++
+            }
+            if(stack===child) {
+                print("stackToIndex::found in children "+stackIndex)
+                tmpList[stackIndex] = stack
+                stackList = tmpList
+                return stackIndex
+            }
+        } while(boardIndex<board.children.length-1)
+        print("stackToIndex::Not found")
+        return -1
+    }
+
+    function indexToStack(index) {
+        print("indexToStack")
+        if(stackList[index]) {
+            print("indexToStack::found in stackList "+index)
+            return stackList[index]
+        }
+        var tmpList = stackList
+        var stackIndex = -1
+        var boardIndex = -1
+        var stack
+        do {
+            boardIndex++
+            stack = board.children[boardIndex]
+            if(stack.objectName === "stack") {
+                stackIndex++
+            }
+            if(stackIndex===index) {
+                print("indexToStack::found in children "+index)
+                tmpList[stackIndex] = stack
+                stackList = tmpList
+                return stack
+            }
+        } while(boardIndex<board.children.length-1)
+        print("indexToStack::Not found")
     }
 }

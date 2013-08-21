@@ -3,23 +3,22 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Page {
+    id: page
 
-    Column {
-        width: parent.width
-
-        Repeater {
-            model: gamesModel
-            delegate: statsDelegate
-        }
+    ListView {
+        width: page.width
+        height: page.height
+        model: gamesModel
+        delegate: statsDelegate
     }
 
     Component {
         id: statsDelegate
 
         Column {
-            property int nrWins: statsDoc.contents[dbName]["won"]
-            property int nrLost: statsDoc.contents[dbName]["lost"]
-            visible: nrWins>0||nrLost>0
+            property int nrWins: getStats(dbName)["won"]
+            property int nrLost: getStats(dbName)["lost"]
+            visible: true || nrWins>0 || nrLost>0
             width: parent.width
 
             ListItem.Header {

@@ -9,7 +9,7 @@ Flipable {
     property bool up: outline||shadow?false:true
     property bool outline: false
     property bool shadow: false
-    property bool animated: true
+    property bool animated: !board._redoing
     property bool animating: xAnimation.running || yAnimation.running || angleAnimation.running
     property bool moveable: false
     property bool highlighted: false

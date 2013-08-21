@@ -1,19 +1,24 @@
 var history
 
 var History = function(savedGame) {
+    var newSavedGame
     if(!savedGame) {
-        savedGame = []
+        newSavedGame = []
     }
-    print("History::"+savedGame.toString())
+    else {
+        newSavedGame = savedGame
+    }
+
+    print("History::"+newSavedGame.toString()+newSavedGame.length)
     this.marking = false
-    this.json = savedGame
+    this.json = newSavedGame
+    historyIndex = 0
     if(!this.json.length) {
         historyLength = 0
     }
     else {
         historyLength = this.json.length
     }
-    historyIndex = 0
 }
 
 History.prototype.addToHistory = function (fromIndex, fromStack, fromUp, toIndex, toStack, toUp, flipZ) {

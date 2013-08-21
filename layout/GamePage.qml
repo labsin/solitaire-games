@@ -3,6 +3,7 @@ import Ubuntu.Components 0.1
 import Ubuntu.Components.Popups 0.1
 
 Page {
+    id: gamePage
     property alias loader: gameLoader
 
     NoGame {
@@ -38,6 +39,22 @@ Page {
             setStats(gamesModel.get(selectedGameIndex).dbName, won)
             PopupUtils.open("EndDialog.qml", gamePage, {"won":won})
         }
+    }
+
+    function initGame() {
+        print("initGame")
+        var savedGame = getSaveState(gamesModel.get(selectedGameIndex).dbName)
+        var savedGameIndex = getSaveStateIndex(gamesModel.get(selectedGameIndex).dbName)
+        var savedSeed = getSaveStateSeed(gamesModel.get(selectedGameIndex).dbName)
+        gameLoader.item.init(savedGame, savedGameIndex, savedSeed)
+    }
+
+    function saveState(saveState, savedIndex, savedSeed) {
+        setSaveState(gamesModel.get(selectedGameIndex).dbName, saveState, savedIndex, savedSeed)
+    }
+
+    function removeState() {
+        removeSaveState(gamesModel.get(selectedGameIndex).dbName)
     }
 
     tools: ToolbarItems {

@@ -87,7 +87,7 @@ Item {
 
             onAfterAnimation: repeater.checkUpCards()
             Component.onCompleted: {
-                print("itemAdded: "+stackIndex+" still "+stack.amountComming)
+                print("itemAdded: "+stackIndex)
                 if(amountComming>0) {
                     stack.amountComming--
                     repeater.checkUpCards()
@@ -95,13 +95,15 @@ Item {
                 if(stack.amountComming === 0) {
                     stack.flipZ = false
                 }
+                print("itemAdded: still "+stack.amountComming)
             }
             Component.onDestruction: {
-                print("itemRemoved: "+stackIndex+" still "+stack.amountGoing)
+                print("itemRemoved: "+stackIndex)
                 if(stack.amountGoing>0) {
                     stack.amountGoing--
                     repeater.checkUpCards()
                 }
+                print("itemRemoved: still "+stack.amountGoing)
             }
         }
 

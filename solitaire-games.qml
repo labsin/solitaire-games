@@ -27,6 +27,8 @@ MainView {
     width: units.gu(80)
     height: units.gu(80)
 
+    id: mainView
+
     property int selectedGameIndex:-1
     property string selectedGameTitle: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).title
 
@@ -82,12 +84,14 @@ MainView {
 
     function newGame() {
         tabs.selectedTabIndex=0
+        if(gamePage.loader.item)
+            gamePage.loader.item.preEnd(false)
         gamePage.loader.source = ""
         setStats(gamesModel.get(selectedGameIndex).dbName, false)
     }
 
     function restartGame() {
-        gamePage.loader.item.init()
+        gamePage.loader.item.init([], 0, gamePage.loader.item.gameSeed)
         setStats(gamesModel.get(selectedGameIndex).dbName, false)
     }
 
@@ -104,20 +108,69 @@ MainView {
         statsDoc.contents = tempContents
     }
 
-    function initDbForGame(dbName) {
-        if(!statsDoc.contents) {
-            var tempContents = {};
-        }
-        else {
-            tempContents = statsDoc.contents
-        }
-
-        if(!tempContents[dbName]) {
-            tempContents[dbName] = {"won":0,"lost":0}
-        }
-        statsDoc.contents = tempContents
+    function getStats(dbName) {
+        return statsDoc.contents[dbName]
     }
 
+    function removeSaveState(dbName) {
+        print("removeSaveState")
+        setSaveState(dbName, [], 0, -1)
+    }
+
+    function setSaveState(dbName, json, index, savedSeed) {
+        print("setSaveState:"+dbName+" "+index+" "+savedSeed)
+        var tmpContents = {};
+        tmpContents = savesDoc.contents
+        tmpContents[dbName]["saveState"] = json
+        tmpContents[dbName]["savedHistoryIndex"] = index
+        tmpContents[dbName]["savedSeed"] = savedSeed
+        savesDoc.contents = tmpContents
+    }
+
+    function getSaveState(dbName) {
+        return savesDoc.contents[dbName]["saveState"]
+    }
+
+    function getSaveStateIndex(dbName) {
+        print("getSaveStateIndex::"+savesDoc.contents[dbName]["savedHistoryIndex"])
+        return savesDoc.contents[dbName]["savedHistoryIndex"]
+    }
+
+    function getSaveStateSeed(dbName) {
+        print("getSaveStateSeed::"+savesDoc.contents[dbName]["savedSeed"])
+        return savesDoc.contents[dbName]["savedSeed"]
+    }
+
+
+    function initDbForGame(dbName) {
+        print("initDbForGame: "+dbName)
+        var tempStats = {};
+        if(statsDoc.contents) {
+            tempStats = statsDoc.contents
+        }
+
+        if(!tempStats[dbName]) {
+            tempStats[dbName] = {}
+            tempStats[dbName]["won"] = 0
+            tempStats[dbName]["lost"] = 0
+        }
+
+        statsDoc.contents = tempStats
+
+        var tempSaves = {}
+        if(savesDoc.contents) {
+            tempSaves = savesDoc.contents
+        }
+
+        if(!tempSaves[dbName]) {
+            tempSaves[dbName] = {}
+            tempSaves[dbName]["saveState"] = []
+            tempSaves[dbName]["savedHistoryIndex"] = 0
+            tempSaves[dbName]["savedSeed"] = -1
+        }
+
+        savesDoc.contents = tempSaves
+    }
 
     U1db.Database {
         id: mainDb
@@ -128,6 +181,14 @@ MainView {
         id: statsDoc
         database: mainDb
         docId: 'stats'
+        create: true
+        defaults: {}
+    }
+
+    U1db.Document {
+        id: savesDoc
+        database: mainDb
+        docId: 'saveStates'
         create: true
         defaults: {}
     }
