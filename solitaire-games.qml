@@ -31,6 +31,7 @@ MainView {
 
     property int selectedGameIndex:-1
     property string selectedGameTitle: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).title
+    property string selectedGameDbName: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).dbName
 
     XmlListModel {
         id: gamesModel
@@ -87,12 +88,12 @@ MainView {
         if(gamePage.loader.item)
             gamePage.loader.item.preEnd(false)
         gamePage.loader.source = ""
-        setStats(gamesModel.get(selectedGameIndex).dbName, false)
+        setStats(selectedGameDbName, false)
     }
 
     function restartGame() {
         gamePage.loader.item.init([], 0, gamePage.loader.item.gameSeed)
-        setStats(gamesModel.get(selectedGameIndex).dbName, false)
+        setStats(selectedGameDbName, false)
     }
 
     function setStats(dbName, won) {

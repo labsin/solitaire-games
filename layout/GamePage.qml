@@ -41,25 +41,25 @@ Page {
     Connections {
         target: gameLoader.item
         onEnd: {
-            setStats(gamesModel.get(selectedGameIndex).dbName, won)
+            setStats(selectedGameDbName, won)
             PopupUtils.open("EndDialog.qml", gamePage, {"won":won})
         }
     }
 
     function initGame() {
-        print("initGame")
-        var savedGame = getSaveState(gamesModel.get(selectedGameIndex).dbName)
-        var savedGameIndex = getSaveStateIndex(gamesModel.get(selectedGameIndex).dbName)
-        var savedSeed = getSaveStateSeed(gamesModel.get(selectedGameIndex).dbName)
+        print("initGame:"+selectedGameDbName)
+        var savedGame = getSaveState(selectedGameDbName)
+        var savedGameIndex = getSaveStateIndex(selectedGameDbName)
+        var savedSeed = getSaveStateSeed(selectedGameDbName)
         gameLoader.item.init(savedGame, savedGameIndex, savedSeed)
     }
 
     function saveState(saveState, savedIndex, savedSeed) {
-        setSaveState(gamesModel.get(selectedGameIndex).dbName, saveState, savedIndex, savedSeed)
+        setSaveState(selectedGameDbName, saveState, savedIndex, savedSeed)
     }
 
     function removeState() {
-        removeSaveState(gamesModel.get(selectedGameIndex).dbName)
+        removeSaveState(selectedGameDbName)
     }
 
     tools: ToolbarItems {
