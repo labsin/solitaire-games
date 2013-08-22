@@ -6,8 +6,8 @@ Page {
     id: page
 
     ListView {
-        width: page.width
-        height: page.height
+        id: listView
+        anchors.fill: parent
         model: gamesModel
         delegate: statsDelegate
     }
