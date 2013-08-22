@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=solitaire-games
-Comment=My project description
-Exec=/usr/bin/qmlscene $@ /usr/share/solitaire-games/solitaire-games.qml
+Comment=A collection of solitaire card games
+Exec=qmlscene $@ solitaire-games.qml
 Icon=qmlscene
 Terminal=false
 Type=Application

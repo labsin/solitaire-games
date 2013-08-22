@@ -1,0 +1,19 @@
+{
+    "framework": "ubuntu-sdk-13.10",
+    "maintainer": "Sam Segers",
+    "name": "be.samsegers.solitaire-games",
+    "security": {
+        "profiles": {
+            "solitaire-games": {
+                "policy_groups": [
+                    "networking",
+                    "",
+                    ""
+                ],
+                "policy_version": 1
+            }
+        }
+    },
+    "title": "Solitaire Games",
+    "version": "0.1"
+}
