@@ -19,6 +19,9 @@ Project {
         filter: "*.desktop"
     }
     Files {
+        filter: "*.xml"
+    }
+    Files {
         filter: "Makefile"
     }
     Files {
