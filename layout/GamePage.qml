@@ -9,6 +9,7 @@ Page {
     NoGame {
         anchors.fill: parent
         visible: gameLoader.status !== Loader.Ready
+        loading: gameLoader.status === Loader.Loading
     }
 
     Loader {
