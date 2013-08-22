@@ -261,7 +261,7 @@ Item {
     Timer {
         id: runOnesTimer
         repeat: false
-        running: true
+        running: false
         interval: 1
         onTriggered: {
             gamePage.initGame()

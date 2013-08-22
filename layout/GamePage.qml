@@ -16,9 +16,13 @@ Page {
         y: 0
         id: gameLoader
         source: ""
-        //TODO: load asynchronous gives problem with the repeater adding and removing items
-        //asynchronous: true
-        //visible: status == Loader.Ready
+        asynchronous: true
+        visible: status == Loader.Ready
+        onStatusChanged: {
+            if(status === Loader.Ready) {
+                initGame()
+            }
+        }
     }
 
     Binding {
