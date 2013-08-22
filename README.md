@@ -1,16 +1,41 @@
-solitaire-games
-===============
+# Solitaire Games
 
-A set of solitaire card games made for the Ubuntu Touch Appshopdown
+A set of solitaire card games made for the Ubuntu Touch App Showdown
 
 
-TODO
-====
+## Requirements
 
-Better xml listing of games (with db key and game rules)
+* Ubuntu SDK
 
-Better layout for mobile (never tested)
+* nemomobile folderlistmodel -
 
-Better scaleability (cards get really small)
+    https://code.launchpad.net/~ajalkane/ubuntu-filemanager-app/qml-folderlistmodel
 
-More games
+* U1db - qtdeclarative5-u1db1.0
+
+
+## Usage
+
+In Ubuntu sdk you can make a click package at >packaging
+
+Next you can issue:
+
+`sudo click install --force-missing-framework --user=$USER ./*.click`
+
+in the directory of the click package.
+
+The app is installed in /opt/click.ubuntu.com/be.samsegers.solitaire-games/current
+
+You can issue `qmlscene $@ solitaire-games.qml` from there to run it.
+
+
+## TODO
+
+* Better xml listing of games (with db key and game rules)
+
+* Better layout for mobile (never tested)
+
+* Better scaleability (cards get really small)
+
+* More games
+
