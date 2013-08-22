@@ -21,9 +21,9 @@ MainView {
     */
     automaticOrientation: true
 
-    headerColor: "DarkGreen"
-    backgroundColor: "Green"
-    footerColor: "Green"
+    headerColor: "#092200"
+    backgroundColor: "#144E00"
+    footerColor: "#1D7300"
     
     width: units.gu(80)
     height: units.gu(80)
