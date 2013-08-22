@@ -26,8 +26,8 @@ Page {
         ListItem.Standard {
             text: title
             onClicked: {
+                gamePage.setSource(Qt.resolvedUrl("../games/"+path))
                 selectedGameIndex = index
-                gamePage.loader.source = Qt.resolvedUrl("../games/"+path)
                 tabs.selectedTabIndex = 1
             }
         }

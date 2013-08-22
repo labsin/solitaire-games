@@ -5,6 +5,7 @@ import "history.js" as History
 Item {
     property bool _dealt: true
     property bool _redoing: false
+    property bool _saved: false
     property int _dealIndex: 0
     property real dealingPositionX: width
     property real dealingPositionY: height
@@ -269,7 +270,14 @@ Item {
     }
 
     Component.onDestruction: {
-        print("onDestruction: "+saveGameOnQuit)
+        print("onDestruction")
+        saveGame()
+    }
+
+    function saveGame() {
+        print("saveGame: "+saveGameOnQuit+" "+_saved)
+        if(_saved)
+            return;
         if(!saveGameOnQuit) {
             gamePage.removeState()
             return
@@ -282,6 +290,7 @@ Item {
             saveIndex = historyIndex
         }
         gamePage.saveState(json, saveIndex, saveSeed)
+        _saved = true
     }
 
     function preEnd(saveOnQuit) {

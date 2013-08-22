@@ -62,6 +62,15 @@ Page {
         removeSaveState(selectedGameDbName)
     }
 
+    function setSource(path) {
+        if(gameLoader.source!=="") {
+            if(gameLoader.item) {
+                gameLoader.item.saveGame()
+            }
+        }
+        gameLoader.source = path
+    }
+
     tools: ToolbarItems {
         ToolbarButton {
             text: "undo"
