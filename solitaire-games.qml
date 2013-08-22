@@ -176,7 +176,7 @@ MainView {
 
     U1db.Database {
         id: mainDb
-        path: folderModel.homePath()+"/solitaireDb"
+        path: folderModel.getLocalFolder()+"/solitaireDb"
     }
 
     U1db.Document {
@@ -197,5 +197,10 @@ MainView {
 
     FolderListModel {
         id: folderModel
+        function getLocalFolder() {
+            // TODO: first check before making
+            folderModel.mkdir(folderModel.homePath()+"/.local/share/be.samsegers.solitaire-games")
+            return folderModel.homePath()+"/.local/share/be.samsegers.solitaire-games"
+        }
     }
 }
