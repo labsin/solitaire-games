@@ -3,35 +3,49 @@
     <title>Klondike (3 cards)</title>
     <path>Klondike.qml</path>
     <db-name>klondike3</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Klondike&lt;/i&gt;&lt;/b&gt; is a patience game (solitaire card game). Many people refer to Klondike as &lt;b&gt;&lt;i&gt;patience&lt;/i&gt;&lt;/b&gt; or &lt;b&gt;&lt;i&gt;solitaire&lt;/i&gt;&lt;/b&gt;, it being one of the better known of the family of patience games.</info>
+    <rules>-</rules>
   </game>
   <game>
     <title>Klondike (1 card)</title>
     <path>1CKlondike.qml</path>
     <db-name>klondike1</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Klondike&lt;/i&gt;&lt;/b&gt; is a patience game (solitaire card game). Many people refer to Klondike as &lt;b&gt;&lt;i&gt;patience&lt;/i&gt;&lt;/b&gt; or &lt;b&gt;&lt;i&gt;solitaire&lt;/i&gt;&lt;/b&gt;, it being one of the better known of the family of patience games.</info>
+    <rules>-</rules>
   </game>
   <game>
     <title>Spider</title>
     <path>Spider.qml</path>
     <db-name>spider</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Spider&lt;/i&gt;&lt;/b&gt; is a type of Patience game. It is one of the more popular two-deck solitaire games.</info>
+    <rules>-</rules>
   </game>
   <game>
     <title>Spider (2 color)</title>
     <path>2CSpider.qml</path>
     <db-name>spider2</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Spider&lt;/i&gt;&lt;/b&gt; is a type of Patience game. It is one of the more popular two-deck solitaire games.</info>
+    <rules>-</rules>
   </game>
   <game>
     <title>Spider (1 color)</title>
     <path>1CSpider.qml</path>
     <db-name>spider1</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Spider&lt;/i&gt;&lt;/b&gt; is a type of Patience game. It is one of the more popular two-deck solitaire games.</info>
+    <rules>-</rules>
   </game>
   <game>
     <title>Pyramid</title>
     <path>Pyramid.qml</path>
     <db-name>pyramid</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Pyramid&lt;/i&gt;&lt;/b&gt; is a solitaire game where the object is to get all the cards from the pyramid to the foundation.</info>
+    <rules>-</rules>
   </game>
   <game>
     <title>Aces Up</title>
     <path>AcesUp.qml</path>
     <db-name>acesup</db-name>
+    <info>&lt;b&gt;&lt;i&gt;Aces Up&lt;/i&gt;&lt;/b&gt; (also known as &lt;b&gt;&lt;i&gt;Idiot's Delight&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Once in a Lifetime&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Ace of the Pile&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Rocket to the Top&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Firing Squad&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Loser Solitaire&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Aces High&lt;/i&gt;&lt;/b&gt;, and &lt;b&gt;&lt;i&gt;Drivel&lt;/i&gt;&lt;/b&gt;) is a solitaire card game using a deck of 52 playing cards. One advantage of this game is its minimal use of space: one can even play it on an area as small as an encyclopedia volume cover.</info>
+    <rules>-</rules>
   </game>
 </games>
