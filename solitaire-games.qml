@@ -25,7 +25,7 @@ MainView {
     backgroundColor: "#144E00"
     footerColor: "#1D7300"
     
-    width: units.gu(80)
+    width: units.gu(100)
     height: units.gu(80)
 
     id: mainView
@@ -41,6 +41,8 @@ MainView {
         XmlRole { name: "title";   query: "title/string()"}
         XmlRole { name: "path";    query: "path/string()"}
         XmlRole { name: "dbName";    query: "db-name/string()"}
+        XmlRole { name: "rules";    query: "rules/string()"}
+        XmlRole { name: "info";    query: "info/string()"}
     }
     
     Tabs {
