@@ -28,6 +28,7 @@ The app is installed in /opt/click.ubuntu.com/be.samsegers.solitaire-games/curre
 
 You can issue `qmlscene $@ solitaire-games.qml` from there to run it.
 
+To build a deb package, copy the source in a new directory and issue `debuild -b` from the source to build the package. Afterwards you can use `sudo dpkg -i` in the parent directory to install it.
 
 ## TODO
 
