@@ -6,7 +6,7 @@ Dialog {
     property bool won: false
     id: endDialog
     title: won?"Won!":"Lost..."
-    text: won?"What's next?":"You lost... What's next?"
+    text: won?"What's next?":"... What's next?"
     Button {
         text: "nothing"
         gradient: UbuntuColors.greyGradient
@@ -23,16 +23,25 @@ Dialog {
     }
     Button {
         text: "try again"
+        visible: !won
         onClicked: {
             PopupUtils.close(endDialog)
             restartGame()
         }
     }
     Button {
+        text: "redeal"
+        visible: won
+        onClicked: {
+            PopupUtils.close(endDialog)
+            redealGame()
+        }
+    }
+    Button {
         text: "new game"
         onClicked: {
-            newGame()
             PopupUtils.close(endDialog)
+            newGame()
         }
     }
 }
