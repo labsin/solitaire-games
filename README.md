@@ -23,6 +23,14 @@ Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
 * U1db - qtdeclarative5-u1db1.0
 
 
+## Bugs
+
+Because I write javascript objects to u1db, I'm experiancing bug:
+https://bugs.launchpad.net/u1db-qt/+bug/1181359
+
+This should be resolved in 13.10, but not in 13.04
+
+
 ## Usage
 
 In Ubuntu sdk you can make a click package at >packaging. You will first need to remove the
