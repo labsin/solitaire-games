@@ -42,7 +42,7 @@ Page {
         target: gameLoader.item
         onEnd: {
             setStats(selectedGameDbName, won)
-            PopupUtils.open("EndDialog.qml", gamePage, {"won":won})
+            PopupUtils.open(Qt.resolvedUrl("EndDialog.qml"), gamePage, {"won":won})
         }
     }
 
