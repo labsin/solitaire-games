@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
+import Ubuntu.Components.Popups 0.1
 import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Page {
@@ -34,6 +35,7 @@ Page {
         id: gameDelegate
 
         ListItem.Standard {
+            id: thisItem
             text: title
             onClicked: {
                 if(_small) {
@@ -47,8 +49,59 @@ Page {
                     moreInfoFlickable.gameRules = rules
                 }
             }
+            onPressAndHold: {
+                if(_small)
+                    PopupUtils.open(infoPopoverComp, thisItem, {"index":index,"gameTitle":title,"gameRules":rules,"gameInfo":info})
+            }
         }
     }
+
+    Component {
+        id: infoPopoverComp
+
+        ActionSelectionPopover {
+            property int index: -1
+            property string gameTitle: "Select a game"
+            property string gameRules: ""
+            property string gameInfo: ""
+
+            id: infoPopover
+            actions: ActionList {
+              Action {
+                  text: "Info"
+                  onTriggered: {
+                      PopupUtils.open(infoOrRulesSheed, parent, {"index":index,"gameTitle":gameTitle,"mainText":gameInfo})
+                  }
+              }
+              Action {
+                  text: "Rules"
+                  onTriggered: {
+                      PopupUtils.open(infoOrRulesSheed, parent, {"index":index,"gameTitle":gameTitle,"mainText":gameRules})
+                  }
+              }
+            }
+        }
+    }
+
+    Component {
+        id: infoOrRulesSheed
+
+        DefaultSheet {
+            property string gameTitle: "Select a game"
+            property string mainText: ""
+
+            id: sheet
+            title: "Info on " + gameTitle
+            doneButton: false
+            Label {
+                anchors.fill: parent
+                text: mainText
+                wrapMode: Text.WordWrap
+            }
+            onDoneClicked: PopupUtils.close(sheet)
+        }
+    }
+
 
     Flickable {
         id: moreInfoFlickable
