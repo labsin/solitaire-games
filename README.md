@@ -5,6 +5,13 @@ A set of solitaire card games made for the Ubuntu Touch App Showdown
 For more info and download links, check the wiki at: https://github.com/labsin/solitaire-games/wiki
 
 
+## Licensing terms
+
+Vectorized Playing Cards 1.3 - http://code.google.com/p/vectorized-playing-cards/
+Copyright 2011 - Chris Aguilar
+Licensed under LGPL 3 - www.gnu.org/copyleft/lesser.html
+
+
 ## Requirements
 
 * Ubuntu SDK
@@ -33,6 +40,7 @@ You can issue `qmlscene $@ solitaire-games.qml` from there to run it.
 To build a deb package, copy the source in a new directory and issue
 `debuild -b` from the source folder to build the package.
 Afterwards you can use `sudo dpkg -i ./*.deb` in the parent directory to install it.
+
 
 ## TODO
 
