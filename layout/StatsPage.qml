@@ -18,7 +18,7 @@ Page {
         Column {
             property int nrWins: getStats(dbName)["won"]
             property int nrLost: getStats(dbName)["lost"]
-            visible: true || nrWins>0 || nrLost>0
+            visible: nrWins>0 || nrLost>0
             width: parent.width
 
             ListItem.Header {
