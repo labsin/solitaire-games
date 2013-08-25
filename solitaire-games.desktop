@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Solitaire Games
 Comment=A collection of solitaire card games
-Exec=qmlscene $@ /opt/click.ubuntu.com/be.samsegers.solitaire-games/current/solitaire-games.qml
+Exec=qmlscene $@ solitaire-games.qml
 Icon=qmlscene
 Terminal=false
 Type=Application
