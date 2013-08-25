@@ -60,7 +60,7 @@ MainView {
 
         Tab {
             anchors.fill: parent
-            title: i18n.tr("Game")
+            title: selectedGameIndex===-1?i18n.tr("Game"):selectedGameTitle
             page: GamePage {
                 id: gamePage
 
@@ -91,12 +91,14 @@ MainView {
         if(gamePage.loader.item)
             gamePage.loader.item.preEnd(false)
         gamePage.loader.source = ""
-        setStats(selectedGameDbName, false)
     }
 
     function restartGame() {
         gamePage.loader.item.init([], 0, gamePage.loader.item.gameSeed)
-        setStats(selectedGameDbName, false)
+    }
+
+    function redealGame() {
+        gamePage.loader.item.init([], 0, -1)
     }
 
     function setStats(dbName, won) {

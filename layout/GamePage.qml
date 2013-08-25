@@ -90,12 +90,21 @@ Page {
             text: "new game"
             onTriggered: {
                 newGame()
+                setStats(selectedGameDbName, false)
+            }
+        }
+        ToolbarButton {
+            text: "redeal"
+            onTriggered: {
+                redealGame()
+                setStats(selectedGameDbName, false)
             }
         }
         ToolbarButton {
             text: "restart"
             onTriggered: {
                 restartGame()
+                setStats(selectedGameDbName, false)
             }
         }
     }
