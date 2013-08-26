@@ -5,6 +5,7 @@ import "history.js" as History
 Item {
     property bool _dealt: true
     property bool _redoing: false
+    property bool _moving: _amoutMoving>0
     property bool _saved: false
     property int _dealIndex: 0
     property real dealingPositionX: width
@@ -597,7 +598,7 @@ Item {
                     toStack.model.addFromCard(fromCard)
                     fromStack.model.remove(fromCard.stackIndex)
                     _amoutMoving--
-                    if(_dealt && !_redoing)
+                    if(_dealt && !_moving && !_redoing)
                         board.checkGame()
                 })
                 var mapPoint = toStack.mapToItemFromIndex(fromStack,toStack.count-1+toStack.amountComming)
@@ -613,7 +614,7 @@ Item {
                     flipCard(index, fromStack, up, false)
                 toStack.model.addFromCard(fromCard)
                 fromStack.model.remove(fromCard.stackIndex)
-                if(_dealt && !_redoing)
+                if(_dealt && !_moving && !_redoing)
                     board.checkGame()
             }
         }
