@@ -18,20 +18,23 @@ Page {
         Column {
             property int nrWins: getStats(dbName)["won"]
             property int nrLost: getStats(dbName)["lost"]
-            visible: nrWins>0 || nrLost>0
+            property bool _visible: nrWins>0 || nrLost>0
             width: parent.width
 
             ListItem.Header {
                 text: title
                 width: parent.width
+                visible: _visible
             }
 
             ListItem.Standard {
                 text: "won: "+nrWins
+                visible: _visible
             }
 
             ListItem.Standard {
                 text: "lost: "+nrLost
+                visible: _visible
             }
         }
     }

@@ -193,7 +193,7 @@ Page {
             }
 
             Button {
-                property bool redeal: moreInfoFlickable.gameIndex == selectedGameIndex
+                property bool redeal: moreInfoFlickable.gameIndex>=0 && moreInfoFlickable.gameIndex === selectedGameIndex
 
                 id: startButton
                 anchors.right: parent.right

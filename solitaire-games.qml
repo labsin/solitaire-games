@@ -90,10 +90,13 @@ MainView {
         tabs.selectedTabIndex=0
         if(gamePage.loader.item)
             gamePage.loader.item.preEnd(false)
-        gamePage.loader.source = ""
+        gamePage.setSource("")
+        selectedGameIndex = -1
     }
 
     function startGame(path, index) {
+        if(gamePage.loader.item)
+            gamePage.loader.item.preEnd(true)
         gamePage.setSource(Qt.resolvedUrl("games/"+path))
         selectedGameIndex = index
         tabs.selectedTabIndex = 1
