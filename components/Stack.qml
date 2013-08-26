@@ -10,6 +10,7 @@ Item {
     property real cardWidth: width
     property real cardHeight: height
     property Card lastCard: count > 0 ? repeater.itemAt(count - 1) : back
+    property Card backCard: back
     property bool cardsMoveable: false
     property bool cardsDropable: false
 
