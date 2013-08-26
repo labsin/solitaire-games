@@ -29,7 +29,7 @@ Board {
                     else {
                         moveCardAndFlip(
                                     stockStack.count-1,
-                                    stockStack, takeStack)
+                                    stockStack, waisteStack)
                     }
                 }
                 else {
@@ -124,7 +124,7 @@ Board {
     }
 
     function checkIfFree(stack) {
-        if(stack === stockStack || stack === takeStack)
+        if(stack === stockStack || stack === waisteStack)
             return true
         var index = tableauStackRep.indexOf(stack)
         if(index) {
@@ -190,7 +190,7 @@ Board {
     }
 
     Stack {
-        id: takeStack
+        id: waisteStack
         x: board.columnMargin*2 + board.columnWidth
         y: board.columnMargin
         cardWidth: board.columnWidth
