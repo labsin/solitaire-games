@@ -93,12 +93,20 @@ MainView {
         gamePage.loader.source = ""
     }
 
+    function startGame(path, index) {
+        gamePage.setSource(Qt.resolvedUrl("games/"+path))
+        selectedGameIndex = index
+        tabs.selectedTabIndex = 1
+    }
+
     function restartGame() {
         gamePage.loader.item.init([], 0, gamePage.loader.item.gameSeed)
+        tabs.selectedTabIndex = 1
     }
 
     function redealGame() {
         gamePage.loader.item.init([], 0, -1)
+        tabs.selectedTabIndex = 1
     }
 
     function setStats(dbName, won) {

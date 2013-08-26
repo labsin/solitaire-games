@@ -193,16 +193,21 @@ Page {
             }
 
             Button {
+                property bool redeal: moreInfoFlickable.gameIndex == selectedGameIndex
+
                 id: startButton
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.topMargin: units.gu(2)
                 anchors.bottomMargin: units.gu(7)
                 anchors.rightMargin: units.gu(5)
-                text: "Start"
+                text: redeal?"Redeal":"Start"
                 enabled: moreInfoFlickable.gameIndex!==-1
                 onClicked: {
-                    startGame(moreInfoFlickable.gamePath, moreInfoFlickable.gameIndex)
+                    if(redeal)
+                        redealGame()
+                    else
+                        startGame(moreInfoFlickable.gamePath, moreInfoFlickable.gameIndex)
                 }
             }
         }
@@ -234,10 +239,4 @@ Page {
             }
         }
     ]
-
-    function startGame(path, index) {
-        gamePage.setSource(Qt.resolvedUrl("../games/"+path))
-        selectedGameIndex = index
-        tabs.selectedTabIndex = 1
-    }
 }
