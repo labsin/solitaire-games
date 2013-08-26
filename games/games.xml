@@ -48,4 +48,11 @@
     <info>&lt;b&gt;&lt;i&gt;Aces Up&lt;/i&gt;&lt;/b&gt; (also known as &lt;b&gt;&lt;i&gt;Idiot's Delight&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Once in a Lifetime&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Ace of the Pile&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Rocket to the Top&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Firing Squad&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Loser Solitaire&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Aces High&lt;/i&gt;&lt;/b&gt;, and &lt;b&gt;&lt;i&gt;Drivel&lt;/i&gt;&lt;/b&gt;) is a solitaire card game using a deck of 52 playing cards. One advantage of this game is its minimal use of space: one can even play it on an area as small as an encyclopedia volume cover.</info>
     <rules>-</rules>
   </game>
+  <game>
+    <title>Freecell</title>
+    <path>Freecell.qml</path>
+    <db-name>freecell</db-name>
+    <info>Freecell</info>
+    <rules>-</rules>
+  </game>
 </games>

@@ -22,7 +22,7 @@ Board {
             if(deckReadyForNew()) {
                 var count = stockStack.count
                 for (var iii = 1; iii <= 10; iii++) {
-                    moveCard(count-iii, stockStack, moveStackList[iii-1], true)
+                    moveCard(count-iii, stockStack, tableauStackList[iii-1], true)
                 }
             }
         }
@@ -31,7 +31,7 @@ Board {
 
     function deckReadyForNew() {
         for(var iii=0; iii<10; iii++) {
-            if(moveStackList[iii].count===0) {
+            if(tableauStackList[iii].count===0) {
                 return false
             }
         }
@@ -106,11 +106,11 @@ Board {
     }
 
     function checkGame() {
-        if (moveStack1.count === 0 && moveStack2.count === 0
-                && moveStack3.count === 0 && moveStack4.count === 0
-                && moveStack5.count === 0 && moveStack6.count === 0
-                && moveStack7.count === 0 && moveStack8.count === 0
-                && moveStack9.count === 0 && moveStack10.count === 0) {
+        if (tableauStack1.count === 0 && tableauStack2.count === 0
+                && tableauStack3.count === 0 && tableauStack4.count === 0
+                && tableauStack5.count === 0 && tableauStack6.count === 0
+                && tableauStack7.count === 0 && tableauStack8.count === 0
+                && tableauStack9.count === 0 && tableauStack10.count === 0) {
             end(true)
         }
     }
@@ -162,8 +162,8 @@ Board {
     property int yCardSpace: (height - 1.5*columnHeight - 3*columnMargin)/cardMarginY
 
     Stack {
-        id: moveStack10
-        x: moveStack9.x + board.columnWidth + board.columnMargin
+        id: tableauStack10
+        x: tableauStack9.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -177,8 +177,8 @@ Board {
     }
 
     Stack {
-        id: moveStack9
-        x: moveStack8.x + board.columnWidth + board.columnMargin
+        id: tableauStack9
+        x: tableauStack8.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -192,8 +192,8 @@ Board {
     }
 
     Stack {
-        id: moveStack8
-        x: moveStack7.x + board.columnWidth + board.columnMargin
+        id: tableauStack8
+        x: tableauStack7.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -207,8 +207,8 @@ Board {
     }
 
     Stack {
-        id: moveStack7
-        x: moveStack6.x + board.columnWidth + board.columnMargin
+        id: tableauStack7
+        x: tableauStack6.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -222,8 +222,8 @@ Board {
     }
 
     Stack {
-        id: moveStack6
-        x: moveStack5.x + board.columnWidth + board.columnMargin
+        id: tableauStack6
+        x: tableauStack5.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -237,8 +237,8 @@ Board {
     }
 
     Stack {
-        id: moveStack5
-        x: moveStack4.x + board.columnWidth + board.columnMargin
+        id: tableauStack5
+        x: tableauStack4.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -252,8 +252,8 @@ Board {
     }
 
     Stack {
-        id: moveStack4
-        x: moveStack3.x + board.columnWidth + board.columnMargin
+        id: tableauStack4
+        x: tableauStack3.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -267,8 +267,8 @@ Board {
     }
 
     Stack {
-        id: moveStack3
-        x: moveStack2.x + board.columnWidth + board.columnMargin
+        id: tableauStack3
+        x: tableauStack2.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -282,8 +282,8 @@ Board {
     }
 
     Stack {
-        id: moveStack2
-        x: moveStack1.x + board.columnWidth + board.columnMargin
+        id: tableauStack2
+        x: tableauStack1.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -297,7 +297,7 @@ Board {
     }
 
     Stack {
-        id: moveStack1
+        id: tableauStack1
         x: board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
@@ -311,7 +311,7 @@ Board {
         cardsDropable: true
     }
 
-    property list<Stack> moveStackList
+    property list<Stack> tableauStackList
 
     Stack {
         id: foundationStack8
@@ -427,12 +427,12 @@ Board {
     }
 
     onInit: {
-        // Setting up the moveStackList
-        var tmpMSL = [moveStack1,moveStack2,moveStack3,
-                moveStack4,moveStack5,moveStack6,
-                moveStack7,moveStack8,moveStack9,
-                moveStack10]
-        moveStackList = tmpMSL
+        // Setting up the tableauStackList
+        var tmpMSL = [tableauStack1,tableauStack2,tableauStack3,
+                tableauStack4,tableauStack5,tableauStack6,
+                tableauStack7,tableauStack8,tableauStack9,
+                tableauStack10]
+        tableauStackList = tmpMSL
         var tmpDM = []
         for(var iii=0;iii<44;iii++) {
             tmpDM[iii] = createDMObjectForIndex(iii)
@@ -447,25 +447,25 @@ Board {
     function createDMObjectForIndex(index) {
         switch(index%10) {
         case 0:
-            return createDMObject(moveStack1)
+            return createDMObject(tableauStack1)
         case 1:
-            return createDMObject(moveStack2)
+            return createDMObject(tableauStack2)
         case 2:
-            return createDMObject(moveStack3)
+            return createDMObject(tableauStack3)
         case 3:
-            return createDMObject(moveStack4)
+            return createDMObject(tableauStack4)
         case 4:
-            return createDMObject(moveStack5)
+            return createDMObject(tableauStack5)
         case 5:
-            return createDMObject(moveStack6)
+            return createDMObject(tableauStack6)
         case 6:
-            return createDMObject(moveStack7)
+            return createDMObject(tableauStack7)
         case 7:
-            return createDMObject(moveStack8)
+            return createDMObject(tableauStack8)
         case 8:
-            return createDMObject(moveStack9)
+            return createDMObject(tableauStack9)
         case 9:
-            return createDMObject(moveStack10)
+            return createDMObject(tableauStack10)
         }
     }
 
