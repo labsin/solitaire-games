@@ -130,6 +130,7 @@ Board {
             storeStack(stack)
         }
     }
+
     function storeStack(stack) {
         var toStack
         var suit = stack.lastCard.suit
@@ -322,7 +323,7 @@ Board {
 
         placeholderSuit: 4
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -335,7 +336,7 @@ Board {
 
         placeholderSuit: 3
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -348,7 +349,7 @@ Board {
 
         placeholderSuit: 2
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -361,7 +362,7 @@ Board {
 
         placeholderSuit: 1
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -374,7 +375,7 @@ Board {
 
         placeholderSuit: 4
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -387,7 +388,7 @@ Board {
 
         placeholderSuit: 3
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -400,7 +401,7 @@ Board {
 
         placeholderSuit: 2
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
@@ -413,7 +414,7 @@ Board {
 
         placeholderSuit: 1
 
-        cardsDropable: true
+        cardsDropable: false
     }
 
     Stack {
