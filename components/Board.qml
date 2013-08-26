@@ -391,7 +391,7 @@ Item {
                 _dealIndex++
             }
             else {
-                if(!stockStack) {
+                if(typeof stockStack === 'undefined') {
                     stop()
                     _dealt = true
                     History.history.endMove()
