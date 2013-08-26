@@ -19,28 +19,28 @@ Board {
         if(!checkIfFree(stack))
             return
         startMove()
-        if (stack === deckStack) {
-            if(deckStack.count!==0) {
-                if(deckStack.lastCard.up) {
-                    if(deckStack.lastCard.card===13)
+        if (stack === stockStack) {
+            if(stockStack.count!==0) {
+                if(stockStack.lastCard.up) {
+                    if(stockStack.lastCard.card===13)
                         moveCardAndFlip(
-                                    deckStack.count-1,
-                                    deckStack, putStack)
+                                    stockStack.count-1,
+                                    stockStack, foundationStack)
                     else {
                         moveCardAndFlip(
-                                    deckStack.count-1,
-                                    deckStack, takeStack)
+                                    stockStack.count-1,
+                                    stockStack, takeStack)
                     }
                 }
                 else {
-                    flipCard(deckStack.count-1, deckStack)
+                    flipCard(stockStack.count-1, stockStack)
                 }
             }
         } else {
             if(stack.lastCard.card === 13 )
                 moveCard(
                             stack.count-1,
-                            stack, putStack)
+                            stack, foundationStack)
         }
         endMove()
     }
@@ -51,29 +51,29 @@ Board {
                 if (hoverStack) {
                     if (previousSelectedStack.highlightFrom !== -1) {
                         startMove()
-                        if(previousSelectedStack === deckStack) {
+                        if(previousSelectedStack === stockStack) {
                             moveCardAndFlip(
-                                        deckStack.count-1,
-                                        deckStack, putStack)
+                                        stockStack.count-1,
+                                        stockStack, foundationStack)
                             moveCard(
                                         hoverStack.count-1,
-                                        hoverStack, putStack)
+                                        hoverStack, foundationStack)
                         }
-                        else if(hoverStack === deckStack) {
+                        else if(hoverStack === stockStack) {
                             moveCardAndFlip(
-                                        deckStack.count-1,
-                                        deckStack, putStack)
+                                        stockStack.count-1,
+                                        stockStack, foundationStack)
                             moveCard(
                                         previousSelectedStack.count-1,
-                                        previousSelectedStack, putStack)
+                                        previousSelectedStack, foundationStack)
                         }
                         else {
                             moveCard(
                                         previousSelectedStack.count-1,
-                                        previousSelectedStack, putStack)
+                                        previousSelectedStack, foundationStack)
                             moveCard(
                                         hoverStack.count-1,
-                                        hoverStack, putStack)
+                                        hoverStack, foundationStack)
                         }
                         endMove()
                     }
@@ -124,29 +124,29 @@ Board {
     }
 
     function checkIfFree(stack) {
-        if(stack === deckStack || stack === takeStack)
+        if(stack === stockStack || stack === takeStack)
             return true
-        var index = getStacksRep.indexOf(stack)
+        var index = tableauStackRep.indexOf(stack)
         if(index) {
             if(stack.count===0)
                 return true
             if(index===0) {
-                return getStacksRep.itemAt(1).count===0 && getStacksRep.itemAt(2).count===0
+                return tableauStackRep.itemAt(1).count===0 && tableauStackRep.itemAt(2).count===0
             }
             else if(index<3) {
-                return getStacksRep.itemAt(index+2).count===0 && getStacksRep.itemAt(index+3).count===0
+                return tableauStackRep.itemAt(index+2).count===0 && tableauStackRep.itemAt(index+3).count===0
             }
             else if(index<6) {
-                return getStacksRep.itemAt(index+3).count===0 && getStacksRep.itemAt(index+4).count===0
+                return tableauStackRep.itemAt(index+3).count===0 && tableauStackRep.itemAt(index+4).count===0
             }
             else if(index<10) {
-                return getStacksRep.itemAt(index+4).count===0 && getStacksRep.itemAt(index+5).count===0
+                return tableauStackRep.itemAt(index+4).count===0 && tableauStackRep.itemAt(index+5).count===0
             }
             else if(index<15) {
-                return getStacksRep.itemAt(index+5).count===0 && getStacksRep.itemAt(index+6).count===0
+                return tableauStackRep.itemAt(index+5).count===0 && tableauStackRep.itemAt(index+6).count===0
             }
             else if(index<21) {
-                return getStacksRep.itemAt(index+6).count===0 && getStacksRep.itemAt(index+7).count===0
+                return tableauStackRep.itemAt(index+6).count===0 && tableauStackRep.itemAt(index+7).count===0
             }
             else {
                 return true
@@ -156,15 +156,15 @@ Board {
     }
 
     function checkGame() {
-        for(var iii = 0; iii<getStacksRep.count; iii++) {
-            if(getStacksRep.itemAt(iii).count>0)
+        for(var iii = 0; iii<tableauStackRep.count; iii++) {
+            if(tableauStackRep.itemAt(iii).count>0)
                 return false
         }
         end(true)
     }
 
     Stack {
-        id: putStack
+        id: foundationStack
         x: board.width - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
@@ -178,7 +178,7 @@ Board {
     }
 
     Stack {
-        id: deckStack
+        id: stockStack
         x: board.columnMargin
         y: board.columnMargin
         cardWidth: board.columnWidth
@@ -202,7 +202,7 @@ Board {
     }
 
     Component {
-        id: geStacks
+        id: tableauStackComp
         Stack {
             id: thisStack
             width: board.columnWidth
@@ -217,15 +217,15 @@ Board {
             cardsMoveable: false
             cardsDropable: count>0?true:false
             Component.onCompleted: {
-                repeater.onItemAdded.connect(getStacksRep.checkAllIfFree)
+                repeater.onItemAdded.connect(tableauStackRep.checkAllIfFree)
             }
         }
     }
 
     Repeater {
-        id: getStacksRep
+        id: tableauStackRep
         model: 28
-        delegate: geStacks
+        delegate: tableauStackComp
 
         function checkAllIfFree() {
             for(var iii=0; iii<count; iii++) {
@@ -240,7 +240,7 @@ Board {
 
         function indexOf(item) {
             for (var iii = 0; iii < count; iii++) {
-                if (getStacksRep.itemAt(iii) === item)
+                if (tableauStackRep.itemAt(iii) === item)
                     return iii
             }
             return
@@ -307,7 +307,7 @@ Board {
     }
 
     function createDMObjectForIndex(index) {
-        return createDMObject(getStacksRep.itemAt(index))
+        return createDMObject(tableauStackRep.itemAt(index))
     }
 
     function createDMObject(stack) {

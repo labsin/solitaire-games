@@ -2,8 +2,8 @@ import QtQuick 2.0
 
 Item {
     id: stack
-    property bool goDown: false
-    property bool goRight: false
+    property bool fannedDown: false
+    property bool fannedRight: false
     property bool goUpZ: false
     property bool showHidden: true
     property bool transparant: false
@@ -138,7 +138,7 @@ Item {
         if (goUpZ) {
             return (index-_hiddenCards) * cardMarginX / 2
         }
-        if (goRight) {
+        if (fannedRight) {
             return (index-_hiddenCards) * cardMarginX * 1.5
         }
         return 0.0
@@ -150,7 +150,7 @@ Item {
         if (goUpZ) {
             return (index-_hiddenCards) * cardMarginY / 4
         }
-        if (goDown) {
+        if (fannedDown) {
             return (index-_hiddenCards) * cardMarginY
         }
         return 0

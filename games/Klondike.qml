@@ -10,7 +10,7 @@ Board {
     rowSpaces: 3
     cardYStacks: 12
 
-    property int takeStackCards: 3
+    property int waisteStackCards: 3
 
     onInit: {
     }
@@ -19,17 +19,17 @@ Board {
         if (!card || !stack)
             return
         startMove()
-        if (stack === deckStack) {
-            if (deckStack.count===0) {
-                var count = takeStack.count
+        if (stack === stockStack) {
+            if (stockStack.count===0) {
+                var count = waisteStack.count
                 for (var jjj = 1; jjj <= count; jjj++) {
-                    moveCard(count-jjj, takeStack, deckStack, false, true)
+                    moveCard(count-jjj, waisteStack, stockStack, false, true)
                 }
             }
             else {
-                var count2 = deckStack.count
-                for (var iii = 1; iii <= takeStackCards; iii++) {
-                    if(!moveCard(count2-iii, deckStack, takeStack, true, true))
+                var count2 = stockStack.count
+                for (var iii = 1; iii <= waisteStackCards; iii++) {
+                    if(!moveCard(count2-iii, stockStack, waisteStack, true, true))
                         break
                 }
             }
@@ -39,23 +39,23 @@ Board {
             var cardNr = card.card
             switch (suit) {
             case 1:
-                if (putStack1.lastCard.card + 1 === cardNr) {
-                    moveCardAndFlip(stack.count - 1, stack, putStack1)
+                if (foundationStack1.lastCard.card + 1 === cardNr) {
+                    moveCardAndFlip(stack.count - 1, stack, foundationStack1)
                 }
                 break
             case 2:
-                if (putStack2.lastCard.card + 1 === cardNr) {
-                    moveCardAndFlip(stack.count - 1, stack, putStack2)
+                if (foundationStack2.lastCard.card + 1 === cardNr) {
+                    moveCardAndFlip(stack.count - 1, stack, foundationStack2)
                 }
                 break
             case 3:
-                if (putStack3.lastCard.card + 1 === cardNr) {
-                    moveCardAndFlip(stack.count - 1, stack, putStack3)
+                if (foundationStack3.lastCard.card + 1 === cardNr) {
+                    moveCardAndFlip(stack.count - 1, stack, foundationStack3)
                 }
                 break
             case 4:
-                if (putStack4.lastCard.card + 1 === cardNr) {
-                    moveCardAndFlip(stack.count - 1, stack, putStack4)
+                if (foundationStack4.lastCard.card + 1 === cardNr) {
+                    moveCardAndFlip(stack.count - 1, stack, foundationStack4)
                 }
                 break
             }
@@ -116,12 +116,12 @@ Board {
                 return false
             }
 
-            if (hoverStack === putStack1 || hoverStack === putStack2
-                    || hoverStack === putStack3 || hoverStack === putStack4) {
+            if (hoverStack === foundationStack1 || hoverStack === foundationStack2
+                    || hoverStack === foundationStack3 || hoverStack === foundationStack4) {
                 checkNextNumberSameSuit(selectedCard)
-            } else if (selectedStack === takeStack) {
-                checkDiffColor(takeStack.count - 1,
-                               takeStack.repeater.itemAt(takeStack.count - 1))
+            } else if (selectedStack === waisteStack) {
+                checkDiffColor(waisteStack.count - 1,
+                               waisteStack.repeater.itemAt(waisteStack.count - 1))
             } else {
                 if (selectedStack === hoverStack)
                     return
@@ -132,10 +132,10 @@ Board {
 
     function checkGame() {
         print("checkGame")
-        if (moveStack1.count === 0 && moveStack2.count === 0
-                && moveStack3.count === 0 && moveStack4.count === 0
-                && moveStack5.count === 0 && moveStack6.count === 0
-                && moveStack7.count === 0) {
+        if (tableauStack1.count === 0 && tableauStack2.count === 0
+                && tableauStack3.count === 0 && tableauStack4.count === 0
+                && tableauStack5.count === 0 && tableauStack6.count === 0
+                && tableauStack7.count === 0) {
             end(true)
         }
     }
@@ -146,13 +146,13 @@ Board {
     }
 
     Stack {
-        id: moveStack7
-        x: moveStack6.x + board.columnWidth + board.columnMargin
+        id: tableauStack7
+        x: tableauStack6.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -162,13 +162,13 @@ Board {
     }
 
     Stack {
-        id: moveStack6
-        x: moveStack5.x + board.columnWidth + board.columnMargin
+        id: tableauStack6
+        x: tableauStack5.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -178,13 +178,13 @@ Board {
     }
 
     Stack {
-        id: moveStack5
-        x: moveStack4.x + board.columnWidth + board.columnMargin
+        id: tableauStack5
+        x: tableauStack4.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -194,13 +194,13 @@ Board {
     }
 
     Stack {
-        id: moveStack4
-        x: moveStack3.x + board.columnWidth + board.columnMargin
+        id: tableauStack4
+        x: tableauStack3.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -210,13 +210,13 @@ Board {
     }
 
     Stack {
-        id: moveStack3
-        x: moveStack2.x + board.columnWidth + board.columnMargin
+        id: tableauStack3
+        x: tableauStack2.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -226,13 +226,13 @@ Board {
     }
 
     Stack {
-        id: moveStack2
-        x: moveStack1.x + board.columnWidth + board.columnMargin
+        id: tableauStack2
+        x: tableauStack1.x + board.columnWidth + board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -242,13 +242,13 @@ Board {
     }
 
     Stack {
-        id: moveStack1
+        id: tableauStack1
         x: board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         width: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
         placeholderCard: 14
@@ -258,8 +258,8 @@ Board {
     }
 
     Stack {
-        id: putStack4
-        x: putStack3.x + board.columnWidth + board.columnMargin
+        id: foundationStack4
+        x: foundationStack3.x + board.columnWidth + board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -273,8 +273,8 @@ Board {
     }
 
     Stack {
-        id: putStack3
-        x: putStack2.x + board.columnWidth + board.columnMargin
+        id: foundationStack3
+        x: foundationStack2.x + board.columnWidth + board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -288,8 +288,8 @@ Board {
     }
 
     Stack {
-        id: putStack2
-        x: putStack1.x + board.columnWidth + board.columnMargin
+        id: foundationStack2
+        x: foundationStack1.x + board.columnWidth + board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -303,8 +303,8 @@ Board {
     }
 
     Stack {
-        id: putStack1
-        x: takeStack.x + board.columnWidth * 2 + board.columnMargin * 2
+        id: foundationStack1
+        x: waisteStack.x + board.columnWidth * 2 + board.columnMargin * 2
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -318,21 +318,21 @@ Board {
     }
 
     Stack {
-        id: takeStack
-        x: deckStack.x + board.columnWidth + board.columnMargin
+        id: waisteStack
+        x: stockStack.x + board.columnWidth + board.columnMargin
         y: board.columnMargin
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        goRight: true
+        fannedRight: true
         showHidden: false
 
         cardsMoveable: true
         nrCardsMoveable: 1
-        cardsVisible: takeStackCards
+        cardsVisible: waisteStackCards
     }
 
     Stack {
-        id: deckStack
+        id: stockStack
         x: board.columnMargin
         y: board.columnMargin
         cardWidth: board.columnWidth
@@ -343,115 +343,115 @@ Board {
 
     dealingModel: [
         QtObject {
-            property Stack stackId: moveStack1
+            property Stack stackId: tableauStack1
             property bool isUp: true
         },
         QtObject {
-            property Stack stackId: moveStack2
+            property Stack stackId: tableauStack2
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack3
+            property Stack stackId: tableauStack3
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack4
+            property Stack stackId: tableauStack4
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack5
+            property Stack stackId: tableauStack5
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack6
+            property Stack stackId: tableauStack6
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack2
+            property Stack stackId: tableauStack2
             property bool isUp: true
         },
         QtObject {
-            property Stack stackId: moveStack3
+            property Stack stackId: tableauStack3
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack4
+            property Stack stackId: tableauStack4
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack5
+            property Stack stackId: tableauStack5
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack6
+            property Stack stackId: tableauStack6
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack3
+            property Stack stackId: tableauStack3
             property bool isUp: true
         },
         QtObject {
-            property Stack stackId: moveStack4
+            property Stack stackId: tableauStack4
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack5
+            property Stack stackId: tableauStack5
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack6
+            property Stack stackId: tableauStack6
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack4
+            property Stack stackId: tableauStack4
             property bool isUp: true
         },
         QtObject {
-            property Stack stackId: moveStack5
+            property Stack stackId: tableauStack5
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack6
+            property Stack stackId: tableauStack6
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack5
+            property Stack stackId: tableauStack5
             property bool isUp: true
         },
         QtObject {
-            property Stack stackId: moveStack6
+            property Stack stackId: tableauStack6
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack6
+            property Stack stackId: tableauStack6
             property bool isUp: true
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: false
         },
         QtObject {
-            property Stack stackId: moveStack7
+            property Stack stackId: tableauStack7
             property bool isUp: true
         }
     ]

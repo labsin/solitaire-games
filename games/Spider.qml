@@ -18,11 +18,11 @@ Board {
         if (!card || !stack)
             return
         startMove()
-        if (stack === deckStack) {
+        if (stack === stockStack) {
             if(deckReadyForNew()) {
-                var count = deckStack.count
+                var count = stockStack.count
                 for (var iii = 1; iii <= 10; iii++) {
-                    moveCard(count-iii, deckStack, moveStackList[iii-1], true)
+                    moveCard(count-iii, stockStack, moveStackList[iii-1], true)
                 }
             }
         }
@@ -133,22 +133,22 @@ Board {
     function storeStack(stack) {
         var toStack
         var suit = stack.lastCard.suit
-        if(putStack1.count===0)
-            toStack = putStack1
-        else if(putStack2.count===0)
-            toStack = putStack2
-        else if(putStack3.count===0)
-            toStack = putStack3
-        else if(putStack4.count===0)
-            toStack = putStack4
-        else if(putStack5.count===0)
-            toStack = putStack5
-        else if(putStack6.count===0)
-            toStack = putStack6
-        else if(putStack7.count===0)
-            toStack = putStack7
-        else if(putStack8.count===0)
-            toStack = putStack8
+        if(foundationStack1.count===0)
+            toStack = foundationStack1
+        else if(foundationStack2.count===0)
+            toStack = foundationStack2
+        else if(foundationStack3.count===0)
+            toStack = foundationStack3
+        else if(foundationStack4.count===0)
+            toStack = foundationStack4
+        else if(foundationStack5.count===0)
+            toStack = foundationStack5
+        else if(foundationStack6.count===0)
+            toStack = foundationStack6
+        else if(foundationStack7.count===0)
+            toStack = foundationStack7
+        else if(foundationStack8.count===0)
+            toStack = foundationStack8
 
         var firstMove = stack.count - 13
         for (var iii = 0; iii < 13; iii++) {
@@ -167,7 +167,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -182,7 +182,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -197,7 +197,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -212,7 +212,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -227,7 +227,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -242,7 +242,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -257,7 +257,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -272,7 +272,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -287,7 +287,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -302,7 +302,7 @@ Board {
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
         height: board.height - y
-        goDown: true
+        fannedDown: true
 
         cardsVisible: yCardSpace
 
@@ -313,7 +313,7 @@ Board {
     property list<Stack> moveStackList
 
     Stack {
-        id: putStack8
+        id: foundationStack8
         x: board.width - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
@@ -326,8 +326,8 @@ Board {
     }
 
     Stack {
-        id: putStack7
-        x: putStack8.x - board.columnWidth - board.columnMargin
+        id: foundationStack7
+        x: foundationStack8.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -339,8 +339,8 @@ Board {
     }
 
     Stack {
-        id: putStack6
-        x: putStack7.x - board.columnWidth - board.columnMargin
+        id: foundationStack6
+        x: foundationStack7.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -352,8 +352,8 @@ Board {
     }
 
     Stack {
-        id: putStack5
-        x: putStack6.x - board.columnWidth - board.columnMargin
+        id: foundationStack5
+        x: foundationStack6.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -365,8 +365,8 @@ Board {
     }
 
     Stack {
-        id: putStack4
-        x: putStack5.x - board.columnWidth - board.columnMargin
+        id: foundationStack4
+        x: foundationStack5.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -378,8 +378,8 @@ Board {
     }
 
     Stack {
-        id: putStack3
-        x: putStack4.x - board.columnWidth - board.columnMargin
+        id: foundationStack3
+        x: foundationStack4.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -391,8 +391,8 @@ Board {
     }
 
     Stack {
-        id: putStack2
-        x: putStack3.x - board.columnWidth - board.columnMargin
+        id: foundationStack2
+        x: foundationStack3.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -404,8 +404,8 @@ Board {
     }
 
     Stack {
-        id: putStack1
-        x: putStack2.x - board.columnWidth - board.columnMargin
+        id: foundationStack1
+        x: foundationStack2.x - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -417,7 +417,7 @@ Board {
     }
 
     Stack {
-        id: deckStack
+        id: stockStack
         x: board.columnMargin
         y: board.columnMargin
         cardWidth: board.columnWidth

@@ -379,7 +379,6 @@ Item {
                 do {
                     iii--
                     card = dealingStack.repeater.itemAt(iii)
-                    print(card)
                 } while((!card || card.animating) && iii>=0)
 
                 if(iii==-1) {
@@ -392,7 +391,7 @@ Item {
                 _dealIndex++
             }
             else {
-                if(!deckStack) {
+                if(!stockStack) {
                     stop()
                     _dealt = true
                     History.history.endMove()
@@ -419,7 +418,7 @@ Item {
                     return
                 }
 
-                moveCard(jjj, dealingStack, deckStack, false)
+                moveCard(jjj, dealingStack, stockStack, false)
             }
         }
     }
