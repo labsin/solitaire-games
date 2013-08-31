@@ -214,8 +214,8 @@ MainView {
         id: folderModel
         function getLocalFolder() {
             // TODO: first check before making
-            folderModel.mkdir(folderModel.homePath()+"/.local/share/be.samsegers.solitaire-games")
-            return folderModel.homePath()+"/.local/share/be.samsegers.solitaire-games"
+            folderModel.mkdir(folderModel.homePath()+"/.local/share/com.ubuntu.developer.labsin.solitaire-games")
+            return folderModel.homePath()+"/.local/share/com.ubuntu.developer.labsin.solitaire-games"
         }
     }
 }

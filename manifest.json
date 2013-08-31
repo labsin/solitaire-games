@@ -1,17 +1,11 @@
 {
     "framework": "ubuntu-sdk-13.10",
     "maintainer": "Sam Segers",
-    "name": "be.samsegers.solitaire-games",
-    "security": {
-        "profiles": {
-            "solitaire-games": {
-                "policy_groups": [
-                    "networking",
-                    "",
-                    ""
-                ],
-                "policy_version": 1
-            }
+    "name": "com.ubuntu.developer.labsin.solitaire-games",
+    "hooks": {
+        "solitaire-games": {
+           "apparmor": "apparmor/solitaire-games.json",
+           "desktop": "solitaire-games.desktop"
         }
     },
     "title": "Solitaire Games",
