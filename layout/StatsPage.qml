@@ -22,7 +22,7 @@ Page {
             width: parent.width
 
             ListItem.Header {
-                text: title
+                text: gamesRepeater.itemAt(index).title
                 width: parent.width
                 visible: _visible
             }

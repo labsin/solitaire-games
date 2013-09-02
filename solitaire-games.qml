@@ -31,18 +31,40 @@ MainView {
     id: mainView
 
     property int selectedGameIndex:-1
-    property string selectedGameTitle: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).title
-    property string selectedGameDbName: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).dbName
+    property string selectedGameTitle: selectedGameIndex<0?"":gamesRepeater.itemAt(selectedGameIndex).title
+    property string selectedGameDbName: selectedGameIndex<0?"":gamesRepeater.itemAt(selectedGameIndex).dbName
 
     XmlListModel {
         id: gamesModel
-        source: "games/games.xml"
+        source: "games/list/games.xml"
         query: "/games/game"
         XmlRole { name: "title";   query: "title/string()"}
         XmlRole { name: "path";    query: "path/string()"}
         XmlRole { name: "dbName";    query: "db-name/string()"}
         XmlRole { name: "rules";    query: "rules/string()"}
         XmlRole { name: "info";    query: "info/string()"}
+    }
+
+    Component.onCompleted: {
+        print("Select language: "+Qt.locale().name.substring(0,2))
+        gamesModelTranslation.source = "games/list/games_"+Qt.locale().name.substring(0,2)+".xml"
+    }
+
+    XmlListModel {
+        id: gamesModelTranslation
+        query: "/games/game"
+        XmlRole { name: "title";   query: "title/string()"}
+        XmlRole { name: "path";    query: "path/string()"}
+        XmlRole { name: "dbName";    query: "db-name/string()"}
+        XmlRole { name: "rules";    query: "rules/string()"}
+        XmlRole { name: "info";    query: "info/string()"}
+        function getIdByDbName(dbName) {
+            for(var index=0; index<gamesModelTranslation.count; index++) {
+                if(gamesModelTranslation.get(index)["dbName"]===dbName)
+                    return index
+            }
+            return -1
+        }
     }
     
     Tabs {
@@ -78,9 +100,15 @@ MainView {
     }
 
     Repeater {
+        id: gamesRepeater
         model: gamesModel
         delegate: Item {
+            property int languageId: gamesModelTranslation.getIdByDbName(dbName)
+            property string title: languageId!=-1 && gamesModelTranslation.get(languageId)["title"]?gamesModelTranslation.get(languageId)["title"]:title
+            property string rules: languageId!=-1 && gamesModelTranslation.get(languageId)["rules"]?gamesModelTranslation.get(languageId)["rules"]:rules
+            property string info: languageId!=-1 && gamesModelTranslation.get(languageId)["info"]?gamesModelTranslation.get(languageId)["info"]:info
             Component.onCompleted: {
+                print("Try "+dbName)
                 initDbForGame(dbName)
             }
         }

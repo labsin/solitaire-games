@@ -8,7 +8,7 @@
     it being one of the better known of the family of patience games.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundations&lt;br&gt;
+    Move all the card to the Foundations&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -62,7 +62,7 @@
     it being one of the better known of the family of patience games.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundations&lt;br&gt;
+    Move all the card to the Foundations&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -115,7 +115,7 @@
     It is one of the more popular two-deck solitaire games.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundations&lt;br&gt;
+    Move all the card to the Foundations&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -162,7 +162,7 @@
     This type is played with only 2 suits.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundations&lt;br&gt;
+    Move all the card to the Foundations&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -209,7 +209,7 @@
     This type is played with only 1 suit.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundations&lt;br&gt;
+    Move all the card to the Foundations&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -252,10 +252,10 @@
     <path>Pyramid.qml</path>
     <db-name>pyramid</db-name>
     <info>&lt;b&gt;&lt;i&gt;Pyramid&lt;/i&gt;&lt;/b&gt; is a solitaire game where the object is
-    to get all the cards from the pyramid to the foundation.</info>
+    to get all the cards from the pyramid to the Foundation.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundation&lt;br&gt;
+    Move all the card to the Foundation&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -311,7 +311,7 @@
     one can even play it on an area as small as an encyclopedia volume cover.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the cards except the Aces to the foundation&lt;br&gt;
+    Move all the cards except the Aces to the Foundation&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;
@@ -345,7 +345,7 @@
     <info>Freecell</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
-    Move all the card to the foundations&lt;br&gt;
+    Move all the card to the Foundations&lt;br&gt;
     &lt;h3&gt;Foundation:&lt;/h3&gt;
     &lt;ul&gt;
         &lt;li&gt;

@@ -36,22 +36,22 @@ Page {
 
         ListItem.Standard {
             id: thisItem
-            text: title
+            text: gamesRepeater.itemAt(index).title
             onClicked: {
                 if(_small) {
                     startGame(path, index)
                 }
                 else {
-                    moreInfoFlickable.gameTitle = title
+                    moreInfoFlickable.gameTitle = gamesRepeater.itemAt(index).title
                     moreInfoFlickable.gameIndex = index
                     moreInfoFlickable.gamePath = path
-                    moreInfoFlickable.gameInfo = info
-                    moreInfoFlickable.gameRules = rules
+                    moreInfoFlickable.gameInfo = gamesRepeater.itemAt(index).info
+                    moreInfoFlickable.gameRules = gamesRepeater.itemAt(index).rules
                 }
             }
             onPressAndHold: {
                 if(_small)
-                    PopupUtils.open(infoPopoverComp, thisItem, {"index":index,"gameTitle":title,"gameRules":rules,"gameInfo":info})
+                    PopupUtils.open(infoPopoverComp, thisItem, {"index":index,"gameTitle":gamesRepeater.itemAt(index).title,"gameRules":gamesRepeater.itemAt(index).rules,"gameInfo":gamesRepeater.itemAt(index).info})
             }
         }
     }
