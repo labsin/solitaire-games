@@ -32,7 +32,7 @@ MainView {
 
     property int selectedGameIndex:-1
     property string selectedGameTitle: selectedGameIndex<0?"":gamesRepeater.itemAt(selectedGameIndex).title
-    property string selectedGameDbName: selectedGameIndex<0?"":gamesRepeater.itemAt(selectedGameIndex).dbName
+    property string selectedGameDbName: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).dbName
 
     XmlListModel {
         id: gamesModel
