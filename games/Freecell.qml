@@ -128,14 +128,8 @@ Board {
                     return
                 var topCard = hoverStack.lastCard
                 if(topCard) {
-                    if(topCard === hoverStack.backCard) {
-                        if(selectedStack.count - 1 - index < freeCells) {
-                            highlightFrom(index)
-                            return true
-                        }
-                    }
-                    else if ( (!topCard.sameColor(card) || topCard.suit === 0)
-                            && topCard.card === card.card + 1) {
+                    if(topCard === hoverStack.backCard ||
+                            ( (!topCard.sameColor(card) ) && topCard.card === card.card + 1)) {
                         if(selectedStack.count - 1 - index < freeCells) {
                             highlightFrom(index)
                             return true
