@@ -73,35 +73,35 @@ Page {
 
     tools: ToolbarItems {
         ToolbarButton {
-            text: "undo"
+            text: i18n.tr("undo")
             enabled: gameLoader.item?gameLoader.item.hasPreviousMove:false
             onTriggered: {
                 gameLoader.item.undo()
             }
         }
         ToolbarButton {
-            text: "redo"
+            text: i18n.tr("redo")
             enabled: gameLoader.item?gameLoader.item.hasNextMove:false
             onTriggered: {
                 gameLoader.item.redo()
             }
         }
         ToolbarButton {
-            text: "new game"
+            text: i18n.tr("new game")
             onTriggered: {
                 newGame()
                 setStats(selectedGameDbName, false)
             }
         }
         ToolbarButton {
-            text: "redeal"
+            text: i18n.tr("redeal")
             onTriggered: {
                 redealGame()
                 setStats(selectedGameDbName, false)
             }
         }
         ToolbarButton {
-            text: "restart"
+            text: i18n.tr("restart")
             onTriggered: {
                 restartGame()
                 setStats(selectedGameDbName, false)

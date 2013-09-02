@@ -61,9 +61,9 @@ Page {
 
         ActionSelectionPopover {
             property int index: -1
-            property string gameTitle: "Select a game"
-            property string gameRules: ""
-            property string gameInfo: ""
+            property string gameTitle: i18n.tr("Select a game")
+            property string gameRules
+            property string gameInfo
 
             id: infoPopover
             actions: ActionList {
@@ -87,8 +87,8 @@ Page {
         id: infoOrRulesSheed
 
         DefaultSheet {
-            property string gameTitle: "Select a game"
-            property string mainText: ""
+            property string gameTitle
+            property string mainText
 
             id: sheet
             title: "Info on " + gameTitle
@@ -113,7 +113,7 @@ Page {
         contentHeight: container.height
         clip: true
 
-        property string gameTitle: "Select a game"
+        property string gameTitle: i18n.tr("Select a game")
         property string gameRules: ""
         property string gamePath: ""
         property string gameInfo: ""
@@ -146,7 +146,7 @@ Page {
                     id: gameInfoHeader
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(2)
-                    text: "Info:"
+                    text: i18n.tr("Info:")
                     fontSize: "large"
                     visible: gameInfoLabel.text!=""
                 }
@@ -174,7 +174,7 @@ Page {
                     id: gameRulesHeader
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(2)
-                    text: "Rules:"
+                    text: i18n.tr("Rules:")
                     fontSize: "large"
                     visible: gameRulesLabel.text!=""
                 }
@@ -201,7 +201,7 @@ Page {
                 anchors.topMargin: units.gu(2)
                 anchors.bottomMargin: units.gu(7)
                 anchors.rightMargin: units.gu(5)
-                text: redeal?"Redeal":"Start"
+                text: redeal?i18n.tr("Redeal"):i18n.tr("Start")
                 enabled: moreInfoFlickable.gameIndex!==-1
                 onClicked: {
                     if(redeal)

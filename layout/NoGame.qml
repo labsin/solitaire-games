@@ -6,7 +6,7 @@ Item {
     property bool loading: false
     Label {
         anchors.centerIn: parent
-        text: loading?"Loading...":"Select a game to begin"
+        text: loading?i18n.tr("Loading..."):i18n.tr("Select a game to begin")
         fontSize: "x-large"
     }
 }
