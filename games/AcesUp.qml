@@ -92,9 +92,13 @@ Board {
     }
 
     function checkGame() {
+        if(stockStack.count>0)
+            return false
         for(var iii = 0; iii<tableauStackList.length; iii++) {
-            if(tableauStackList[iii].count>0)
-                return false
+            for(var jjj=0; jjj<tableauStackList[iii].count; jjj++) {
+                if(tableauStackList[iii].repeater.itemAt(jjj).card!==1)
+                    return false
+            }
         }
         end(true)
     }
