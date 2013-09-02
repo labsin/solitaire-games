@@ -74,6 +74,7 @@ Item {
     property int historyLength: 0
     property bool hasPreviousMove: historyIndex>1
     property bool hasNextMove: historyIndex<historyLength
+    property variant toRemoveAfterRedoing
 
     signal end(bool won)
     signal init(variant savedGame, int savedGameIndex, double savedSeed)
@@ -224,6 +225,8 @@ Item {
         History.init(savedGame)
         gameSeed = savedSeed
 
+        toRemoveAfterRedoing = []
+
         var iii = 0;
         while(main.children[iii]) {
             if(main.children[iii].objectName === "stack") {
@@ -249,6 +252,17 @@ Item {
                 }
                 else {
                     print("onInit: redid one")
+                    try {
+                        var tmpList = toRemoveAfterRedoing;
+                        for(toRemove in tmpList) {
+                            tmpList[toRemove].fromStack.model.remove(tmpList[toRemove].index)
+                        }
+                        fromStack.model.remove(fromCard.stackIndex)
+                    }
+                    catch (error) {
+                        print("onInit: Error "+error)
+                    }
+                    toRemoveAfterRedoing = []
                 }
             }
             _redoing = false
@@ -613,7 +627,14 @@ Item {
                 if(fromCard.up !== up)
                     flipCard(index, fromStack, up, false)
                 toStack.model.addFromCard(fromCard)
-                fromStack.model.remove(fromCard.stackIndex)
+                if(_redoing) {
+                    var tmpList = toRemoveAfterRedoing;
+                    tmpList.push({"fromStack":fromStack,"index":fromCard.stackIndex})
+                    toRemoveAfterRedoing = tmpList
+                }
+                else {
+                    fromStack.model.remove(fromCard.stackIndex)
+                }
                 if(_dealt && !_moving && !_redoing)
                     board.checkGame()
             }
