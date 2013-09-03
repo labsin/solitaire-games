@@ -6,13 +6,12 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 Page {
     id: page
 
-    property bool _small: page.width<_smallListWidth+_minInfoWidth
     property real _smallListWidth: units.gu(25)
     property real _minInfoWidth: units.gu(60)
 
     property alias currentIndex: gameListView.currentIndex
 
-    flickable: _small ? gameListView : null
+    flickable: mainView.small ? gameListView : null
 
     ListView {
         id: gameListView
@@ -29,7 +28,7 @@ Page {
 
     Rectangle {
         anchors.fill: gameListView
-        visible: !_small
+        visible: !mainView.small
         color: Theme.palette.normal.foreground
         z: -1
     }
@@ -42,12 +41,12 @@ Page {
             text: gamesRepeater.itemAt(index).title
             onClicked: {
                 currentIndex = index
-                if(_small) {
+                if(mainView.small) {
                     startGame(index)
                 }
             }
             onPressAndHold: {
-                if(_small)
+                if(mainView.small)
                     PopupUtils.open(infoPopoverComp, thisItem, {"index":index} )
             }
             selected: gameListView.currentItem === thisItem
@@ -226,7 +225,7 @@ Page {
     states: [
         State {
             name: "small"
-            when: _small
+            when: mainView.small
 
             AnchorChanges {
                 target: gameListView
@@ -235,7 +234,7 @@ Page {
 
         }, State {
             name: "wide"
-            when: !_small
+            when: !mainView.small
 
             AnchorChanges {
                 target: gameListView

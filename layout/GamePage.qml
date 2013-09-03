@@ -130,5 +130,13 @@ Page {
                 setStats(selectedGameDbName, false)
             }
         }
+        opened: mainView.small?false:true
+        locked: mainView.small?false:true
+        onLockedChanged: {
+            if(!mainView.small)
+                opened = true
+            else
+                opened = false
+        }
     }
 }

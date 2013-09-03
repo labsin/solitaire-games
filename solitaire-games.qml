@@ -34,6 +34,8 @@ MainView {
     property string selectedGameTitle: selectedGameIndex<0?"":gamesRepeater.itemAt(selectedGameIndex).title
     property string selectedGameDbName: selectedGameIndex<0?"":gamesModel.get(selectedGameIndex).dbName
 
+    property bool small: width<units.gu(85)
+
     XmlListModel {
         id: gamesModel
         source: "games/list/games.xml"
