@@ -93,10 +93,16 @@ Page {
             id: sheet
             title: "Info on " + gameTitle
             doneButton: false
-            Label {
-                anchors.fill: parent
-                text: mainText
-                wrapMode: Text.WordWrap
+            Flickable {
+            anchors.fill: parent
+            contentHeight: label.height
+                Label {
+                    id: label
+                    width: parent.width
+                    text: mainText
+                    wrapMode: Text.WordWrap
+                }
+                clip: true
             }
             onDoneClicked: PopupUtils.close(sheet)
         }
