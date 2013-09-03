@@ -592,7 +592,7 @@ Item {
                     if(index<0 || index>selectedStack.count-1)
                         break
                 }
-                if(fnct(index,selectedStack.repeater.itemAt(index)))
+                if(selectedStack.repeater.itemAt(index).moveable && fnct(index,selectedStack.repeater.itemAt(index)))
                     break
                 iii++
             }
