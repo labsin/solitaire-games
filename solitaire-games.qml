@@ -49,6 +49,7 @@ MainView {
 
     Component.onCompleted: {
         print("Select language: "+Qt.locale().name.substring(0,2))
+        i18n.bindtextdomain(i18n.domain,"locale")
         gamesModelTranslation.source = "games/list/games_"+Qt.locale().name.substring(0,2)+".xml"
 
         print("Set colors")
