@@ -28,12 +28,12 @@ Page {
             }
 
             ListItem.Standard {
-                text: nrWins+i18n.tr(" win"," wins",nrWins)
+                text: i18n.tr("%1 win","%1 wins",nrWins).arg(nrWins)
                 visible: _visible
             }
 
             ListItem.Standard {
-                text: nrLost+i18n.tr(" los"," losses",nrLost)
+                text: i18n.tr("%1 los","%1 losses",nrLost).arg(nrLost)
                 visible: _visible
             }
         }
