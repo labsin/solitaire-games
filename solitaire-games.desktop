@@ -2,7 +2,7 @@
 Name=Solitaire Games
 Comment=A collection of solitaire card games
 Exec=qmlscene $@ solitaire-games.qml
-Icon=solitaire-games.png
+Icon=./solitaire-games.png
 Terminal=false
 Type=Application
 Categories=Qt;Game;CardGame;
