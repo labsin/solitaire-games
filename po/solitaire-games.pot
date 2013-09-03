@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-02 21:54+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:76
+msgid "Games"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:85
+msgid "Game"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:94
+msgid "Stats"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:64
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:116
+msgid "Select a game"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:149
+msgid "Info:"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:177
+msgid "Rules:"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:204
+msgid "Redeal"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:204
+msgid "Start"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/NoGame.qml:9
+msgid "Loading..."
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/NoGame.qml:9
+msgid "Select a game to begin"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:76
+msgid "undo"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:83
+msgid "redo"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:90
+msgid "new game"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:97
+msgid "redeal"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:104
+msgid "restart"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/StatsPage.qml:31
+msgid " win"
+msgstr ""
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/StatsPage.qml:36
+msgid " los"
+msgstr ""

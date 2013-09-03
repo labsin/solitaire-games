@@ -1,0 +1,87 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: solitaire-games\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-02 21:54+0200\n"
+"PO-Revision-Date: 2013-09-02 22:18+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: en\n"
+
+#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:76
+msgid "Games"
+msgstr "Spelletjes"
+
+#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:85
+msgid "Game"
+msgstr "Spel"
+
+#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:94
+msgid "Stats"
+msgstr "Stats"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:64
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:116
+msgid "Select a game"
+msgstr "Kies een spel"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:149
+msgid "Info:"
+msgstr "Info"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:177
+msgid "Rules:"
+msgstr "Regels"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:204
+msgid "Redeal"
+msgstr "Herdelen"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:204
+msgid "Start"
+msgstr "Start"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/NoGame.qml:9
+msgid "Loading..."
+msgstr "Laden..."
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/NoGame.qml:9
+msgid "Select a game to begin"
+msgstr "Kies een spel om te beginnen"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:76
+msgid "undo"
+msgstr "Onged.m."
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:83
+msgid "redo"
+msgstr "Herdoen"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:90
+msgid "new game"
+msgstr "nieuw spel"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:97
+msgid "redeal"
+msgstr "herdelen"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:104
+msgid "restart"
+msgstr "herstarten"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/StatsPage.qml:31
+msgid " win"
+msgstr " winst"
+
+#: /home/sam/Workspace/Qt/solitaire-games/layout/StatsPage.qml:36
+msgid " los"
+msgstr " verlies"
