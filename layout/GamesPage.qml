@@ -10,6 +10,8 @@ Page {
     property real _smallListWidth: units.gu(25)
     property real _minInfoWidth: units.gu(60)
 
+    property alias currentIndex: gameListView.currentIndex
+
     flickable: _small ? gameListView : null
 
     ListView {
@@ -20,6 +22,7 @@ Page {
         anchors.top: page.top
         anchors.bottom: page.bottom
         anchors.left: page.left
+        currentIndex: -1
 
         clip: true
     }
@@ -28,7 +31,6 @@ Page {
         anchors.fill: gameListView
         visible: !_small
         color: Theme.palette.normal.foreground
-//        color: "#071C00"
         z: -1
     }
 
@@ -39,21 +41,16 @@ Page {
             id: thisItem
             text: gamesRepeater.itemAt(index).title
             onClicked: {
+                currentIndex = index
                 if(_small) {
-                    startGame(path, index)
-                }
-                else {
-                    moreInfoFlickable.gameTitle = gamesRepeater.itemAt(index).title
-                    moreInfoFlickable.gameIndex = index
-                    moreInfoFlickable.gamePath = path
-                    moreInfoFlickable.gameInfo = gamesRepeater.itemAt(index).info
-                    moreInfoFlickable.gameRules = gamesRepeater.itemAt(index).rules
+                    startGame(index)
                 }
             }
             onPressAndHold: {
                 if(_small)
-                    PopupUtils.open(infoPopoverComp, thisItem, {"index":index,"gameTitle":gamesRepeater.itemAt(index).title,"gameRules":gamesRepeater.itemAt(index).rules,"gameInfo":gamesRepeater.itemAt(index).info})
+                    PopupUtils.open(infoPopoverComp, thisItem, {"index":index} )
             }
+            selected: gameListView.currentItem === thisItem
         }
     }
 
@@ -62,24 +59,25 @@ Page {
 
         ActionSelectionPopover {
             property int index: -1
-            property string gameTitle: i18n.tr("Select a game")
-            property string gameRules
-            property string gameInfo
+            property string gameTitle: index==-1?i18n.tr("Select a game"):gamesRepeater.itemAt(index).title
+            property string gameRules: index==-1?"":gamesRepeater.itemAt(index).rules
+            property string gameInfo: index==-1?"":gamesRepeater.itemAt(index).info
+
 
             id: infoPopover
             actions: ActionList {
-              Action {
-                  text: "Info"
-                  onTriggered: {
-                      PopupUtils.open(infoOrRulesSheed, parent, {"index":index,"gameTitle":gameTitle,"mainText":gameInfo})
-                  }
-              }
-              Action {
-                  text: "Rules"
-                  onTriggered: {
-                      PopupUtils.open(infoOrRulesSheed, parent, {"index":index,"gameTitle":gameTitle,"mainText":gameRules})
-                  }
-              }
+                Action {
+                    text: "Info"
+                    onTriggered: {
+                        PopupUtils.open(infoOrRulesSheed, parent, {"index":index,"gameTitle":gameTitle,"mainText":gameInfo})
+                    }
+                }
+                Action {
+                    text: "Rules"
+                    onTriggered: {
+                        PopupUtils.open(infoOrRulesSheed, parent, {"index":index,"gameTitle":gameTitle,"mainText":gameRules})
+                    }
+                }
             }
         }
     }
@@ -121,18 +119,17 @@ Page {
         contentHeight: container.height
         clip: true
 
-        property string gameTitle: i18n.tr("Select a game")
-        property string gameRules: ""
-        property string gamePath: ""
-        property string gameInfo: ""
-        property int gameIndex: -1
-
         Item {
             id: container
             width: parent.width
             property real contentHeight: innerContainer.height + innerContainer.anchors.topMargin + innerContainer.anchors.bottomMargin
                                          + startButton.height + startButton.anchors.topMargin + startButton.anchors.bottomMargin
             height: contentHeight < moreInfoFlickable.height?moreInfoFlickable.height:contentHeight
+
+
+            property string gameTitle: currentIndex==-1?i18n.tr("Select a game"):gamesRepeater.itemAt(currentIndex).title
+            property string gameRules: currentIndex==-1?"":gamesRepeater.itemAt(currentIndex).rules
+            property string gameInfo: currentIndex==-1?"":gamesRepeater.itemAt(currentIndex).info
 
             Column {
                 id: innerContainer
@@ -147,7 +144,7 @@ Page {
                     color: Theme.palette.normal.baseText
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(8)
-                    text: moreInfoFlickable.gameTitle
+                    text: container.gameTitle
                     fontSize: "x-large"
                 }
 
@@ -170,7 +167,7 @@ Page {
                     anchors.rightMargin: units.gu(2)
                     wrapMode: Text.Wrap
                     textFormat: Text.RichText
-                    text: moreInfoFlickable.gameInfo
+                    text: container.gameInfo
                     fontSize: "medium"
                 }
 
@@ -200,13 +197,13 @@ Page {
                     anchors.rightMargin: units.gu(2)
                     wrapMode: Text.Wrap
                     textFormat: Text.RichText
-                    text: moreInfoFlickable.gameRules
+                    text: container.gameRules
                     fontSize: "medium"
                 }
             }
 
             Button {
-                property bool redeal: moreInfoFlickable.gameIndex>=0 && moreInfoFlickable.gameIndex === selectedGameIndex
+                property bool redeal: currentIndex>=0 && currentIndex === selectedGameIndex
 
                 id: startButton
                 anchors.right: parent.right
@@ -215,12 +212,12 @@ Page {
                 anchors.bottomMargin: units.gu(7)
                 anchors.rightMargin: units.gu(5)
                 text: redeal?i18n.tr("Redeal"):i18n.tr("Start")
-                enabled: moreInfoFlickable.gameIndex!==-1
+                enabled: currentIndex!==-1
                 onClicked: {
                     if(redeal)
                         redealGame()
                     else
-                        startGame(moreInfoFlickable.gamePath, moreInfoFlickable.gameIndex)
+                        startGame(currentIndex)
                 }
             }
         }

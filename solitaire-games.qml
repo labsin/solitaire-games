@@ -48,6 +48,10 @@ MainView {
     Component.onCompleted: {
         print("Select language: "+Qt.locale().name.substring(0,2))
         gamesModelTranslation.source = "games/list/games_"+Qt.locale().name.substring(0,2)+".xml"
+
+        print("Set colors")
+        Theme.palette.normal.foreground = headerColor
+        Theme.palette.normal.background = backgroundColor
     }
 
     XmlListModel {
@@ -122,11 +126,17 @@ MainView {
         selectedGameIndex = -1
     }
 
-    function startGame(path, index) {
-        if(gamePage.loader.item)
-            gamePage.loader.item.preEnd(true)
-        gamePage.setSource(Qt.resolvedUrl("games/"+path))
+    function startGame(index) {
+        if(gamePage.loader.item) {
+            if(index===selectedGameIndex) {
+                tabs.selectedTabIndex = 1
+                return
+            }
+            else
+                gamePage.loader.item.preEnd(true)
+        }
         selectedGameIndex = index
+        gamePage.setSource(Qt.resolvedUrl("games/"+gamesModel.get(selectedGameIndex)["path"]))
         tabs.selectedTabIndex = 1
     }
 
