@@ -5,45 +5,68 @@ import Ubuntu.Components.Popups 0.1
 Page {
     id: gamePage
     property alias loader: gameLoader
+    property alias item: gameLoader.item
+    flickable: null
 
     NoGame {
-        anchors.fill: parent
+        anchors.fill: flickable
         visible: gameLoader.status !== Loader.Ready
         loading: gameLoader.status === Loader.Loading
     }
 
-    Loader {
-        x: 0
-        y: 0
-        id: gameLoader
-        source: ""
-        asynchronous: true
-        visible: status == Loader.Ready
-        onStatusChanged: {
-            if(status === Loader.Ready) {
-                initGame()
+    Flickable {
+        id: flickable
+        anchors.fill: parent
+        contentWidth: item?item.width:0
+        contentHeight: item?item.height:0
+        clip: true
+        interactive: item?item.shouldFlick:false
+        boundsBehavior: Flickable.StopAtBounds
+
+        Loader {
+            x: 0
+            y: 0
+            id: gameLoader
+            source: ""
+            asynchronous: true
+            visible: status == Loader.Ready
+            onStatusChanged: {
+                if(status === Loader.Ready) {
+                    initGame()
+                }
+            }
+        }
+
+        Binding {
+            target: gameLoader.item
+            property: "parentWidth"
+            value: flickable.width
+        }
+
+        Binding {
+            target: gameLoader.item
+            property: "parentHeight"
+            value: flickable.height
+        }
+
+        Binding {
+            target: gameLoader.item
+            property: "flickable"
+            value: flickable
+        }
+
+        Connections {
+            target: gameLoader.item
+            onEnd: {
+                setStats(selectedGameDbName, won)
+                PopupUtils.open(Qt.resolvedUrl("EndDialog.qml"), gamePage, {"won":won})
             }
         }
     }
-
-    Binding {
-        target: gameLoader.item
-        property: "parentWidth"
-        value: width
-    }
-
-    Binding {
-        target: gameLoader.item
-        property: "parentHeight"
-        value: height
-    }
-
-    Connections {
-        target: gameLoader.item
-        onEnd: {
-            setStats(selectedGameDbName, won)
-            PopupUtils.open(Qt.resolvedUrl("EndDialog.qml"), gamePage, {"won":won})
-        }
+    Scrollbar {
+        flickableItem: flickable
+        align: Qt.AlignTrailing
+        anchors.right: flickable.right
     }
 
     function initGame() {

@@ -167,7 +167,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -182,7 +182,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -197,7 +197,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -212,7 +212,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -227,7 +227,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -242,7 +242,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -257,7 +257,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -272,7 +272,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -287,7 +287,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace
@@ -302,7 +302,7 @@ Board {
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
-        height: board.height - y
+        height: contentToBig?childrenRect.height:board.height - y
         fannedDown: true
 
         cardsVisible: yCardSpace

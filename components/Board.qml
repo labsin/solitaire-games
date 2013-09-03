@@ -40,6 +40,9 @@ Item {
     property real columnMargin: columnWidth/2.5<units.gu(2)?units.gu(2):columnWidth/2.5
     property real parentWidth
     property real parentHeight
+    property Flickable flickable
+
+    property bool contentToBig: width>flickable.width || height>flickable.height
 
     property Stack selectedStack
     property Card selectedCard
@@ -50,6 +53,8 @@ Item {
     property Stack hoverStack
     property Card hoverCard
     property bool floating: false
+    property bool isOrGoingToFloat: floating || floatingTimer.running
+    property bool shouldFlick: contentToBig && !(isOrGoingToFloat)
 
     property double gameSeed
 
@@ -446,6 +451,59 @@ Item {
         }
     }
 
+    property int _shiftRepeatInterval: 180
+
+    Timer {
+        id: shiftingLeftTimer
+        interval: _shiftRepeatInterval
+        repeat: true
+        running: contentToBig && isOrGoingToFloat && !flickable.atXBeginning && mouseArea.mouseX-flickable.contentX<columnWidth/2
+        onTriggered: {
+            var shift = columnWidth/2
+            if(flickable.contentX<shift)
+                shift = flickable.contentX
+            flickable.contentX-=shift
+        }
+    }
+
+    Timer {
+        id: shiftingUpTimer
+        interval: 250
+        repeat: true
+        running: contentToBig && isOrGoingToFloat && !flickable.atYBeginning && mouseArea.mouseY-flickable.contentY<columnWidth/2
+        onTriggered: {
+            var shift = columnWidth/2
+            if(flickable.contentY<shift)
+                shift = flickable.contentY
+            flickable.contentY-=shift
+        }
+    }
+
+    Timer {
+        id: shiftingRightTimer
+        interval: _shiftRepeatInterval
+        repeat: true
+        running: contentToBig && isOrGoingToFloat && !flickable.atXEnd && flickable.width+flickable.contentX-mouseArea.mouseX<columnWidth/2
+        onTriggered: {
+            var shift = columnWidth/2
+            if(flickable.contentWidth-flickable.contentX<shift)
+                shift = flickable.contentWidth-flickable.contentX
+            flickable.contentX+=shift
+        }
+    }
+
+    Timer {
+        id: shiftingDownTimer
+        interval: _shiftRepeatInterval
+        repeat: true
+        running: contentToBig && isOrGoingToFloat && !flickable.atYEnd && flickable.height+flickable.contentY-mouseArea.mouseY<columnWidth/2
+        onTriggered: {
+            var shift = columnWidth/2
+            if(flickable.contentHeight-flickable.contentY<shift)
+                shift = flickable.contentHeight-flickable.contentY
+            flickable.contentY+=shift
+        }
+    }
 
     Card {
         id: floatingCard
