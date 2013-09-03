@@ -455,9 +455,8 @@ Item {
         width: columnWidth
         height: columnHeight
         animated: false
-        opacity: 0.9
 
-        property int _floatingChangeDuration: 75
+        property int _floatingChangeDuration: UbuntuAnimation.SnapDuration
 
         z:10
 
@@ -483,11 +482,12 @@ Item {
                 id: stateTransition
                 from: "hidden"; to: "floating"
                 ParallelAnimation {
-                    NumberAnimation {
+                    id: parallelAnim
+                    UbuntuNumberAnimation {
                         id: numberAnimationX
                         properties: "x"; duration: floatingCard._floatingChangeDuration;
                     }
-                    NumberAnimation {
+                    UbuntuNumberAnimation {
                         id: numberAnimationY
                         properties: "y"; duration: floatingCard._floatingChangeDuration;
                     }
@@ -659,7 +659,7 @@ Item {
             return
         selectedStack.highlightFrom = index
         if(floatingCard.front)
-            floatingCard.front.shadowed = false
+            floatingCard.front.lighter = true
     }
 
     function stopHighlight() {
@@ -668,7 +668,7 @@ Item {
         if(previousSelectedStack)
             previousSelectedStack.highlightFrom = -1
         if(floatingCard.front)
-            floatingCard.front.shadowed = true
+            floatingCard.front.lighter = false
     }
 
     property variant stackList: []

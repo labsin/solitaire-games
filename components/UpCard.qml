@@ -1,7 +1,9 @@
 import QtQuick 2.0
+import Ubuntu.Components 0.1
 
-Item {
+UbuntuShape {
     property bool singleLabel: width<4*lu.width
+    color: Theme.palette.normal.overlay
 
     CardColumn {
         id: lu

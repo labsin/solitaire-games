@@ -1,23 +1,12 @@
 import QtQuick 2.0
 import Ubuntu.Components 0.1
 
-Item {
+OutlineCard {
     property real ocap: 0.5
-    property bool shadowed: true
+    property bool lighter: false
     UbuntuShape {
         anchors.fill: parent
-        Suit {
-            anchors.centerIn: parent
-            suit: cardObj.suit
-            width: parent.width/3
-            height: width
-            opacity: ocap
-        }
-    }
-    UbuntuShape {
-        anchors.fill: parent
-        color: "black"
+        color: lighter?Theme.palette.normal.overlay:Theme.palette.normal.foreground
         opacity: 0.5
-        visible: shadowed
     }
 }

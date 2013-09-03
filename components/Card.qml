@@ -16,7 +16,7 @@ Flipable {
     property int stackIndex: -1
     property variant cardToStack
 
-    property int _duration: 300
+    property int _duration: UbuntuAnimation.FastDuration
 
     property alias front: frontLoader.item
 
@@ -64,52 +64,46 @@ Flipable {
                 property: "y"
                 to: cardObj.y - 20
                 duration: _duration
+                easing: UbuntuAnimation.StandardEasing
             }
             PropertyAnimation {
                 target: cardObj
                 property: "y"
                 to: cardObj.y
                 duration: _duration
+                easing: UbuntuAnimation.StandardEasing
             }
         }
-        NumberAnimation {
+        UbuntuNumberAnimation {
             duration: 2*_duration
         }
     }
 
     front: Item {
-            UbuntuShape {
-                id: highlight
-                property int _border: 3
-                x: - _border
-                y: - _border
-                width: cardObj.width + 2*_border
-                height: cardObj.height + 2*_border
-                visible: highlighted
+        width: cardObj.width
+        height: cardObj.height
+        UbuntuShape {
+            id: highlight
+            property int _border: 3
+            x: - _border
+            y: - _border
+            width: cardObj.width + 2*_border
+            height: cardObj.height + 2*_border
+            visible: highlighted
 
-                color: "#daB5F6F7"
-            }
-            UbuntuShape {
-                width: cardObj.width
-                height: cardObj.height
-                color: "white"
-                    Loader {
-                        id: frontLoader
-                        anchors.fill: parent
-                        source: getSource()
-                    }
-            }
+            color: Theme.palette.selected.overlay
         }
+        Loader {
+            id: frontLoader
+            anchors.fill: parent
+            source: getSource()
+        }
+    }
 
-    back: UbuntuShape {
-            width: cardObj.width
-            height: cardObj.height
-            color: "white"
-            DownCard {
-                width: cardObj.width
-                height: cardObj.height
-            }
-        }
+    back: DownCard {
+        width: cardObj.width
+        height: cardObj.height
+    }
 
     onUpChanged: {
         if(up) {
@@ -135,22 +129,18 @@ Flipable {
     Behavior on x {
         id: xBehavior
         enabled: animated
-        animation: SequentialAnimation {
+        UbuntuNumberAnimation {
             id: xAnimation
-            NumberAnimation {
-                duration: _duration
-            }
+            duration: _duration
         }
     }
 
     Behavior on y {
         id: yBehavior
         enabled: animated
-        animation: SequentialAnimation {
+        UbuntuNumberAnimation {
             id: yAnimation
-            NumberAnimation {
-                duration: _duration
-            }
+            duration: _duration
         }
     }
 

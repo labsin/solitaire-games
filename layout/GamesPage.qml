@@ -27,7 +27,8 @@ Page {
     Rectangle {
         anchors.fill: gameListView
         visible: !_small
-        color: "#071C00"
+        color: Theme.palette.normal.foreground
+//        color: "#071C00"
         z: -1
     }
 
@@ -97,6 +98,7 @@ Page {
             anchors.fill: parent
             contentHeight: label.height
                 Label {
+                    color: Theme.palette.normal.overlayText
                     id: label
                     width: parent.width
                     text: mainText
@@ -142,6 +144,7 @@ Page {
 
                 Label {
                     id: titleLabel
+                    color: Theme.palette.normal.baseText
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(8)
                     text: moreInfoFlickable.gameTitle
@@ -150,6 +153,7 @@ Page {
 
                 Label {
                     id: gameInfoHeader
+                    color: Theme.palette.normal.baseText
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(2)
                     text: i18n.tr("Info:")
@@ -159,6 +163,7 @@ Page {
 
                 Label {
                     id: gameInfoLabel
+                    color: Theme.palette.normal.baseText
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: units.gu(4)
@@ -178,6 +183,7 @@ Page {
 
                 Label {
                     id: gameRulesHeader
+                    color: Theme.palette.normal.baseText
                     anchors.left: parent.left
                     anchors.leftMargin: units.gu(2)
                     text: i18n.tr("Rules:")
@@ -187,6 +193,7 @@ Page {
 
                 Label {
                     id: gameRulesLabel
+                    color: Theme.palette.normal.baseText
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.leftMargin: units.gu(4)
