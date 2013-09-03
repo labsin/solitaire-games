@@ -254,10 +254,9 @@ Item {
                     print("onInit: redid one")
                     try {
                         var tmpList = toRemoveAfterRedoing;
-                        for(toRemove in tmpList) {
+                        for(var toRemove in tmpList) {
                             tmpList[toRemove].fromStack.model.remove(tmpList[toRemove].index)
                         }
-                        fromStack.model.remove(fromCard.stackIndex)
                     }
                     catch (error) {
                         print("onInit: Error "+error)

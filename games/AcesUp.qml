@@ -32,7 +32,7 @@ Board {
         } else if(stack !== foundationStack ){
             var lastCard = stack.lastCard
             if(lastCard && lastCard.card!==1) {
-                var success = true
+                var success = false
                 var foundSuit = false
                 for(var key in tableauStackList ) {
                     var tmpStack = tableauStackList[key]
@@ -41,13 +41,14 @@ Board {
                     if(tmpStack.lastCard) {
                         if(tmpStack.lastCard.suit === lastCard.suit) {
                             foundSuit = true
-                            if(tmpStack.lastCard.card!==1 && tmpStack.lastCard.card < lastCard.card) {
-                                success = false
+                            if(tmpStack.lastCard.card===1 || tmpStack.lastCard.card > lastCard.card) {
+                                success = true
+                                break
                             }
                         }
                     }
                 }
-                if(success && foundSuit) {
+                if(success) {
                     moveCard(
                                 stack.count-1,
                                 stack, foundationStack)
