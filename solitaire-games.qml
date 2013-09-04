@@ -25,8 +25,8 @@ MainView {
     backgroundColor: "#144E00"
     footerColor: "#1D7300"
     
-    width: units.gu(100)
-    height: units.gu(80)
+    width: units.gu(120)
+    height: units.gu(100)
 
     id: mainView
 
