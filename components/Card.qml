@@ -91,7 +91,7 @@ Flipable {
             height: cardObj.height + 2*_border
             visible: highlighted
 
-            color: Theme.palette.selected.overlay
+            color: Theme.palette.selected.foreground
         }
         Loader {
             id: frontLoader
