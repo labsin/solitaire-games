@@ -49,8 +49,9 @@ MainView {
 
     Component.onCompleted: {
         print("Select language: "+Qt.locale().name.substring(0,2))
-        i18n.bindtextdomain(i18n.domain,"locale")
         gamesModelTranslation.source = "games/list/games_"+Qt.locale().name.substring(0,2)+".xml"
+        i18n.bindtextdomain(i18n.domain,"locale")
+        i18n.domain = i18n.domain
 
         print("Set colors")
         Theme.palette.normal.foreground = headerColor
