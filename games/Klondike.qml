@@ -147,7 +147,7 @@ Board {
 
     Stack {
         id: tableauStack7
-        x: tableauStack6.x + board.columnWidth + board.columnMargin
+        x: board.width - board.columnWidth - board.columnMargin
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -163,7 +163,7 @@ Board {
 
     Stack {
         id: tableauStack6
-        x: tableauStack5.x + board.columnWidth + board.columnMargin
+        x: tableauStack7.x - board.columnMargin - board.columnWidth
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -179,7 +179,7 @@ Board {
 
     Stack {
         id: tableauStack5
-        x: tableauStack4.x + board.columnWidth + board.columnMargin
+        x: tableauStack6.x - board.columnMargin - board.columnWidth
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -195,7 +195,7 @@ Board {
 
     Stack {
         id: tableauStack4
-        x: tableauStack3.x + board.columnWidth + board.columnMargin
+        x: tableauStack5.x - board.columnMargin - board.columnWidth
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -211,7 +211,7 @@ Board {
 
     Stack {
         id: tableauStack3
-        x: tableauStack2.x + board.columnWidth + board.columnMargin
+        x: tableauStack4.x - board.columnMargin - board.columnWidth
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -227,7 +227,7 @@ Board {
 
     Stack {
         id: tableauStack2
-        x: tableauStack1.x + board.columnWidth + board.columnMargin
+        x: tableauStack3.x - board.columnMargin - board.columnWidth
         y: board.columnHeight + board.columnMargin * 2
         cardWidth: board.columnWidth
         cardHeight: board.columnHeight
@@ -243,7 +243,7 @@ Board {
 
     Stack {
         id: tableauStack1
-        x: board.columnMargin
+        x: tableauStack2.x - board.columnMargin - board.columnWidth
         y: board.columnHeight + board.columnMargin * 2
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -259,7 +259,7 @@ Board {
 
     Stack {
         id: foundationStack4
-        x: foundationStack3.x + board.columnWidth + board.columnMargin
+        x: board.width - board.columnWidth - board.columnMargin
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -274,7 +274,7 @@ Board {
 
     Stack {
         id: foundationStack3
-        x: foundationStack2.x + board.columnWidth + board.columnMargin
+        x: foundationStack4.x - board.columnMargin - board.columnWidth
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -289,7 +289,7 @@ Board {
 
     Stack {
         id: foundationStack2
-        x: foundationStack1.x + board.columnWidth + board.columnMargin
+        x: foundationStack3.x - board.columnMargin - board.columnWidth
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
@@ -304,7 +304,7 @@ Board {
 
     Stack {
         id: foundationStack1
-        x: waisteStack.x + board.columnWidth * 2 + board.columnMargin * 2
+        x: foundationStack2.x - board.columnMargin - board.columnWidth
         y: board.columnMargin
         width: board.columnWidth
         cardHeight: board.columnHeight
