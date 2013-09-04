@@ -111,9 +111,9 @@ MainView {
         model: gamesModel
         delegate: Item {
             property int languageId: gamesModelTranslation.getIdByDbName(dbName)
-            property string title: languageId!=-1 && gamesModelTranslation.get(languageId)["title"]?gamesModelTranslation.get(languageId)["title"]:title
-            property string rules: languageId!=-1 && gamesModelTranslation.get(languageId)["rules"]?gamesModelTranslation.get(languageId)["rules"]:rules
-            property string info: languageId!=-1 && gamesModelTranslation.get(languageId)["info"]?gamesModelTranslation.get(languageId)["info"]:info
+            property string title: languageId!==-1 && gamesModelTranslation.get(languageId)["title"]?gamesModelTranslation.get(languageId)["title"]:gamesModel.get(index)["title"]
+            property string rules: languageId!==-1 && gamesModelTranslation.get(languageId)["rules"]?gamesModelTranslation.get(languageId)["rules"]:gamesModel.get(index)["rules"]
+            property string info: languageId!==-1 && gamesModelTranslation.get(languageId)["info"]?gamesModelTranslation.get(languageId)["info"]:gamesModel.get(index)["info"]
             Component.onCompleted: {
                 print("Try "+dbName)
                 initDbForGame(dbName)
