@@ -23,6 +23,7 @@ Rectangle {
         if(faceLoader.item) {
             faceLoader.item.suit = Qt.binding(function() {return face.suit });
             faceLoader.item.suitSize = Qt.binding(function() {return face.suitSize });
+            faceLoader.item.color = face.color
         }
     }
 

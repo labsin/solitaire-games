@@ -29,6 +29,7 @@ UbuntuShape {
             height: m.height - lu.width - run.width
             card: cardObj.card
             suit: cardObj.suit
+            color: Theme.palette.normal.overlay
         }
     }
 
