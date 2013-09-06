@@ -12,8 +12,6 @@ Board {
 
     decks: 1
 
-    fillDuration: 50
-
     onSingelPress: {
         if (!stack)
             return

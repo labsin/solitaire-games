@@ -378,7 +378,7 @@ Item {
         visible: true
     }
 
-    property int fillDuration: 50
+    property int fillDuration: 50/decks
     property list<QtObject> dealingModel
 
     Timer {

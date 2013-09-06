@@ -12,8 +12,6 @@ Board {
 
     decks: 1
 
-    fillDuration: 50
-
     property int freeCells: 4 - cellStack1.count - cellStack2.count - cellStack3.count - cellStack4.count
     onFreeCellsChanged: {
         print("freeCells: "+freeCells)
