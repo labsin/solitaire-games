@@ -383,4 +383,49 @@
     &lt;/ul&gt;
     </rules>
   </game>
+  <game>
+    <title>Baker's Dozen</title>
+    <path>BakersDozen.qml</path>
+    <db-name>bakersdozen</db-name>
+    <info>BakersDozen</info>
+    <rules>
+    &lt;h3&gt;Goal:&lt;/h3&gt;
+    Move all the card to the Foundations&lt;br&gt;
+    &lt;h3&gt;Foundation:&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+        Build up from rank and from suit from Ace to King
+        &lt;/li&gt;
+        &lt;li&gt;
+        The top card may be moved
+        &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h3&gt;Tableau:&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+        Build down by rank and by alternating color
+        &lt;/li&gt;
+        &lt;li&gt;
+        The top card may be moved
+        &lt;/li&gt;
+        &lt;li&gt;
+        Complete or partial correct piles may be moved as long as there are enough empty pots available
+        &lt;/li&gt;
+        &lt;li&gt;
+        An empty spot may be filled with any card
+        &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;h3&gt;Cell:&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;
+        May only contain one card
+        &lt;/li&gt;
+        &lt;li&gt;
+        Top card may be moved
+        &lt;/li&gt;
+    &lt;/ul&gt;
+    </rules>
+  </game>
 </games>
