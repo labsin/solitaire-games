@@ -14,7 +14,7 @@ Item {
     property bool cardsMoveable: false
     property bool cardsDropable: false
 
-    property int count: repeater.count
+    property int count: model.count
     property int cardsVisible: goUpZ ? 3 : count
     property int amountComming: 0
     property int amountGoing: 0
