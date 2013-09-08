@@ -63,9 +63,10 @@ Item {
 
     property bool saveGameOnQuit: true
 
+    property alias dealingStack: dealingStack
     property alias decks: dealingStack.decks
     property alias suits: dealingStack.suits
-    property alias dealingTimder: dealingTimder
+    property alias dealingTimer: dealingTimder
 
     signal singelPress(Card card, Stack stack)
     signal startMove()
@@ -74,6 +75,8 @@ Item {
 
     signal undo()
     signal redo()
+
+    signal dealingStackFilled()
 
     property int historyIndex: 0
     property int historyLength: 0
@@ -246,6 +249,8 @@ Item {
 
         _dealIndex = 0
         _amoutMoving = 0
+
+        dealingStackFilled()
 
         if(savedGameIndex>0) {
             print("onInit: redo previousGame")
