@@ -131,16 +131,21 @@ MainView {
     }
 
     function startGame(index) {
+        var previousGameIndex = selectedGameIndex
+        selectedGameIndex = index
+        print("startGame: "+selectedGameDbName)
         if(gamePage.loader.item) {
-            if(index===selectedGameIndex) {
+            if(index===previousGameIndex) {
                 tabs.selectedTabIndex = 1
                 return
             }
             else
                 gamePage.loader.item.preEnd(true)
         }
-        selectedGameIndex = index
-        gamePage.setSource(Qt.resolvedUrl("games/"+gamesModel.get(selectedGameIndex)["path"]))
+        var savedGame = getSaveState(selectedGameDbName)
+        var savedGameIndex = getSaveStateIndex(selectedGameDbName)
+        var savedSeed = getSaveStateSeed(selectedGameDbName)
+        gamePage.setSource(Qt.resolvedUrl("games/"+gamesModel.get(selectedGameIndex)["path"]), {"savedGame":savedGame, "savedGameIndex": savedGameIndex, "savedSeed": savedSeed})
         tabs.selectedTabIndex = 1
     }
 

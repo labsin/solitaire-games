@@ -30,11 +30,11 @@ Page {
             source: ""
             asynchronous: true
             visible: status == Loader.Ready
-            onStatusChanged: {
-                if(status === Loader.Ready) {
-                    initGame()
-                }
-            }
+//            onStatusChanged: {
+//                if(status === Loader.Ready) {
+//                    initGame()
+//                }
+//            }
         }
 
         Binding {
@@ -85,13 +85,16 @@ Page {
         removeSaveState(selectedGameDbName)
     }
 
-    function setSource(path) {
+    function setSource(path, json) {
         if(gameLoader.source!=="") {
             if(gameLoader.item) {
                 gameLoader.item.saveGame()
             }
         }
-        gameLoader.source = path
+        if(typeof json !== 'undefined')
+            gameLoader.setSource(path, json)
+        else
+            gameLoader.setSource(path)
     }
 
     tools: ToolbarItems {
