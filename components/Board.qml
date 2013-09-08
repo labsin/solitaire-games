@@ -83,6 +83,9 @@ Item {
     property bool hasPreviousMove: historyIndex>1
     property bool hasNextMove: historyIndex<historyLength
     property variant toRemoveAfterRedoing
+    property variant savedGame
+    property int savedGameIndex
+    property double savedSeed
 
     signal end(bool won)
     signal init(variant savedGame, int savedGameIndex, double savedSeed)
@@ -283,19 +286,13 @@ Item {
         }
     }
 
-    Timer {
-        id: runOnesTimer
-        repeat: false
-        running: false
-        interval: 1
-        onTriggered: {
-            gamePage.initGame()
-        }
-    }
-
     Component.onDestruction: {
         print("onDestruction")
         saveGame()
+    }
+
+    Component.onCompleted: {
+        init(savedGame, savedGameIndex, savedSeed)
     }
 
     function saveGame() {
@@ -394,11 +391,13 @@ Item {
         triggeredOnStart: false
 
         onTriggered: {
+            print("Dealing card "+_dealIndex)
             if(_dealIndex==0) {
                 History.history.startMove()
             }
             if(dealingModel[_dealIndex]) {
                 var iii = dealingStack.count
+                print("DealingStack has: "+iii)
                 var card
                 do {
                     iii--
@@ -615,14 +614,14 @@ Item {
 
     function flipCard(index, stack, up, record) {
         print("flipCard: "+index+" "+stack+" "+up)
-        var card = stack.repeater.itemAt(index);
+        var cardVar = stack.model.get(index);
         if(typeof up === 'undefined')
-            up = !card.up
+            up = !cardVar.thisUp
         if(typeof record === 'undefined')
             record = true
-        if(card.up === up )
+        if(cardVar.thisUp === up )
             return
-        card.up = up
+        stack.model.setProperty(index, "thisUp", up)
         if(record)
             History.history.addToHistory(index,stackToIndex(stack),!up,index,stackToIndex(stack),up, false)
     }
@@ -642,13 +641,15 @@ Item {
             print("No card at index in stack")
             return false
         }
+        var fromUp = cardVar.thisUp
         var fromCard = fromStack.repeater.itemAt(index)
         if(!fromCard) {
-            print("No card at index in stack")
-            return
+            print("No card component at index in stack")
+        }
+        else {
+            fromUp = fromCard.up
         }
 
-        var fromUp = fromCard.up
         if(typeof flipZ === 'undefined')
             flipZ = false
         if(flipZ)
@@ -658,17 +659,17 @@ Item {
         if(typeof animating == 'undefined')
             animating = !_redoing
         if(fromStack===toStack) {
-            if(!fromCard) {
-                print("Moving to the same stack")
-            }
-            if(fromCard) {
-                flipCard(index, fromStack, up)
-            }
+            flipCard(index, fromStack, up)
         }
         else {
             fromStack.amountGoing++
             toStack.amountComming++
             if(animating) {
+                if(!fromCard) {
+                    print("Need initialized card component when moving animated")
+                    return
+                }
+
                 _amoutMoving++
                 fromCard.afterAnimation.connect(function() {
                     toStack.model.addFromCard(fromCard)
@@ -685,21 +686,21 @@ Item {
                     flipCard(index, fromStack, up, false)
             }
             else {
-                print("moveCard: card:"+fromCard.card+"/"+fromCard.suit+" to "+(toStack.count-1+toStack.amountComming))
-                if(fromCard.up !== up)
+                print("moveCard: card:"+cardVar.thisCard+"/"+cardVar.thisSuit+" to "+(toStack.count-1+toStack.amountComming))
+                if(cardVar.thisUp !== up)
                     flipCard(index, fromStack, up, false)
-                toStack.model.addFromCard(fromCard)
+                toStack.model.append(cardVar)
                 if(_redoing) {
                     var tmpList = toRemoveAfterRedoing;
-                    tmpList.push({"fromStack":fromStack,"index":fromCard.stackIndex})
+                    tmpList.push({"fromStack":fromStack,"index":index})
                     toRemoveAfterRedoing = tmpList
                 }
                 else {
-                    fromStack.model.remove(fromCard.stackIndex)
+                    fromStack.model.remove(index)
                 }
-                if(_dealt && !_moving && !_redoing)
-                    board.checkGame()
             }
+            if(_dealt && !_moving && !_redoing)
+                board.checkGame()
         }
         History.history.addToHistory(index,stackToIndex(fromStack),fromUp,toStack.count-1+toStack.amountComming,stackToIndex(toStack),up, flipZ)
         return true
