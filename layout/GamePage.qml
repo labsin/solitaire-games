@@ -28,7 +28,7 @@ Page {
             y: 0
             id: gameLoader
             source: ""
-            asynchronous: true
+//            asynchronous: true
             visible: status == Loader.Ready
 //            onStatusChanged: {
 //                if(status === Loader.Ready) {
