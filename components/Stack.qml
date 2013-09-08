@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: stack
-    property bool fannedDown: false
+    property bool fannedDown: tableau?true:false
     property bool fannedRight: false
     property bool goUpZ: false
     property bool showHidden: true
@@ -29,6 +29,11 @@ Item {
     property int highlightFrom: -1
 
     property bool flipZ: false
+
+    property bool foundation: false
+    property bool tableau: false
+    property bool stock: false
+    property bool waste: false
 
     property alias deck: deck
     property alias decks: deck.decks
