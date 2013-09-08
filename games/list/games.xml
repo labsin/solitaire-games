@@ -342,7 +342,8 @@
     <title>Freecell</title>
     <path>Freecell.qml</path>
     <db-name>freecell</db-name>
-    <info>Freecell</info>
+    <info>&lt;b&gt;&lt;i&gt;FreeCell&lt;/i&gt;&lt;/b&gt; is a solitaire-based card game played with a 52-card standard deck.
+    It is fundamentally different from most solitaire games in that very few hands are unsolvable.</info>
     <rules>
     &lt;h3&gt;Goal:&lt;/h3&gt;
     Move all the card to the Foundations&lt;br&gt;
