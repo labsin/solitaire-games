@@ -50,11 +50,11 @@ Board {
             }
             else {
                 for(var index in foundationStacks) {
-                    if(foundationStacks[index].count === 0) {
+                    if(cardNr === 1 && foundationStacks[index].count === 0) {
                         moveCardAndFlip(stack.count - 1, stack, foundationStacks[index])
                         break
                     }
-                    else if(foundationStacks[index].lastCard+1 === cardNr) {
+                    else if(foundationStacks[index].lastCard.card+1 === cardNr) {
                         moveCardAndFlip(stack.count - 1, stack, foundationStacks[index])
                         break
                     }
@@ -124,7 +124,7 @@ Board {
                         return
                 }
                 else {
-                    if(hoverStack.card + 1 === selectedStack.lastCard.card) {
+                    if(hoverStack.lastCard.card + 1 === selectedStack.lastCard.card) {
                         highlightFrom(selectedStack.count-1)
                         return
                     }
@@ -168,7 +168,8 @@ Board {
 
         foundation: true
 
-        placeholderSuit: foundationBySuit?1:-1
+        placeholderSuit: foundationBySuit?1:0
+        placeholderCard: 0
 
         cardsDropable: true
         cardsMoveable: true
@@ -185,7 +186,8 @@ Board {
 
         foundation: true
 
-        placeholderSuit: foundationBySuit?2:-1
+        placeholderSuit: foundationBySuit?2:0
+        placeholderCard: 0
 
         cardsDropable: true
         cardsMoveable: true
@@ -202,7 +204,8 @@ Board {
 
         foundation: true
 
-        placeholderSuit: foundationBySuit?3:-1
+        placeholderSuit: foundationBySuit?3:0
+        placeholderCard: 0
 
         cardsDropable: true
         cardsMoveable: true
@@ -219,7 +222,8 @@ Board {
 
         foundation: true
 
-        placeholderSuit: foundationBySuit?4:-1
+        placeholderSuit: foundationBySuit?4:0
+        placeholderCard: 0
 
         cardsDropable: true
         cardsMoveable: true
