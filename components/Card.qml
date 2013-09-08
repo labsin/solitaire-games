@@ -105,27 +105,6 @@ Flipable {
         height: cardObj.height
     }
 
-    onUpChanged: {
-        if(up) {
-            outline = false
-            shadow = false
-        }
-    }
-
-    onOutlineChanged: {
-        if(outline) {
-            up = false
-            shadow = false
-        }
-    }
-
-    onShadowChanged: {
-        if(shadow) {
-            up = false
-            outline = false
-        }
-    }
-
     Behavior on x {
         id: xBehavior
         enabled: animated
