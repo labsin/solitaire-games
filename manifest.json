@@ -1,13 +1,14 @@
 {
     "framework": "ubuntu-sdk-13.10",
-    "maintainer": "Sam Segers",
     "name": "com.ubuntu.developer.labsin.solitaire-games",
+    "title": "Solitaire Games",
+    "description": "A collection of solitaire games",
+    "maintainer": "Sam Segers <sam.sgrs@gmail.com>",
     "hooks": {
         "solitaire-games": {
            "apparmor": "apparmor/solitaire-games.json",
            "desktop": "solitaire-games.desktop"
         }
     },
-    "title": "Solitaire Games",
-    "version": "0.1"
+    "version": "0.3"
 }
