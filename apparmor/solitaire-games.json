@@ -3,5 +3,4 @@
      "networking"
    ],
    "policy_version": 1.0,
-   "template": "ubuntu-sdk"
 }
