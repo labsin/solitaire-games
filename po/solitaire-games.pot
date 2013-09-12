@@ -1,3 +1,4 @@
+# #-#-#-#-#  solitaire-games_qml.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -6,82 +7,368 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  solitaire-games_xml.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-02 21:54+0200\n"
+"POT-Creation-Date: 2013-09-13 00:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: en"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  solitaire-games_qml.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-09-13 00:30+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:76
-msgid "Games"
+#. (itstool) path: game/title
+#: games/list/games.xml:5
+msgid "Klondike (3 cards)"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:85
-msgid "Game"
+#. (itstool) path: game/info
+#: games/list/games.xml:8 games/list/games.xml:62
+msgid ""
+"&lt;b&gt;&lt;i&gt;Klondike&lt;/i&gt;&lt;/b&gt; is a patience game (solitaire "
+"card game). Many people refer to Klondike as &lt;b&gt;&lt;i&gt;patience&lt;/"
+"i&gt;&lt;/b&gt; or &lt;b&gt;&lt;i&gt;solitaire&lt;/i&gt;&lt;/b&gt;, it being "
+"one of the better known of the family of patience games."
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/solitaire-games.qml:94
-msgid "Stats"
+#. (itstool) path: game/rules
+#: games/list/games.xml:11
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build up from rank "
+"and from suit from Ace to King &lt;/li&gt; &lt;li&gt; The top card may be "
+"moved &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;"
+"li&gt; Build down by rank and by alternating color &lt;/li&gt; &lt;li&gt; "
+"The top card may be moved &lt;/li&gt; &lt;li&gt; Complete or partial correct "
+"piles may be moved &lt;/li&gt; &lt;li&gt; An empty spot may be filled with a "
+"King or a pile starting with a King &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Stock:"
+"&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Click to face up and move 3 cards to the "
+"Waste &lt;/li&gt; &lt;li&gt; When empty, click to face down and move all "
+"cards from the Waste to the Stock &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Waste:"
+"&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Top card may be moved &lt;/li&gt; &lt;/"
+"ul&gt;"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:64
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:116
-msgid "Select a game"
+#. (itstool) path: game/title
+#: games/list/games.xml:59
+msgid "Klondike (1 card)"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:149
-msgid "Info:"
+#. (itstool) path: game/rules
+#: games/list/games.xml:65
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build up from rank "
+"and from suit from Ace to King &lt;/li&gt; &lt;li&gt; The top card may be "
+"moved &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;"
+"li&gt; Build down by rank and by alternating color &lt;/li&gt; &lt;li&gt; "
+"The top card may be moved &lt;/li&gt; &lt;li&gt; Complete or partial correct "
+"piles may be moved &lt;/li&gt; &lt;li&gt; An empty spot may be filled with a "
+"King or a pile starting with a King &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Stock:"
+"&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Click to face up and move 1 cards to the "
+"Waste &lt;/li&gt; &lt;li&gt; When empty, click to face down and move all "
+"cards from the Waste to the Stock &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Waste:"
+"&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Top card may be moved &lt;/li&gt; &lt;/"
+"ul&gt;"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:177
-msgid "Rules:"
+#. (itstool) path: game/title
+#: games/list/games.xml:113
+msgid "Spider"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:204
-msgid "Redeal"
+#. (itstool) path: game/info
+#: games/list/games.xml:116
+msgid ""
+"&lt;b&gt;&lt;i&gt;Spider&lt;/i&gt;&lt;/b&gt; is a type of Patience game. It "
+"is one of the more popular two-deck solitaire games."
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamesPage.qml:204
-msgid "Start"
+#. (itstool) path: game/rules
+#: games/list/games.xml:118 games/list/games.xml:165 games/list/games.xml:212
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Automaticly filled "
+"when a Tableau spot contains a pile ordered down by rank and by suit from "
+"King to Ace &lt;/li&gt; &lt;li&gt; The top card may be moved &lt;/li&gt; "
+"&lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build down "
+"by rank &lt;/li&gt; &lt;li&gt; The top card may be moved &lt;/li&gt; &lt;"
+"li&gt; Complete or partial correct piles may be moved as long as they share "
+"the same suit &lt;/li&gt; &lt;li&gt; An empty spot may be filled with any "
+"card or correct piles with the same suit &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;"
+"Stock:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Can only be click if all Tableau "
+"spots are empty &lt;/li&gt; &lt;li&gt; Click to face up and move one card to "
+"each Tableau spot &lt;/li&gt; &lt;/ul&gt;"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/NoGame.qml:9
-msgid "Loading..."
+#. (itstool) path: game/title
+#: games/list/games.xml:159
+msgid "Spider (2 suits)"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/NoGame.qml:9
-msgid "Select a game to begin"
+#. (itstool) path: game/info
+#: games/list/games.xml:162
+msgid ""
+"&lt;b&gt;&lt;i&gt;Spider&lt;/i&gt;&lt;/b&gt; is a type of Patience game. It "
+"is one of the more popular two-deck solitaire games. This type is played "
+"with only 2 suits."
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:76
+#. (itstool) path: game/title
+#: games/list/games.xml:206
+msgid "Spider (1 suit)"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:209
+msgid ""
+"&lt;b&gt;&lt;i&gt;Spider&lt;/i&gt;&lt;/b&gt; is a type of Patience game. It "
+"is one of the more popular two-deck solitaire games. This type is played "
+"with only 1 suit."
+msgstr ""
+
+#. (itstool) path: game/title
+#: games/list/games.xml:253
+msgid "Pyramid"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:256
+msgid ""
+"&lt;b&gt;&lt;i&gt;Pyramid&lt;/i&gt;&lt;/b&gt; is a solitaire game where the "
+"object is to get all the cards from the pyramid to the Foundation."
+msgstr ""
+
+#. (itstool) path: game/rules
+#: games/list/games.xml:258
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundation&lt;br&gt; &lt;"
+"h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Paired cards move here "
+"&lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; "
+"Only exposed cards may be moved &lt;/li&gt; &lt;li&gt; If you drop a card "
+"over another that combine to 13, then they are moved to the Foundation &lt;/"
+"li&gt; &lt;li&gt; King is 13, Queen 12 and Jack 11 &lt;/li&gt; &lt;/ul&gt; "
+"&lt;h3&gt;Stock:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Click to top face down "
+"card to face it up &lt;/li&gt; &lt;li&gt; Face up card may be moved &lt;/"
+"li&gt; &lt;li&gt; Click face up card to move it to Waste &lt;/li&gt; &lt;/"
+"ul&gt; &lt;h3&gt;Waste:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Top card may be "
+"moved &lt;/li&gt; &lt;/ul&gt;"
+msgstr ""
+
+#. (itstool) path: game/title
+#: games/list/games.xml:303
+msgid "Aces Up"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:306
+msgid ""
+"&lt;b&gt;&lt;i&gt;Aces Up&lt;/i&gt;&lt;/b&gt; (also known as &lt;b&gt;&lt;"
+"i&gt;Idiot's Delight&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Once in a "
+"Lifetime&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Ace of the Pile&lt;/i&gt;"
+"&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Rocket to the Top&lt;/i&gt;&lt;/b&gt;, &lt;"
+"b&gt;&lt;i&gt;Firing Squad&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Loser "
+"Solitaire&lt;/i&gt;&lt;/b&gt;, &lt;b&gt;&lt;i&gt;Aces High&lt;/i&gt;&lt;/"
+"b&gt;, and &lt;b&gt;&lt;i&gt;Drivel&lt;/i&gt;&lt;/b&gt;) is a solitaire card "
+"game using a deck of 52 playing cards. One advantage of this game is its "
+"minimal use of space: one can even play it on an area as small as an "
+"encyclopedia volume cover."
+msgstr ""
+
+#. (itstool) path: game/rules
+#: games/list/games.xml:314
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the cards except the Aces to the "
+"Foundation&lt;br&gt; &lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; "
+"Played cards move here &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; "
+"&lt;ul&gt; &lt;li&gt; If the top card is the same suit but of lower rank "
+"than the top card of another Tableau spot, then you can click it to play it "
+"to the Foundation &lt;/li&gt; &lt;li&gt; An empty spot may be filled with "
+"the top card of another Tableau spot &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Stock:"
+"&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Click to face up and move one card to each "
+"Tableau spot &lt;/li&gt; &lt;/ul&gt;"
+msgstr ""
+
+#. (itstool) path: game/title
+#: games/list/games.xml:344
+msgid "Freecell"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:347
+msgid ""
+"&lt;b&gt;&lt;i&gt;FreeCell&lt;/i&gt;&lt;/b&gt; is a solitaire-based card "
+"game played with a 52-card standard deck. It is fundamentally different from "
+"most solitaire games in that very few hands are unsolvable."
+msgstr ""
+
+#. (itstool) path: game/rules
+#: games/list/games.xml:349
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build up from rank "
+"and from suit from Ace to King &lt;/li&gt; &lt;li&gt; The top card may be "
+"moved &lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;"
+"li&gt; Build down by rank and by alternating color &lt;/li&gt; &lt;li&gt; "
+"The top card may be moved &lt;/li&gt; &lt;li&gt; Complete or partial correct "
+"piles may be moved as long as there are enough empty pots available &lt;/"
+"li&gt; &lt;li&gt; An empty spot may be filled with any card &lt;/li&gt; &lt;/"
+"ul&gt; &lt;h3&gt;Cell:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; May only contain one "
+"card &lt;/li&gt; &lt;li&gt; Top card may be moved &lt;/li&gt; &lt;/ul&gt;"
+msgstr ""
+
+#. (itstool) path: game/title
+#: games/list/games.xml:390
+msgid "Baker's Dozen"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:393
+msgid ""
+"&lt;b&gt;&lt;i&gt;Baker's Dozen&lt;/i&gt;&lt;/b&gt; is a solitaire card game "
+"using a deck of fifty-two playing cards. The game is so called because of "
+"the 13 columns in the game, the number in a baker's dozen."
+msgstr ""
+
+#. (itstool) path: game/rules
+#: games/list/games.xml:395
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build up by rank and "
+"by suit from Ace to King &lt;/li&gt; &lt;li&gt; The top card may be moved "
+"&lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; "
+"Build down by rank &lt;/li&gt; &lt;li&gt; The top card may be moved &lt;/"
+"li&gt; &lt;li&gt; An empty spot may &lt;i&gt;NOT&lt;/i&gt; be filled &lt;/"
+"li&gt; &lt;li&gt; All kings are moved to the bottom after dealing &lt;/"
+"li&gt; &lt;/ul&gt;"
+msgstr ""
+
+#. (itstool) path: game/title
+#: games/list/games.xml:426
+msgid "Castles in Spain"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:429
+msgid ""
+"&lt;b&gt;&lt;i&gt;Castles in Spain&lt;/i&gt;&lt;/b&gt; is a solitaire card "
+"game using a deck of fifty-two playing cards."
+msgstr ""
+
+#. (itstool) path: game/rules
+#: games/list/games.xml:430
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build up by rank and "
+"by suit from Ace to King &lt;/li&gt; &lt;li&gt; The top card may be moved "
+"&lt;/li&gt; &lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; "
+"Build down by rank and by alternating color &lt;/li&gt; &lt;li&gt; The top "
+"card may be moved &lt;/li&gt; &lt;li&gt; An empty spot may be filled with "
+"any card &lt;/li&gt; &lt;/ul&gt;"
+msgstr ""
+
+#. (itstool) path: game/title
+#: games/list/games.xml:458
+msgid "Spanish Patience"
+msgstr ""
+
+#. (itstool) path: game/info
+#: games/list/games.xml:461
+msgid ""
+"&lt;b&gt;&lt;i&gt;Spanish Patience&lt;/i&gt;&lt;/b&gt; is a solitaire card "
+"game using a deck of fifty-two playing cards."
+msgstr ""
+
+#. (itstool) path: game/rules
+#: games/list/games.xml:462
+msgid ""
+"&lt;h3&gt;Goal:&lt;/h3&gt; Move all the card to the Foundations&lt;br&gt; "
+"&lt;h3&gt;Foundation:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build up by rank from "
+"Ace to King &lt;/li&gt; &lt;li&gt; The top card may be moved &lt;/li&gt; "
+"&lt;/ul&gt; &lt;h3&gt;Tableau:&lt;/h3&gt; &lt;ul&gt; &lt;li&gt; Build down "
+"by rank &lt;/li&gt; &lt;li&gt; The top card may be moved &lt;/li&gt; &lt;"
+"li&gt; An empty spot may &lt;i&gt;NOT&lt;/i&gt; be filled &lt;/li&gt; &lt;"
+"li&gt; All kings are moved to the bottom after dealing &lt;/li&gt; &lt;/"
+"ul&gt;"
+msgstr ""
+
+#: layout/GamePage.qml:102
 msgid "undo"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:83
+#: layout/GamePage.qml:109
 msgid "redo"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:90
+#: layout/GamePage.qml:116
 msgid "new game"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:97
+#: layout/GamePage.qml:123
 msgid "redeal"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/GamePage.qml:104
+#: layout/GamePage.qml:130
 msgid "restart"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/StatsPage.qml:31
-msgid " win"
+#: layout/GamesPage.qml:61 layout/GamesPage.qml:129
+msgid "Select a game"
 msgstr ""
 
-#: /home/sam/Workspace/Qt/solitaire-games/layout/StatsPage.qml:36
-msgid " los"
+#: layout/GamesPage.qml:155
+msgid "Info:"
+msgstr ""
+
+#: layout/GamesPage.qml:185
+msgid "Rules:"
+msgstr ""
+
+#: layout/GamesPage.qml:213
+msgid "Redeal"
+msgstr ""
+
+#: layout/GamesPage.qml:213
+msgid "Start"
+msgstr ""
+
+#: layout/NoGame.qml:10
+msgid "Loading..."
+msgstr ""
+
+#: layout/NoGame.qml:10
+msgid "Select a game to begin"
+msgstr ""
+
+#: layout/StatsPage.qml:31
+#, qt-format
+msgid "%1 win"
+msgstr ""
+
+#: layout/StatsPage.qml:36
+#, qt-format
+msgid "%1 los"
+msgstr ""
+
+#: solitaire-games.qml:84
+msgid "Games"
+msgstr ""
+
+#: solitaire-games.qml:93
+msgid "Game"
+msgstr ""
+
+#: solitaire-games.qml:102
+msgid "Stats"
 msgstr ""
