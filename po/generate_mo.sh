@@ -17,11 +17,16 @@
 
 BUILDDIR=..
 DOMAIN=solitaire-games
+TARGET=./
 
 for f in `find $TARGET -type f -name "*.po"`
     do
         LANG=${f%.*}
+        LANG=${LANG#$TARGET}
+        echo $LANG
         EXTENSION=${f#*.}
         mkdir -p $BUILDDIR/locale/$LANG/LC_MESSAGES
         msgfmt $f -o $BUILDDIR/locale/$LANG/LC_MESSAGES/$DOMAIN.mo
+        itstool -m $BUILDDIR/locale/$LANG/LC_MESSAGES/$DOMAIN.mo -o $BUILDDIR/data/games_$LANG.xml \
+          $BUILDDIR/data/games.xml
     done
