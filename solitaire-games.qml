@@ -38,7 +38,7 @@ MainView {
 
     XmlListModel {
         id: gamesModel
-        source: "games/list/games.xml"
+        source: "data/games.xml"
         query: "/games/game"
         XmlRole { name: "title";   query: "title/string()"}
         XmlRole { name: "path";    query: "path/string()"}
@@ -49,7 +49,7 @@ MainView {
 
     Component.onCompleted: {
         print("Select language: "+Qt.locale().name.substring(0,2))
-        gamesModelTranslation.source = "games/list/games_"+Qt.locale().name.substring(0,2)+".xml"
+        gamesModelTranslation.source = "data/games_"+Qt.locale().name.substring(0,2)+".xml"
         i18n.bindtextdomain(i18n.domain,"locale")
         i18n.domain = i18n.domain
 
